@@ -1,3 +1,4 @@
+/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/config/ekf.yaml
 /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/myagv.launch.py
 /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/setup.bash
 /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/.colcon_install_layout
@@ -63,7 +64,7 @@
 /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/model.sdf
 /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv.urdf
 /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/rviz/urdf_config.rviz
-/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/basic_mobile_bot_world/smalltown.world
+/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/smalltown.world
 /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/ament_index/resource_index/package_run_dependencies/my_agv_super
 /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/ament_index/resource_index/parent_prefix_path/my_agv_super
 /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/environment/ament_prefix_path.sh

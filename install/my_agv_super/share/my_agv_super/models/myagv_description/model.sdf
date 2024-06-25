@@ -2,6 +2,12 @@
 <sdf version="1.6">
   <model name="myagv">
     <static>false</static>
+    
+ <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+  <link name="base_footprint"/>
+
+ 
+
 
   <link name='base_link'>
           <pose>0 0 .1 0 0 0</pose>
@@ -31,7 +37,7 @@
       </visual>
 
     </link>
-      <link name="left_wheel_front">
+      <link name="left_wheel_front_link">
         <pose>0.106 0.1 0.09 0 1.5707 1.5707</pose>
         <collision name="collision">
           <geometry>
@@ -51,7 +57,7 @@
         </visual>
       </link>
 
-      <link name="right_wheel_front">
+      <link name="right_wheel_front_link">
         <pose>0.106 -0.1 0.09 0 1.5707 1.5707</pose>
         <collision name="collision">
           <geometry>
@@ -72,7 +78,7 @@
       </link>
       
   
-      <link name="left_wheel_back">
+      <link name="left_wheel_back_link">
         <pose>-0.106 0.1 0.09 0 1.5707 1.5707</pose>
         <collision name="collision">
           <geometry>
@@ -92,7 +98,7 @@
         </visual>
       </link>
 
-      <link name="right_wheel_back">
+      <link name="right_wheel_back_link">
         <pose>-0.106 -0.1 0.09 0 1.5707 1.5707</pose>
         <collision name="collision">
           <geometry>
@@ -112,54 +118,257 @@
         </visual>
       </link>
       
-          <joint type="revolute" name="left_wheel_front_hinge">
+          <joint type="revolute" name="left_wheel_front_joint">
         <pose>0 0 0 0 0 0</pose>
-        <child>left_wheel_front</child>
+        <child>left_wheel_front_link</child>
         <parent>base_link</parent>
         <axis>
           <xyz>0 0 1</xyz>
         </axis>
       </joint>
 
-      <joint type="revolute" name="right_wheel_front_hinge">
+      <joint type="revolute" name="right_wheel_front_joint">
         <pose>0 0 0 0 0 0 </pose>
-        <child>right_wheel_front</child>
+        <child>right_wheel_front_link</child>
         <parent>base_link</parent>
         <axis>
           <xyz>0 0 1</xyz>
         </axis>
       </joint>
       
-        <joint type="revolute" name="left_wheel_back_hinge">
+        <joint type="revolute" name="left_wheel_back_joint">
         <pose>0 0 0 0 0 0</pose>
-        <child>left_wheel_back</child>
+        <child>left_wheel_back_link</child>
         <parent>base_link</parent>
         <axis>
           <xyz>0 0 1</xyz>
         </axis>
       </joint>
 
-      <joint type="revolute" name="right_wheel_back_hinge">
+      <joint type="revolute" name="right_wheel_back_joint">
         <pose>0 0 0 0 0 0 </pose>
-        <child>right_wheel_back</child>
+        <child>right_wheel_back_link</child>
         <parent>base_link</parent>
         <axis>
           <xyz>0 0 1</xyz>
         </axis>
       </joint>
+      
+       <joint name="base_joint" type="fixed">
+    <parent>base_footprint</parent>
+    <child>base_link</child>
+     <pose>0 0 0 0 0 0 </pose>
+  </joint>
+
+
+
+<!-- ****************************** LIDAR *****************************    -->
+    <!-- Add LIDAR link here -->
+    <link name="lidar_link">
+      <pose>0.066 0 0.1 0 0 0</pose> <!-- Adjust the pose to position the lidar correctly on the roof -->
+      
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <inertia>
+          <ixx>0.001</ixx>
+          <ixy>0.000</ixy>
+          <ixz>0.000</ixz>
+          <iyy>0.001</iyy>
+          <iyz>0.000</iyz>
+          <izz>0.001</izz>
+        </inertia>
+        <mass>0.114</mass>
+      </inertial>
+
+      <collision name="lidar_collision">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.04</radius>
+            <length>0.05</length>
+          </cylinder>
+        </geometry>
+      </collision>
+
+      <visual name="lidar_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.04</radius>
+            <length>0.05</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.0 0.0 0.0 1.0</ambient>
+          <diffuse>0.0 0.0 0.0 1.0</diffuse>
+          <specular>0.0 0.0 0.0 1.0</specular>
+          <emissive>0.0 0.0 0.0 1.0</emissive>
+        </material>
+      </visual>
+
+      <sensor name="lidar" type="ray">
+        <pose>0 0 0 0 0 0</pose>
+        <always_on>true</always_on>
+        <visualize>true</visualize>
+        <update_rate>5</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>360</samples>
+              <resolution>1.00000</resolution>
+              <min_angle>-2.14</min_angle>
+              <max_angle>2.14</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.350000</min>
+            <max>2.5</max>
+            <resolution>0.015000</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </ray>
+        <plugin name="scan" filename="libgazebo_ros_ray_sensor.so">
+          <ros>
+            <remapping>~/out:=scan</remapping>
+          </ros>
+          <output_type>sensor_msgs/LaserScan</output_type>
+          <frame_name>lidar_link</frame_name>
+        </plugin>
+      </sensor>
+    </link>
+
+    <joint name="lidar_joint" type="fixed">
+      <pose>0 0 0 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>lidar_link</child>
+    </joint>
+    
+    
+    
+   <!-- *********************** IMU SENSOR SETUP **************************  -->
+  <link name="imu_link">
+    <gravity>true</gravity>
+    <sensor name="bmb_imu" type="imu">
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <visualize>true</visualize>
+      <imu>
+        <orientation>
+          <x>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-3</stddev>
+            </noise>
+          </x>
+          <y>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-3</stddev>
+            </noise>
+          </y>
+          <z>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-3</stddev>
+            </noise>
+          </z>
+        </orientation>
+        <angular_velocity>
+          <x>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+            </noise>
+          </x>
+          <y>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+            </noise>
+          </y>
+          <z>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+            </noise>
+          </z>
+        </angular_velocity>
+        <linear_acceleration>
+          <x>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1.7e-2</stddev>
+            </noise>
+          </x>
+          <y>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1.7e-2</stddev>
+            </noise>
+          </y>
+          <z>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1.7e-2</stddev>
+            </noise>
+          </z>
+        </linear_acceleration>
+      </imu>
+      <plugin name="myagv_imu" filename="libgazebo_ros_imu_sensor.so">
+        <initial_orientation_as_reference>false</initial_orientation_as_reference>
+        <frame_name>imu_link</frame_name>
+        <ros>
+          <namespace>/imu</namespace>
+          <remapping>~/out:=data</remapping>
+        </ros>
+      </plugin>
+    </sensor>
+  </link>
+
+  <!-- *********************** GPS SETUP *********************************  -->
+  <link name="gps_link">
+    <sensor name="bmb_gps" type="gps">
+      <always_on>true</always_on>
+      <update_rate>10.0</update_rate>
+      <gps>
+        <position_sensing>
+          <horizontal>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1e-2</stddev>
+            </noise>
+          </horizontal>
+          <vertical>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1</stddev>
+            </noise>
+          </vertical>
+        </position_sensing>
+      </gps>
+      <plugin name="myagv_gps" filename="libgazebo_ros_gps_sensor.so">
+        <ros>
+          <remapping>~/out:=gps/fix</remapping>
+        </ros>
+      </plugin>
+    </sensor>
+  </link>
 
 <!--
-
 <plugin name="skid_steer_drive" filename="libgazebo_ros_diff_drive.so">
 
   <ros>
     <namespace> </namespace>
   </ros>
   <num_wheel_pairs>2</num_wheel_pairs>
-   <left_joint>left_wheel_front_hinge</left_joint>
-    <right_joint>right_wheel_front_hinge</right_joint>
-    <left_joint>left_wheel_back_hinge</left_joint>
-    <right_joint>right_wheel_back_hinge</right_joint> 
+   <left_joint>left_wheel_front_joint</left_joint>
+    <right_joint>right_wheel_front_joint</right_joint>
+    <left_joint>left_wheel_back_joint</left_joint>
+    <right_joint>right_wheel_back_joint</right_joint> 
   <wheel_separation>0.26</wheel_separation>
   <wheel_separation>0.26</wheel_separation>
   <wheel_diameter>0.4</wheel_diameter>
@@ -170,19 +379,39 @@
    <publish_odom_tf>true</publish_odom_tf>
    <publish_wheel_tf>true</publish_wheel_tf>
    <odometry_frame>odom</odometry_frame>
-   <robot_base_frame>base_link</robot_base_frame>
+   <robot_base_frame>base_footprint</robot_base_frame>
+   <ros>
+      <remapping>odom:=wheel/odometry</remapping>
+    </ros>
  
 </plugin>
--->
 
+
+-->
 <plugin name="omni_steering" filename="libgazebo_ros_planar_move.so">
 	<commandTopic>cmd_vel</commandTopic>
 	<odometryTopic>odom</odometryTopic>
 	<odometryFrame>odom</odometryFrame>
 	<odometryRate>50.0</odometryRate>
-	<robotBaseFrame>base_link</robotBaseFrame>
-	<publishTF>false</publishTF>
+	<robotBaseFrame>base_footprint</robotBaseFrame>
+	<publishTF>true</publishTF>
+	<ros>
+      <remapping>odom:=wheel/odometry</remapping>
+    </ros>
 </plugin>
+
+<plugin name="my_agv_joint_state" filename="libgazebo_ros_joint_state_publisher.so">
+ 
+    <update_rate>30</update_rate>
+    <joint_name>left_wheel_front_joint</joint_name>
+    <joint_name>right_wheel_front_joint</joint_name>
+    <joint_name>left_wheel_back_joint</joint_name>
+    <joint_name>right_wheel_back_joint</joint_name>
+       <ros>
+      <remapping>~/out:=joint_states</remapping>
+    </ros>
+  </plugin>   
+
 
     
   </model>

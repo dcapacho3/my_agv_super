@@ -141,10 +141,10 @@
   <!-- Instantiate two wheels using the macro we just made through the 
        xacro:wheel tags. We also define the parameters to have one wheel
        on both sides at the back of our robot (i.e. x_reflect=-1). -->
-  <xacro:wheel prefix="drivewhl_l" x_reflect="-1" y_reflect="1" />
-  <xacro:wheel prefix="drivewhl_r" x_reflect="-1" y_reflect="-1" />
-   <xacro:wheel prefix="drivewhl_l_b" x_reflect="1" y_reflect="1" />
-  <xacro:wheel prefix="drivewhl_r_b" x_reflect="1" y_reflect="-1" />
+  <xacro:wheel prefix="left_wheel_back" x_reflect="-1" y_reflect="1" />
+  <xacro:wheel prefix="right_wheel_back" x_reflect="-1" y_reflect="-1" />
+   <xacro:wheel prefix="left_wheel_front" x_reflect="1" y_reflect="1" />
+  <xacro:wheel prefix="right_wheel_front" x_reflect="1" y_reflect="-1" />
   
  
 
@@ -185,22 +185,57 @@
   <!-- *********************** Lidar SETUP *********************************  -->
   <!-- Each sensor must be attached to a link.                              --> 
   
-  <joint name="lidar_joint" type="fixed">
+<joint name="lidar_joint" type="fixed">
     <parent link="base_link"/>
     <child link="lidar_link"/>
-    <origin xyz="${base_length/2-0.1} 0 0.05" rpy="0 0 0"/>
+    <origin xyz="0.066 0 0.2" rpy="0 0 0"/>
   </joint>
 
-  <link name="lidar_link"/>
+  <link name="lidar_link">
+  
+    <collision>
+     <origin xyz="0 0 0" rpy="0 0 0"/>
+     <geometry>
+      <cylinder radius="0.0508" length="0.18"/>
+     </geometry>
+    </collision>
+    
+    <visual>
+     <origin xyz="0 0 0" rpy="0 0 0"/>
+     <geometry>
+      <cylinder radius="0.0508" length="0.18"/>
+     </geometry>
+     <material name="Black">
+          <color rgba="${0/255} ${0/255} ${0/255} 1.0"/>
+     </material>
+    </visual>
+    
+    <inertial>
+      <mass value="0.114" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001" />
+    </inertial>
+  </link>
 
-  <!-- *********************** camera SETUP **********************************  -->
-  <joint name="camera_joint" type="fixed">
+  <!-- *********************** IMU SETUP *********************************  -->
+  <!-- Each sensor must be attached to a link.                              --> 
+  
+  <joint name="imu_joint" type="fixed">
     <parent link="base_link"/>
-    <child link="camera_link"/>
-    <origin xyz="${base_length/2-0.02} 0 0" rpy="0 0 0"/>
+    <child link="imu_link"/>
+    <origin xyz="-0.10 0 0.05" rpy="0 0 0"/>
   </joint>
 
-  <link name="camera_link"/>
+  <link name="imu_link"/>
+
+  <!-- *********************** GPS SETUP **********************************  -->
+  <joint name="gps_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="gps_link"/>
+    <origin xyz="0.10 0 0.05" rpy="0 0 0"/>
+  </joint>
+
+  <link name="gps_link"/>
   
 
 </robot>
