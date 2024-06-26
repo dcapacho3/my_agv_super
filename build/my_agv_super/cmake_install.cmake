@@ -53,6 +53,14 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     "/home/david/tesis/superdev_ws/src/my_agv_super/rviz"
     "/home/david/tesis/superdev_ws/src/my_agv_super/src"
     "/home/david/tesis/superdev_ws/src/my_agv_super/worlds"
+    "/home/david/tesis/superdev_ws/src/my_agv_super/scripts"
+    )
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/my_agv_super" TYPE PROGRAM FILES
+    "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/teleop.py"
+    "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/teleop_fix.py"
     )
 endif()
 
