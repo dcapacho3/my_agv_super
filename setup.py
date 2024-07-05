@@ -1,15 +1,17 @@
 from setuptools import setup
+import glob
+import os
 
 package_name = 'superdev_ws'
+
+# Encuentra todos los scripts en la carpeta 'scripts'
+scripts = glob.glob('scripts/*.py')
 
 setup(
     name=package_name,
     version='0.0.0',
     packages=[],
-    py_modules=[
-        'scripts.teleop.py',
-        'scripts.teleop_fix.py',
-    ],
+    py_modules=[os.path.splitext(os.path.basename(script))[0] for script in scripts],
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='David Capacho',
@@ -19,8 +21,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'teleop = scripts.teleop:main',
-            'teleop_fix = scripts.teleop_fix:main',
+            f'{os.path.splitext(os.path.basename(script))[0]} = scripts.{os.path.splitext(os.path.basename(script))[0]}:main'
+            for script in scripts
         ],
     },
 )

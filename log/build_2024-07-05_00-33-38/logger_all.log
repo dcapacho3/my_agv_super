@@ -1,0 +1,105 @@
+[0.255s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.255s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=8, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x73204b9fd5a0>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x73204bb4e1d0>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x73204bb4e1d0>>)
+[0.708s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.708s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.709s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.709s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.709s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.709s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.709s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/david/tesis/superdev_ws/src/my_agv_super'
+[0.709s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.709s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.710s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.710s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.710s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.710s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.710s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.710s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.710s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.742s] DEBUG:colcon.colcon_core.package_identification:Package '.' with type 'ros.ament_cmake' and name 'my_agv_super'
+[0.742s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.743s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.743s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.743s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.743s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.798s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.799s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.804s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 1 installed packages in /home/david/tesis/superdev_ws/src/my_agv_super/install
+[0.805s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 1 installed packages in /home/david/ros-humble-ros1-bridge/install
+[0.810s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 394 installed packages in /opt/ros/humble
+[0.817s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.978s] Level 5:colcon.colcon_core.verb:set package 'my_agv_super' build argument 'cmake_args' from command line to 'None'
+[0.979s] Level 5:colcon.colcon_core.verb:set package 'my_agv_super' build argument 'cmake_target' from command line to 'None'
+[0.979s] Level 5:colcon.colcon_core.verb:set package 'my_agv_super' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.979s] Level 5:colcon.colcon_core.verb:set package 'my_agv_super' build argument 'cmake_clean_cache' from command line to 'False'
+[0.979s] Level 5:colcon.colcon_core.verb:set package 'my_agv_super' build argument 'cmake_clean_first' from command line to 'False'
+[0.979s] Level 5:colcon.colcon_core.verb:set package 'my_agv_super' build argument 'cmake_force_configure' from command line to 'False'
+[0.979s] Level 5:colcon.colcon_core.verb:set package 'my_agv_super' build argument 'ament_cmake_args' from command line to 'None'
+[0.979s] Level 5:colcon.colcon_core.verb:set package 'my_agv_super' build argument 'catkin_cmake_args' from command line to 'None'
+[0.979s] Level 5:colcon.colcon_core.verb:set package 'my_agv_super' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.979s] DEBUG:colcon.colcon_core.verb:Building package 'my_agv_super' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super', 'merge_install': False, 'path': '/home/david/tesis/superdev_ws/src/my_agv_super', 'symlink_install': False, 'test_result_base': None}
+[0.980s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.982s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.982s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/david/tesis/superdev_ws/src/my_agv_super' with build type 'ament_cmake'
+[0.982s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/david/tesis/superdev_ws/src/my_agv_super'
+[0.988s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.989s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.989s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.021s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super -- -j8 -l8
+[1.125s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super -- -j8 -l8
+[1.220s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super
+[1.264s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(my_agv_super)
+[1.300s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super
+[1.301s] Level 1:colcon.colcon_core.environment:checking '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super' for CMake module files
+[1.302s] Level 1:colcon.colcon_core.environment:checking '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super' for CMake config files
+[1.304s] Level 1:colcon.colcon_core.shell:create_environment_hook('my_agv_super', 'cmake_prefix_path')
+[1.305s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/hook/cmake_prefix_path.ps1'
+[1.306s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/hook/cmake_prefix_path.dsv'
+[1.307s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/hook/cmake_prefix_path.sh'
+[1.310s] Level 1:colcon.colcon_core.environment:checking '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/lib'
+[1.311s] Level 1:colcon.colcon_core.environment:checking '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/bin'
+[1.311s] Level 1:colcon.colcon_core.environment:checking '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/lib/pkgconfig/my_agv_super.pc'
+[1.311s] Level 1:colcon.colcon_core.environment:checking '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/lib/python3.10/site-packages'
+[1.312s] Level 1:colcon.colcon_core.environment:checking '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/bin'
+[1.313s] INFO:colcon.colcon_core.shell:Creating package script '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/package.ps1'
+[1.315s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/package.dsv'
+[1.317s] INFO:colcon.colcon_core.shell:Creating package script '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/package.sh'
+[1.320s] INFO:colcon.colcon_core.shell:Creating package script '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/package.bash'
+[1.321s] INFO:colcon.colcon_core.shell:Creating package script '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/package.zsh'
+[1.324s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/colcon-core/packages/my_agv_super)
+[1.389s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(my_agv_super)
+[1.390s] Level 1:colcon.colcon_core.environment:checking '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super' for CMake module files
+[1.392s] Level 1:colcon.colcon_core.environment:checking '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super' for CMake config files
+[1.394s] Level 1:colcon.colcon_core.shell:create_environment_hook('my_agv_super', 'cmake_prefix_path')
+[1.394s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/hook/cmake_prefix_path.ps1'
+[1.395s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/hook/cmake_prefix_path.dsv'
+[1.396s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/hook/cmake_prefix_path.sh'
+[1.397s] Level 1:colcon.colcon_core.environment:checking '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/lib'
+[1.397s] Level 1:colcon.colcon_core.environment:checking '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/bin'
+[1.398s] Level 1:colcon.colcon_core.environment:checking '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/lib/pkgconfig/my_agv_super.pc'
+[1.398s] Level 1:colcon.colcon_core.environment:checking '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/lib/python3.10/site-packages'
+[1.399s] Level 1:colcon.colcon_core.environment:checking '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/bin'
+[1.399s] INFO:colcon.colcon_core.shell:Creating package script '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/package.ps1'
+[1.401s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/package.dsv'
+[1.402s] INFO:colcon.colcon_core.shell:Creating package script '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/package.sh'
+[1.403s] INFO:colcon.colcon_core.shell:Creating package script '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/package.bash'
+[1.404s] INFO:colcon.colcon_core.shell:Creating package script '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/package.zsh'
+[1.405s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/colcon-core/packages/my_agv_super)
+[1.405s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[1.406s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[1.407s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[1.407s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[1.420s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[1.420s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[1.420s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[1.457s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[1.457s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/david/tesis/superdev_ws/src/my_agv_super/install/local_setup.ps1'
+[1.460s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/david/tesis/superdev_ws/src/my_agv_super/install/_local_setup_util_ps1.py'
+[1.465s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/david/tesis/superdev_ws/src/my_agv_super/install/setup.ps1'
+[1.469s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/david/tesis/superdev_ws/src/my_agv_super/install/local_setup.sh'
+[1.471s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/david/tesis/superdev_ws/src/my_agv_super/install/_local_setup_util_sh.py'
+[1.474s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/david/tesis/superdev_ws/src/my_agv_super/install/setup.sh'
+[1.478s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/david/tesis/superdev_ws/src/my_agv_super/install/local_setup.bash'
+[1.481s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/david/tesis/superdev_ws/src/my_agv_super/install/setup.bash'
+[1.483s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/david/tesis/superdev_ws/src/my_agv_super/install/local_setup.zsh'
+[1.485s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/david/tesis/superdev_ws/src/my_agv_super/install/setup.zsh'

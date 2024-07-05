@@ -19,7 +19,7 @@ def generate_launch_description():
   pkg_share = FindPackageShare(package='my_agv_super').find('my_agv_super')
   default_launch_dir = os.path.join(pkg_share, 'launch')
   default_model_path = os.path.join(pkg_share, 'models/myagv.urdf')
-  robot_localization_file_path = os.path.join(pkg_share, 'config/ekf.yaml') 
+  #robot_localization_file_path = os.path.join(pkg_share, 'config/ekf.yaml') 
   robot_name_in_urdf = 'myagv'
   default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf_config.rviz')
   world_file_name = 'my_agv_world/house.world'
@@ -90,13 +90,13 @@ def generate_launch_description():
     condition=IfCondition(PythonExpression([use_simulator, ' and not ', headless])))
     
       # Start robot localization using an Extended Kalman filter
-  start_robot_localization_cmd = Node(
-    package='robot_localization',
-    executable='ekf_node',
-    name='ekf_filter_node',
-    output='screen',
-    parameters=[robot_localization_file_path, 
-    {'use_sim_time': use_sim_time}])
+  #start_robot_localization_cmd = Node(
+   # package='robot_localization',
+   # executable='ekf_node',
+   # name='ekf_filter_node',
+   # output='screen',
+   # parameters=[robot_localization_file_path, 
+   # {'use_sim_time': use_sim_time}])
 
 
   # Subscribe to the joint states of the robot, and publish the 3D pose of each link.
@@ -133,7 +133,7 @@ def generate_launch_description():
   # Add any actions
   ld.add_action(start_gazebo_server_cmd)
   ld.add_action(start_gazebo_client_cmd)
-  ld.add_action(start_robot_localization_cmd)
+  #ld.add_action(start_robot_localization_cmd)
   ld.add_action(start_robot_state_publisher_cmd)
   ld.add_action(start_rviz_cmd)
 

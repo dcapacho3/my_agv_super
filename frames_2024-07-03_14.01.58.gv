@@ -1,0 +1,8 @@
+digraph G {
+"base_footprint" -> "base_up"[label=" Broadcaster: default_authority\nAverage rate: 10.204\nBuffer length: 4.9\nMost recent transform: 1720033319.027634\nOldest transform: 1720033314.127653\n"];
+"odom" -> "base_footprint"[label=" Broadcaster: default_authority\nAverage rate: 12.86\nBuffer length: 4.977\nMost recent transform: 1720033319.118681\nOldest transform: 1720033314.142081\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1720033318.6539197"[ shape=plaintext ] ;
+}->"odom";
+}

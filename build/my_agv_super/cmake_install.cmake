@@ -59,6 +59,7 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/my_agv_super" TYPE PROGRAM FILES
+    "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/subscriberagv.py"
     "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/teleop.py"
     "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/teleop_fix.py"
     )
