@@ -165,7 +165,7 @@
 <!-- ********** LIDAR ***********    -->
     <!-- Add LIDAR link here -->
     <link name="laser_frame">
-      <pose>0.066 0 0.1 0 0 3.14</pose> <!-- Adjust the pose to position the lidar correctly on the roof -->
+      <pose>0.066 0 0.1 0 0 0</pose> <!-- Adjust the pose to position the lidar correctly on the roof -->
       
       <inertial>
         <pose>0 0 0 0 0 0</pose>
@@ -207,7 +207,7 @@
       </visual>
 
       <sensor name="lidar" type="ray">
-        <pose>0 0 0 0 0 0</pose>
+        <pose>0 0 0 0 0 3.14</pose>
         <always_on>true</always_on>
         <visualize>true</visualize>
         <update_rate>5</update_rate>
@@ -216,14 +216,14 @@
             <horizontal>
               <samples>360</samples>
               <resolution>1.00000</resolution>
-              <min_angle>-2.14</min_angle>
-              <max_angle>2.14</max_angle>
+              <min_angle>5.28</min_angle>
+              <max_angle>1ss</max_angle>
             </horizontal>
           </scan>
           <range>
             <min>0.350000</min>
             <max>12</max>
-            <resolution>0.015000</resolution>
+            <resolution>0.0c15000</resolution>
           </range>
           <noise>
             <type>gaussian</type>
