@@ -319,39 +319,39 @@
       <static>1</static>
     </model>
     <state world_name='default'>
-      <sim_time>598 593000000</sim_time>
-      <real_time>918 474165175</real_time>
-      <wall_time>1720166309 738370698</wall_time>
-      <iterations>491992</iterations>
+      <sim_time>1155 599000000</sim_time>
+      <real_time>672 823811684</real_time>
+      <wall_time>1720321822 744841758</wall_time>
+      <iterations>557006</iterations>
       <model name='Supermarket_real_walls'>
-        <pose>-0.027429 0.023806 0 0 -0 0</pose>
+        <pose>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='Floor_0'>
-          <pose>-0.027429 0.023806 0 0 -0 0</pose>
+          <pose>0 0 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
         <link name='Wall_11'>
-          <pose>-0.027429 -3.52619 0 0 -0 0</pose>
+          <pose>0 -3.55 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
         <link name='Wall_12'>
-          <pose>1.52257 0.023806 0 0 -0 1.5708</pose>
+          <pose>1.55 0 0 0 -0 1.5708</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
         <link name='Wall_18'>
-          <pose>-1.57743 0.023806 0 0 -0 1.5708</pose>
+          <pose>-1.55 0 0 0 -0 1.5708</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
         <link name='Wall_21'>
-          <pose>-0.027429 3.57381 0 0 -0 0</pose>
+          <pose>0 3.55 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -368,46 +368,45 @@
         </link>
       </model>
       <model name='markers_supermarket_real'>
-        <pose>0.008057 1.13493 0.354996 4e-06 8e-06 0</pose>
+        <pose>-4e-06 3.16886 0.354995 -8e-06 -6e-06 -0.002094</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>0.008057 1.13493 0.354996 4e-06 8e-06 0</pose>
+          <pose>-4e-06 3.16886 0.354995 -8e-06 -6e-06 -0.002094</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 -9.8 0 -0 0</acceleration>
           <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
       </model>
       <model name='markers_supermarket_real_0'>
-        <pose>-1.19742 -3.06451 0.355 0 -0 4e-06</pose>
+        <pose>-1.16996 -3.16978 0.354995 2e-06 1.4e-05 6e-05</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>-1.19742 -3.06451 0.355 0 -0 4e-06</pose>
+          <pose>-1.16996 -3.16978 0.354995 2e-06 1.4e-05 6e-05</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 -0 0 0 -0 0</acceleration>
-          <wrench>-0 -0 0 0 -0 0</wrench>
+          <acceleration>0.47179 -0.471718 -8.48301 1.5467 1.54686 -2.9e-05</acceleration>
+          <wrench>0.47179 -0.471718 -8.48301 0 -0 0</wrench>
         </link>
       </model>
       <model name='markers_supermarket_real_1'>
-        <pose>0.079713 3.14922 0.354995 6e-06 9e-06 0.01656</pose>
+        <pose>-5e-06 1 0.354994 -4e-06 -8e-06 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>0.079713 3.14922 0.354995 6e-06 9e-06 0.01656</pose>
+          <pose>-5e-06 1 0.354994 -4e-06 -8e-06 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 -9.8 0 -0 0</acceleration>
           <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
       </model>
       <model name='markers_supermarket_real_2'>
-        <pose>0.00982 -0.733762 0.354994 -4e-06 -8e-06 0.005958</pose>
+        <pose>-0 -1 0.354995 -8e-06 -8e-06 0.005958</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>0.00982 -0.733762 0.354994 -4e-06 -8e-06 0.005958</pose>
+          <pose>-0 -1 0.354995 -8e-06 -8e-06 0.005958</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 -9.8 0 -0 0</acceleration>
           <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
       </model>
-      
       <light name='sun'>
         <pose>0 0 10 0 -0 0</pose>
       </light>
@@ -720,12 +719,11 @@
     </model>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose>-0.684879 -1.09663 19.9029 -5.1e-05 1.5698 1.63547</pose>
+        <pose>-0.309576 -0.90082 20.7665 -1.1e-05 1.5698 1.53242</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
     </gui>
-    
     <model name='markers_supermarket_real_1'>
       <link name='link'>
         <inertial>
@@ -829,8 +827,7 @@
       <pose>0.068232 3.14155 0 0 -0 0</pose>
     </model>
     
-    
-            <!-- Import our own robot -->
+              <!-- Import our own robot -->
     <include>
       <!-- Set the location where we want to spawn the robot -->
       <pose>1 -3 0.0 0.0 0.0 1.57</pose>
