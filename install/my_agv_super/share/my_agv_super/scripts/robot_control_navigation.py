@@ -19,7 +19,7 @@ class Commander(Node):
 
         timer_period = 0.005
         self.L = 0.125 # distance from the robot center to wheel
-        self.Rw = 0.03 # Radius ot the wheel
+        self.Rw = 0.04 # Radius ot the wheel
 
         self.vel_msg = Twist()
 
@@ -47,7 +47,7 @@ class Joy_subscriber(Node):
         super().__init__('cmd_vel_subscriber')
         self.subscription = self.create_subscription(
             Twist,
-            'cmd_vel_nav',
+            'cmd_vel',
             self.listener_callback,
             10)
         self.subscription

@@ -1,7 +1,3 @@
-# Author: Addison Sears-Collins
-# Date: September 2, 2021
-# Description: Launch a basic mobile robot using the ROS 2 Navigation Stack
-# https://automaticaddison.com
 
 import os
 from launch import LaunchDescription
@@ -65,7 +61,7 @@ def generate_launch_description():
 
   declare_use_namespace_cmd = DeclareLaunchArgument(
     name='use_namespace',
-    default_value='False',
+    default_value='True',
     description='Whether to apply a namespace to the navigation stack')
         
   declare_autostart_cmd = DeclareLaunchArgument(

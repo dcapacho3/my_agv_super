@@ -1,0 +1,218 @@
+[0.054s] Invoking command in '/home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super -- -j8 -l8
+[0.166s] -- Found ament_cmake: 1.3.9 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.625s] -- Found rclpy: 3.3.13 (/opt/ros/humble/share/rclpy/cmake)
+[0.626s] -- Found geometry_msgs: 4.2.4 (/opt/ros/humble/share/geometry_msgs/cmake)
+[0.754s] -- Found rosidl_generator_c: 3.1.5 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.769s] -- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.812s] -- Found rosidl_generator_cpp: 3.1.5 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.875s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.947s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.311s] -- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[3.721s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[3.721s] -- Configured cppcheck include dirs: 
+[3.722s] -- Configured cppcheck exclude dirs and/or files: 
+[3.877s] -- Added test 'flake8' to check Python code syntax and style conventions
+[4.190s] -- Added test 'lint_cmake' to check CMake code style
+[4.385s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[5.585s] -- Added test 'uncrustify' to check C / C++ code style
+[5.585s] -- Configured uncrustify additional arguments: 
+[5.726s] -- Added test 'xmllint' to check XML markup files
+[5.735s] -- Configuring done
+[5.750s] -- Generating done
+[5.753s] -- Build files have been written to: /home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super
+[5.806s] Invoked command in '/home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super -- -j8 -l8
+[5.890s] Invoking command in '/home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super
+[5.906s] -- Install configuration: ""
+[5.907s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/config
+[5.908s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/config/ekf.yaml
+[5.908s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/config/mux.yaml
+[5.909s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch
+[5.910s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/test.launch.py
+[5.910s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/agv_control_navigation.launch.py
+[5.911s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/.goutputstream-4H17P2
+[5.912s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/nav2_agv.launch.py
+[5.912s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/real_myagv.launch.py
+[5.912s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/bringup_launch.py
+[5.913s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/myagv.launch.py
+[5.913s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/slamagv.launch.py
+[5.914s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/testnav.launch.py
+[5.914s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/real_slam.launch.py
+[5.915s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/real_nav.launch.py
+[5.915s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/mux.launch.py
+[5.916s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps
+[5.916s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/supermarket_world_serial.data
+[5.917s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/LabRobSerialV1.posegraph
+[5.917s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/house_serial.data
+[5.918s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/labrobv2.yaml
+[5.918s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/labrobv2.posegraph
+[5.919s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/house_serial.posegraph
+[5.920s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/supermarket_world_serial.posegraph
+[5.920s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/labrobv2.pgm
+[5.920s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/house_map.yaml
+[5.920s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/LabRobMapV1.pgm
+[5.921s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/LabRobMapV1.yaml
+[5.921s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/supermarket_world_map.yaml
+[5.921s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/labrobv2.data
+[5.922s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/supermarket_world_map.pgm
+[5.922s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/LabRobSerialV1.data
+[5.923s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/house_map.pgm
+[5.923s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes
+[5.924s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install
+[5.924s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/setup.bash
+[5.924s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/.colcon_install_layout
+[5.925s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/local_setup.bash
+[5.925s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/COLCON_IGNORE
+[5.925s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/_local_setup_util_sh.py
+[5.926s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/local_setup.ps1
+[5.926s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/_local_setup_util_ps1.py
+[5.926s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/local_setup.sh
+[5.926s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/setup.ps1
+[5.927s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/setup.sh
+[5.927s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/local_setup.zsh
+[5.927s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/setup.zsh
+[5.927s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/elbow.stl
+[5.928s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/wheel.stl
+[5.928s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/wrist.stl
+[5.928s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/bicep.stl
+[5.929s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/hokuyo.dae
+[5.929s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/myagv_base.dae
+[5.929s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/myagv_all.stl
+[5.930s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/robot_base.stl
+[5.930s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/arm_base.stl
+[5.930s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/myagv_up.dae
+[5.930s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/log
+[5.930s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/log/COLCON_IGNORE
+[5.930s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/log/latest
+[5.931s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/log/latest_build
+[5.931s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/log/build_2024-06-22_21-29-10
+[5.931s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/log/build_2024-06-22_21-29-10/events.log
+[5.931s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/log/build_2024-06-22_21-29-10/logger_all.log
+[5.932s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/myagv_all.dae
+[5.932s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/build
+[5.932s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/build/COLCON_IGNORE
+[5.932s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/build/.built_by
+[5.932s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models
+[5.933s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description
+[5.933s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/model.config
+[5.933s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes
+[5.934s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install
+[5.934s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/setup.bash
+[5.935s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/.colcon_install_layout
+[5.935s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/local_setup.bash
+[5.936s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/COLCON_IGNORE
+[5.937s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/_local_setup_util_sh.py
+[5.939s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/local_setup.ps1
+[5.940s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/_local_setup_util_ps1.py
+[5.941s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/local_setup.sh
+[5.941s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/setup.ps1
+[5.941s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/setup.sh
+[5.942s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/local_setup.zsh
+[5.942s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/setup.zsh
+[5.942s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/elbow.stl
+[5.942s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/wheel.stl
+[5.943s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/wrist.stl
+[5.943s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/bicep.stl
+[5.943s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/hokuyo.dae
+[5.943s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/myagv_base.dae
+[5.944s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/myagv_all.stl
+[5.944s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/robot_base.stl
+[5.944s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/arm_base.stl
+[5.945s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/myagv_up.dae
+[5.945s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/log
+[5.945s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/log/COLCON_IGNORE
+[5.945s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/log/latest
+[5.946s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/log/latest_build
+[5.946s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/log/build_2024-06-22_21-29-10
+[5.946s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/log/build_2024-06-22_21-29-10/events.log
+[5.947s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/log/build_2024-06-22_21-29-10/logger_all.log
+[5.947s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/myagv_all.dae
+[5.947s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/build
+[5.948s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/build/COLCON_IGNORE
+[5.948s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/build/.built_by
+[5.948s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/model.sdf
+[5.948s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/Supermarket
+[5.949s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/Supermarket/markers_supermarket_real
+[5.949s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/Supermarket/markers_supermarket_real/model.config
+[5.949s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/Supermarket/markers_supermarket_real/model.sdf
+[5.949s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/Supermarket/Supermarket_real_walls
+[5.949s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/Supermarket/Supermarket_real_walls/model.config
+[5.950s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/Supermarket/Supermarket_real_walls/model.sdf
+[5.950s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv.urdf
+[5.950s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/ground_plane
+[5.951s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/ground_plane/model.config
+[5.951s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/ground_plane/model.sdf
+[5.951s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/ground_plane/model-1_4.sdf
+[5.951s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/ground_plane/model-1_3.sdf
+[5.952s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/ground_plane/model-1_2.sdf
+[5.952s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagvreal.urdf
+[5.952s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagvsimulated.urdf
+[5.952s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/params
+[5.952s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/params/nav2_params.yaml
+[5.953s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/params/nav2_params_nolocal.yaml
+[5.953s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/params/slam_params.yaml
+[5.953s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/rviz
+[5.953s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/rviz/nav2_config.rviz
+[5.953s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/rviz/urdf_config.rviz
+[5.954s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/rviz/slam_config.rviz
+[5.954s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/rviz/nav2_fix_config.rviz
+[5.954s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/src
+[5.955s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds
+[5.956s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world
+[5.956s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/smalltown.world
+[5.956s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install
+[5.956s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/setup.bash
+[5.957s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/.colcon_install_layout
+[5.957s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/local_setup.bash
+[5.957s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/COLCON_IGNORE
+[5.957s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/_local_setup_util_sh.py
+[5.958s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/local_setup.ps1
+[5.958s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/_local_setup_util_ps1.py
+[5.958s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/local_setup.sh
+[5.958s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/setup.ps1
+[5.958s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/setup.sh
+[5.959s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/local_setup.zsh
+[5.959s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/setup.zsh
+[5.959s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/house.world
+[5.960s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/cafe.world
+[5.960s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/warehouse.world
+[5.960s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/log
+[5.960s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/log/build_2024-06-28_00-39-05
+[5.961s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/log/build_2024-06-28_00-39-05/events.log
+[5.961s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/log/build_2024-06-28_00-39-05/logger_all.log
+[5.961s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/log/COLCON_IGNORE
+[5.961s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/log/latest
+[5.961s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/log/latest_build
+[5.962s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/log/build_2024-06-28_00-40-47
+[5.962s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/log/build_2024-06-28_00-40-47/events.log
+[5.962s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/log/build_2024-06-28_00-40-47/logger_all.log
+[5.962s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/build
+[5.964s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/build/COLCON_IGNORE
+[5.964s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/build/.built_by
+[5.964s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/Supermarket_real.world
+[5.964s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/scripts
+[5.965s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/scripts/naive_obstacle_avoidance.py
+[5.965s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/scripts/teleop.py
+[5.965s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/scripts/teleop_fix.py
+[5.966s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/scripts/subscriberagv.py
+[5.966s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/scripts/robot_control_navigation.py
+[5.966s] -- Installing: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/lib/my_agv_super/naive_obstacle_avoidance.py
+[5.966s] -- Installing: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/lib/my_agv_super/robot_control_navigation.py
+[5.966s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/lib/my_agv_super/subscriberagv.py
+[5.967s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/lib/my_agv_super/teleop.py
+[5.967s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/lib/my_agv_super/teleop_fix.py
+[5.967s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/ament_index/resource_index/package_run_dependencies/my_agv_super
+[5.968s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/ament_index/resource_index/parent_prefix_path/my_agv_super
+[5.968s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/environment/ament_prefix_path.sh
+[5.968s] -- Installing: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/environment/ament_prefix_path.dsv
+[5.968s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/environment/path.sh
+[5.968s] -- Installing: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/environment/path.dsv
+[5.969s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/local_setup.bash
+[5.969s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/local_setup.sh
+[5.969s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/local_setup.zsh
+[5.969s] -- Installing: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/local_setup.dsv
+[5.970s] -- Installing: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/package.dsv
+[5.970s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/ament_index/resource_index/packages/my_agv_super
+[5.970s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/cmake/my_agv_superConfig.cmake
+[5.970s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/cmake/my_agv_superConfig-version.cmake
+[5.971s] -- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/package.xml
+[5.971s] Invoked command in '/home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super

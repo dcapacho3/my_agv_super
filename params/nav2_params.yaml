@@ -107,6 +107,7 @@ controller_server:
     progress_checker_plugin: "progress_checker"
     goal_checker_plugin: "goal_checker"
     controller_plugins: ["FollowPath"]
+    cmd_vel_topic: "cmd_vel_out"
 
     # Progress checker parameters
     progress_checker:
@@ -349,3 +350,8 @@ waypoint_follower:
       plugin: "nav2_waypoint_follower::WaitAtWaypoint"
       enabled: True
       waypoint_pause_duration: 200
+      
+      
+collision_monitor:
+  ros__parameters:
+    cmd_vel_out_topic: "cmd_vel_out"
