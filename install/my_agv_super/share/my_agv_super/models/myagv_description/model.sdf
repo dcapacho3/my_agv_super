@@ -395,8 +395,8 @@
 	<odometryRate>50.0</odometryRate>
 	<robotBaseFrame>base_footprint</robotBaseFrame>
 	<publishTF>True</publishTF>
-	<ros>
-     <!-- <remapping>odom:=wheel/odometry</remapping>-->
+ <ros>
+      <remapping>cmd_vel:=cmd_vel_out</remapping>
     </ros>
 </plugin>
 
