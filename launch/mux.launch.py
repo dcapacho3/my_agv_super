@@ -9,7 +9,7 @@ from ament_index_python.packages import get_package_share_directory
 def generate_launch_description():
     DeclareLaunchArgument(
             'cmd_vel_out',
-            default_value='/cmd_vel',
+            default_value='/cmd_vel_out',
             description='cmd vel output topic'),
 
 

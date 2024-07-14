@@ -20,18 +20,18 @@ def generate_launch_description():
   package_name = 'my_agv_super'
   robot_name_in_model = 'myagv'
   default_launch_dir = 'launch'
-  map_file_path = 'maps/lavrobv2.yaml'
+  map_file_path = 'maps/cafe_world_map.yaml'
   nav2_params_path = 'params/nav2_params_waypoint.yaml'
  # robot_localization_file_path = 'config/ekf.yaml'
   rviz_config_file_path = 'rviz/nav2_config.rviz'
   sdf_model_path = 'models/myagv_description/model.sdf'
   urdf_file_path = 'models/myagv.urdf'
-  world_file_path = 'worlds/my_agv_world/house.world'
+  world_file_path = 'worlds/my_agv_world/cafestatic.world'
    
   # Pose where we want to spawn the robot
-  spawn_x_val = '7.0'
-  spawn_y_val = '4.0'
-  spawn_z_val = '0.0'
+  spawn_x_val = '0.0'
+  spawn_y_val = '0.0'
+  spawn_z_val = '0.05'
   spawn_yaw_val = '0.0'
  
   ########## You do not need to change anything below this line ###############
@@ -47,7 +47,7 @@ def generate_launch_description():
   nav2_dir = FindPackageShare(package='nav2_bringup').find('nav2_bringup') 
   nav2_launch_dir = os.path.join(nav2_dir, 'launch') 
   sdf_model_path = os.path.join(pkg_share, sdf_model_path)
-  static_map_path = os.path.join(pkg_share, 'maps', 'labrobv2.yaml')
+  static_map_path = os.path.join(pkg_share, 'maps', 'cafe_world_map.yaml')
   nav2_params_path = os.path.join(pkg_share, nav2_params_path)
   nav2_bt_path = FindPackageShare(package='nav2_bt_navigator').find('nav2_bt_navigator')
    
@@ -140,12 +140,12 @@ def generate_launch_description():
      
   declare_use_sim_time_cmd = DeclareLaunchArgument(
     name='use_sim_time',
-    default_value='False',
+    default_value='True',
     description='Use simulation (Gazebo) clock if true')
  
   declare_use_simulator_cmd = DeclareLaunchArgument(
     name='use_simulator',
-    default_value='False',
+    default_value='True',
     description='Whether to start the simulator')
  
   declare_world_cmd = DeclareLaunchArgument(
@@ -239,9 +239,9 @@ def generate_launch_description():
   ld.add_action(declare_world_cmd)
  
   # Add any actions
-  #ld.add_action(start_gazebo_server_cmd)
-  #ld.add_action(start_gazebo_client_cmd)
-  #ld.add_action(spawn_entity_cmd)
+  ld.add_action(start_gazebo_server_cmd)
+  ld.add_action(start_gazebo_client_cmd)
+  ld.add_action(spawn_entity_cmd)
   #ld.add_action(start_robot_localization_cmd)
   ld.add_action(start_robot_state_publisher_cmd)
   ld.add_action(start_rviz_cmd)

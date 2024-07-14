@@ -5,6 +5,7 @@
 /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/.goutputstream-4H17P2
 /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/myagv.launch.py
 /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/real_nav.launch.py
+/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/real_waypoints.launch.py
 /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/navagv.launch.py
 /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/real_slam.launch.py
 /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/agv_control_navigation.launch.py
