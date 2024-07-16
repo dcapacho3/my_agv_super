@@ -32,7 +32,7 @@ class ObstacleAvoidanceNode(Node):
         self.min_obstacle_distance = 0.15  # Ajusta según tus necesidades
 
         # Velocidad angular máxima permitida
-        self.max_angular_speed = 2.5  # Ajusta según tus necesidades
+        self.max_angular_speed = 1.5  # Ajusta según tus necesidades
 
     def laser_callback(self, msg):
         # Lógica para detectar obstáculos y determinar dirección de evasión
