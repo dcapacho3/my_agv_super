@@ -16,11 +16,28 @@ def create_database():
     cursor = connection.cursor()
     
     # Crear tabla si no existe
+ # Crear tabla de usuarios
+    cursor.execute('''CREATE TABLE IF NOT EXISTS users (
+                        user_id INTEGER PRIMARY KEY,
+                        username TEXT NOT NULL,
+                        password TEXT NOT NULL
+                    )''')
+    
+    # Crear tabla de productos
     cursor.execute('''CREATE TABLE IF NOT EXISTS products (
                         id INTEGER PRIMARY KEY,
                         name TEXT NOT NULL,
                         x REAL NOT NULL,
                         y REAL NOT NULL
+                    )''')
+
+    # Crear tabla de selecciones de usuarios
+    cursor.execute('''CREATE TABLE IF NOT EXISTS user_selections (
+                        selection_id INTEGER PRIMARY KEY,
+                        user_id INTEGER,
+                        product_id INTEGER,
+                        FOREIGN KEY(user_id) REFERENCES users(user_id),
+                        FOREIGN KEY(product_id) REFERENCES products(id)
                     )''')
     
     connection.commit()

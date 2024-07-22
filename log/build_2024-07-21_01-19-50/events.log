@@ -1,0 +1,299 @@
+[0.000000] (-) TimerEvent: {}
+[0.000236] (my_agv_super) JobQueued: {'identifier': 'my_agv_super', 'dependencies': OrderedDict()}
+[0.000283] (my_agv_super) JobStarted: {'identifier': 'my_agv_super'}
+[0.013608] (my_agv_super) JobProgress: {'identifier': 'my_agv_super', 'progress': 'cmake'}
+[0.014675] (my_agv_super) JobProgress: {'identifier': 'my_agv_super', 'progress': 'build'}
+[0.015758] (my_agv_super) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super', '--', '-j16', '-l16'], 'cwd': '/home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'david'), ('LC_TIME', 'es_CO.UTF-8'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/david/ros-humble-ros1-bridge/install/ros1_bridge/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/usr/share/gazebo/../../lib/x86_64-linux-gnu/gazebo-11/plugins::/usr/share/gazebo-11/../../lib/x86_64-linux-gnu/gazebo-11/plugins:/usr/share/gazebo/../../lib/x86_64-linux-gnu/gazebo-11/plugins:'), ('HOME', '/home/david'), ('OLDPWD', '/home/david/tesis/superdev_ws/src/my_agv_super/scripts'), ('DESKTOP_SESSION', 'ubuntu'), ('GAZEBO_MASTER_URI', 'http://localhost:11345'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'es_CO.UTF-8'), ('MANAGERPID', '1672'), ('SYSTEMD_EXEC_PID', '2009'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '2353'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/david/tesis/superdev_ws/src/my_agv_super/install:/home/david/ros-humble-ros1-bridge/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'david'), ('JOURNAL_STREAM', '8:39308'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'david'), ('TERM', 'xterm-256color'), ('GAZEBO_MODEL_PATH', '/usr/share/gazebo-11/../../share/gazebo-11/models:/usr/share/gazebo/../../share/gazebo-11/models::/home/david/tesis/superdev_ws/src/my_agv_super/models/'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('OGRE_RESOURCE_PATH', '/usr/lib/x86_64-linux-gnu/OGRE-1.9.0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/david-ubuntu:@/tmp/.ICE-unix/1818,unix/david-ubuntu:/tmp/.ICE-unix/1818'), ('INVOCATION_ID', 'c7346b2686784e64a790489909f05087'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'es_CO.UTF-8'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('IBUS_DISABLE_SNOOPER', '1'), ('LC_TELEPHONE', 'es_CO.UTF-8'), ('RMW_IMPLEMENTATION', 'rmw_cyclonedds_cpp'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.1KQ5Q2'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '30'), ('AMENT_PREFIX_PATH', '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super:/home/david/ros-humble-ros1-bridge/install/ros1_bridge:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'es_CO.UTF-8'), ('TERMINATOR_UUID', 'urn:uuid:20a2ba8d-d3a7-4319-ab96-ca3e17059192'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'es_CO.UTF-8'), ('GAZEBO_RESOURCE_PATH', '/usr/share/gazebo-11/../../share/gazebo-11:/usr/share/gazebo/../../share/gazebo-11:'), ('LC_IDENTIFICATION', 'es_CO.UTF-8'), ('GAZEBO_MODEL_DATABASE_URI', 'http://models.gazebosim.org'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super'), ('TURTLEBOT3_MODEL', 'waffle'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('GAZEBO_PLUGIN_PATH', '/usr/share/gazebo-11/../../lib/x86_64-linux-gnu/gazebo-11/plugins:/usr/share/gazebo/../../lib/x86_64-linux-gnu/gazebo-11/plugins:'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/david/ros-humble-ros1-bridge/install/ros1_bridge/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'es_CO.UTF-8'), ('LC_PAPER', 'es_CO.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super:/home/david/ros-humble-ros1-bridge/install/ros1_bridge:/opt/ros/humble')]), 'shell': False}
+[0.053990] (my_agv_super) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.9 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.098448] (-) TimerEvent: {}
+[0.198755] (-) TimerEvent: {}
+[0.215288] (my_agv_super) StdoutLine: {'line': b'-- Found rclpy: 3.3.13 (/opt/ros/humble/share/rclpy/cmake)\n'}
+[0.215728] (my_agv_super) StdoutLine: {'line': b'-- Found geometry_msgs: 4.2.4 (/opt/ros/humble/share/geometry_msgs/cmake)\n'}
+[0.255796] (my_agv_super) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.5 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[0.259336] (my_agv_super) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[0.268606] (my_agv_super) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.5 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[0.286632] (my_agv_super) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.298894] (-) TimerEvent: {}
+[0.308736] (my_agv_super) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.399073] (-) TimerEvent: {}
+[0.442414] (my_agv_super) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[0.499193] (-) TimerEvent: {}
+[0.599567] (-) TimerEvent: {}
+[0.699880] (-) TimerEvent: {}
+[0.800245] (-) TimerEvent: {}
+[0.900584] (-) TimerEvent: {}
+[1.000898] (-) TimerEvent: {}
+[1.101345] (-) TimerEvent: {}
+[1.201855] (-) TimerEvent: {}
+[1.302155] (-) TimerEvent: {}
+[1.379208] (my_agv_super) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[1.379526] (my_agv_super) StdoutLine: {'line': b'-- Configured cppcheck include dirs: \n'}
+[1.379580] (my_agv_super) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[1.402267] (-) TimerEvent: {}
+[1.449621] (my_agv_super) StdoutLine: {'line': b"-- Added test 'flake8' to check Python code syntax and style conventions\n"}
+[1.502417] (-) TimerEvent: {}
+[1.595522] (my_agv_super) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[1.602647] (-) TimerEvent: {}
+[1.667255] (my_agv_super) StdoutLine: {'line': b"-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257\n"}
+[1.702727] (-) TimerEvent: {}
+[1.803115] (-) TimerEvent: {}
+[1.903675] (-) TimerEvent: {}
+[2.004119] (-) TimerEvent: {}
+[2.104419] (-) TimerEvent: {}
+[2.204982] (-) TimerEvent: {}
+[2.306422] (-) TimerEvent: {}
+[2.409012] (-) TimerEvent: {}
+[2.510496] (-) TimerEvent: {}
+[2.611870] (-) TimerEvent: {}
+[2.713094] (-) TimerEvent: {}
+[2.722217] (my_agv_super) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[2.723663] (my_agv_super) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[2.813400] (-) TimerEvent: {}
+[2.914935] (-) TimerEvent: {}
+[3.016450] (-) TimerEvent: {}
+[3.117881] (-) TimerEvent: {}
+[3.219461] (-) TimerEvent: {}
+[3.320843] (-) TimerEvent: {}
+[3.422244] (-) TimerEvent: {}
+[3.470584] (my_agv_super) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[3.483681] (my_agv_super) StdoutLine: {'line': b'-- Configuring done\n'}
+[3.522530] (-) TimerEvent: {}
+[3.535325] (my_agv_super) StdoutLine: {'line': b'-- Generating done\n'}
+[3.555141] (my_agv_super) StdoutLine: {'line': b'-- Build files have been written to: /home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super\n'}
+[3.622950] (-) TimerEvent: {}
+[3.724299] (-) TimerEvent: {}
+[3.827034] (-) TimerEvent: {}
+[3.859469] (my_agv_super) CommandEnded: {'returncode': 0}
+[3.927443] (-) TimerEvent: {}
+[4.028638] (-) TimerEvent: {}
+[4.130485] (-) TimerEvent: {}
+[4.160598] (my_agv_super) JobProgress: {'identifier': 'my_agv_super', 'progress': 'install'}
+[4.230827] (-) TimerEvent: {}
+[4.274301] (my_agv_super) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super'], 'cwd': '/home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'david'), ('LC_TIME', 'es_CO.UTF-8'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/david/ros-humble-ros1-bridge/install/ros1_bridge/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/usr/share/gazebo/../../lib/x86_64-linux-gnu/gazebo-11/plugins::/usr/share/gazebo-11/../../lib/x86_64-linux-gnu/gazebo-11/plugins:/usr/share/gazebo/../../lib/x86_64-linux-gnu/gazebo-11/plugins:'), ('HOME', '/home/david'), ('OLDPWD', '/home/david/tesis/superdev_ws/src/my_agv_super/scripts'), ('DESKTOP_SESSION', 'ubuntu'), ('GAZEBO_MASTER_URI', 'http://localhost:11345'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'es_CO.UTF-8'), ('MANAGERPID', '1672'), ('SYSTEMD_EXEC_PID', '2009'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '2353'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/david/tesis/superdev_ws/src/my_agv_super/install:/home/david/ros-humble-ros1-bridge/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'david'), ('JOURNAL_STREAM', '8:39308'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'david'), ('TERM', 'xterm-256color'), ('GAZEBO_MODEL_PATH', '/usr/share/gazebo-11/../../share/gazebo-11/models:/usr/share/gazebo/../../share/gazebo-11/models::/home/david/tesis/superdev_ws/src/my_agv_super/models/'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('OGRE_RESOURCE_PATH', '/usr/lib/x86_64-linux-gnu/OGRE-1.9.0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/david-ubuntu:@/tmp/.ICE-unix/1818,unix/david-ubuntu:/tmp/.ICE-unix/1818'), ('INVOCATION_ID', 'c7346b2686784e64a790489909f05087'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'es_CO.UTF-8'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('IBUS_DISABLE_SNOOPER', '1'), ('LC_TELEPHONE', 'es_CO.UTF-8'), ('RMW_IMPLEMENTATION', 'rmw_cyclonedds_cpp'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.1KQ5Q2'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '30'), ('AMENT_PREFIX_PATH', '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super:/home/david/ros-humble-ros1-bridge/install/ros1_bridge:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'es_CO.UTF-8'), ('TERMINATOR_UUID', 'urn:uuid:20a2ba8d-d3a7-4319-ab96-ca3e17059192'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'es_CO.UTF-8'), ('GAZEBO_RESOURCE_PATH', '/usr/share/gazebo-11/../../share/gazebo-11:/usr/share/gazebo/../../share/gazebo-11:'), ('LC_IDENTIFICATION', 'es_CO.UTF-8'), ('GAZEBO_MODEL_DATABASE_URI', 'http://models.gazebosim.org'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super'), ('TURTLEBOT3_MODEL', 'waffle'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('GAZEBO_PLUGIN_PATH', '/usr/share/gazebo-11/../../lib/x86_64-linux-gnu/gazebo-11/plugins:/usr/share/gazebo/../../lib/x86_64-linux-gnu/gazebo-11/plugins:'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/david/ros-humble-ros1-bridge/install/ros1_bridge/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'es_CO.UTF-8'), ('LC_PAPER', 'es_CO.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super:/home/david/ros-humble-ros1-bridge/install/ros1_bridge:/opt/ros/humble')]), 'shell': False}
+[4.331174] (-) TimerEvent: {}
+[4.386577] (my_agv_super) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[4.390516] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/config\n'}
+[4.392768] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/config/mux.yaml\n'}
+[4.394454] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/config/ekf.yaml\n'}
+[4.395328] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch\n'}
+[4.396207] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/slamagv.launch.py\n'}
+[4.396955] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/mux.launch.py\n'}
+[4.397709] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/.goutputstream-4H17P2\n'}
+[4.400121] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/myagv.launch.py\n'}
+[4.401906] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/real_nav.launch.py\n'}
+[4.402825] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/real_waypoints.launch.py\n'}
+[4.405776] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/navagv.launch.py\n'}
+[4.408823] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/real_slam.launch.py\n'}
+[4.410652] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/agv_control_navigation.launch.py\n'}
+[4.412245] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/bringup_launch.py\n'}
+[4.414111] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/real_myagv.launch.py\n'}
+[4.415469] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/launch/waypoints_agv.launch.py\n'}
+[4.416827] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps\n'}
+[4.417742] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/LabRobMapV1.yaml\n'}
+[4.418891] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/supermarket_world_serial.posegraph\n'}
+[4.420267] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/labrobv2.data\n'}
+[4.421733] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/supermarket_world_map.pgm\n'}
+[4.424627] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/labrobv2.pgm\n'}
+[4.426599] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/cafe_world_map.pgm\n'}
+[4.428484] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/labrobsuper_map.pgm\n'}
+[4.429890] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/cafe_world_map.yaml\n'}
+[4.433179] (-) TimerEvent: {}
+[4.434171] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/LabRobMapV1.pgm\n'}
+[4.435226] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/house_serial.posegraph\n'}
+[4.436154] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/labrobsuper_serial.data\n'}
+[4.436700] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/supermarket_world_serial.data\n'}
+[4.437218] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/house_map.pgm\n'}
+[4.437737] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/house_serial.data\n'}
+[4.439158] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/labrobv2.yaml\n'}
+[4.440408] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/labrobsuper_serial.posegraph\n'}
+[4.441959] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/supermarket_world_map.yaml\n'}
+[4.443188] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/labrobv2.posegraph\n'}
+[4.444303] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/labrobsuper_map.yaml\n'}
+[4.445034] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/LabRobSerialV1.posegraph\n'}
+[4.445763] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/cafe_world_serial.posegraph\n'}
+[4.446481] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/house_map.yaml\n'}
+[4.447195] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/LabRobSerialV1.data\n'}
+[4.448337] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/maps/cafe_world_serial.data\n'}
+[4.450108] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes\n'}
+[4.451174] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/myagv_up.dae\n'}
+[4.452068] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/myagv_base.dae\n'}
+[4.452903] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/wrist.stl\n'}
+[4.453404] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/robot_base.stl\n'}
+[4.454083] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/myagv_all.stl\n'}
+[4.454824] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/elbow.stl\n'}
+[4.456243] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/bicep.stl\n'}
+[4.457055] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/build\n'}
+[4.458005] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/build/.built_by\n'}
+[4.458602] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/build/COLCON_IGNORE\n'}
+[4.459347] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/myagv_all.dae\n'}
+[4.460327] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/log\n'}
+[4.461609] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/log/build_2024-06-22_21-29-10\n'}
+[4.462244] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/log/build_2024-06-22_21-29-10/logger_all.log\n'}
+[4.462913] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/log/build_2024-06-22_21-29-10/events.log\n'}
+[4.463795] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/log/latest_build\n'}
+[4.464682] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/log/latest\n'}
+[4.466385] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/log/COLCON_IGNORE\n'}
+[4.467439] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/arm_base.stl\n'}
+[4.469214] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/wheel.stl\n'}
+[4.469991] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install\n'}
+[4.470636] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/setup.sh\n'}
+[4.471685] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/local_setup.zsh\n'}
+[4.472418] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/.colcon_install_layout\n'}
+[4.473079] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/setup.bash\n'}
+[4.473870] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/_local_setup_util_ps1.py\n'}
+[4.474532] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/local_setup.sh\n'}
+[4.475217] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/local_setup.bash\n'}
+[4.476060] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/local_setup.ps1\n'}
+[4.476730] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/_local_setup_util_sh.py\n'}
+[4.477427] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/setup.zsh\n'}
+[4.478240] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/COLCON_IGNORE\n'}
+[4.479037] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/install/setup.ps1\n'}
+[4.480449] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/meshes/hokuyo.dae\n'}
+[4.481187] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models\n'}
+[4.482001] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/ground_plane\n'}
+[4.482644] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/ground_plane/model-1_4.sdf\n'}
+[4.483464] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/ground_plane/model-1_3.sdf\n'}
+[4.484203] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/ground_plane/model.config\n'}
+[4.484833] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/ground_plane/model-1_2.sdf\n'}
+[4.485480] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/ground_plane/model.sdf\n'}
+[4.486190] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv.urdf\n'}
+[4.486890] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagvreal.urdf\n'}
+[4.487746] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagvsimulated.urdf\n'}
+[4.488899] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/Supermarket\n'}
+[4.489725] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/Supermarket/Supermarket_real_walls\n'}
+[4.490399] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/Supermarket/Supermarket_real_walls/model.config\n'}
+[4.491124] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/Supermarket/Supermarket_real_walls/model.sdf\n'}
+[4.491824] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/Supermarket/markers_supermarket_real\n'}
+[4.492361] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/Supermarket/markers_supermarket_real/model.config\n'}
+[4.492994] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/Supermarket/markers_supermarket_real/model.sdf\n'}
+[4.493667] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description\n'}
+[4.494208] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes\n'}
+[4.494921] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/myagv_up.dae\n'}
+[4.496237] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/myagv_base.dae\n'}
+[4.496884] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/wrist.stl\n'}
+[4.502156] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/robot_base.stl\n'}
+[4.503463] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/myagv_all.stl\n'}
+[4.504502] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/elbow.stl\n'}
+[4.505894] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/bicep.stl\n'}
+[4.506883] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/build\n'}
+[4.507858] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/build/.built_by\n'}
+[4.508679] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/build/COLCON_IGNORE\n'}
+[4.509355] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/myagv_all.dae\n'}
+[4.510107] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/log\n'}
+[4.510723] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/log/build_2024-06-22_21-29-10\n'}
+[4.512237] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/log/build_2024-06-22_21-29-10/logger_all.log\n'}
+[4.516939] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/log/build_2024-06-22_21-29-10/events.log\n'}
+[4.517934] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/log/latest_build\n'}
+[4.518711] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/log/latest\n'}
+[4.520424] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/log/COLCON_IGNORE\n'}
+[4.523639] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/arm_base.stl\n'}
+[4.526394] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/wheel.stl\n'}
+[4.529108] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install\n'}
+[4.530083] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/setup.sh\n'}
+[4.530709] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/local_setup.zsh\n'}
+[4.531329] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/.colcon_install_layout\n'}
+[4.532787] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/setup.bash\n'}
+[4.533708] (-) TimerEvent: {}
+[4.534623] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/_local_setup_util_ps1.py\n'}
+[4.535578] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/local_setup.sh\n'}
+[4.536225] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/local_setup.bash\n'}
+[4.536744] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/local_setup.ps1\n'}
+[4.537975] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/_local_setup_util_sh.py\n'}
+[4.538780] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/setup.zsh\n'}
+[4.539711] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/COLCON_IGNORE\n'}
+[4.540474] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/install/setup.ps1\n'}
+[4.541047] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/meshes/hokuyo.dae\n'}
+[4.542550] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/model.config\n'}
+[4.544837] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/models/myagv_description/model.sdf\n'}
+[4.546071] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/params\n'}
+[4.548247] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/params/nav2_params_waypoint.yaml\n'}
+[4.549501] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/params/nav2_params.yaml\n'}
+[4.551426] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/params/nav2_params_nolocal.yaml\n'}
+[4.552185] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/params/slam_params.yaml\n'}
+[4.553057] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/rviz\n'}
+[4.553634] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/rviz/nav2_config.rviz\n'}
+[4.554197] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/rviz/nav2_fix_config.rviz\n'}
+[4.554752] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/rviz/slam_config.rviz\n'}
+[4.555405] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/rviz/urdf_config.rviz\n'}
+[4.557395] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/src\n'}
+[4.558511] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds\n'}
+[4.559108] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world\n'}
+[4.562489] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/build\n'}
+[4.563379] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/build/.built_by\n'}
+[4.564021] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/build/COLCON_IGNORE\n'}
+[4.564618] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/smalltown.world\n'}
+[4.565169] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/cafestatic.world\n'}
+[4.565753] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/log\n'}
+[4.566313] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/log/latest_build\n'}
+[4.566904] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/log/latest\n'}
+[4.568444] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/log/build_2024-06-28_00-40-47\n'}
+[4.570567] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/log/build_2024-06-28_00-40-47/logger_all.log\n'}
+[4.571700] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/log/build_2024-06-28_00-40-47/events.log\n'}
+[4.573428] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/log/COLCON_IGNORE\n'}
+[4.576616] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/log/build_2024-06-28_00-39-05\n'}
+[4.584601] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/log/build_2024-06-28_00-39-05/logger_all.log\n'}
+[4.586391] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/log/build_2024-06-28_00-39-05/events.log\n'}
+[4.587525] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/warehouse.world\n'}
+[4.588524] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/Supermarket_real.world\n'}
+[4.589413] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/house.world\n'}
+[4.590211] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/cafe.world\n'}
+[4.590988] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install\n'}
+[4.593226] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/setup.sh\n'}
+[4.594753] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/local_setup.zsh\n'}
+[4.596264] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/.colcon_install_layout\n'}
+[4.598055] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/setup.bash\n'}
+[4.599196] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/_local_setup_util_ps1.py\n'}
+[4.600492] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/local_setup.sh\n'}
+[4.601736] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/local_setup.bash\n'}
+[4.602824] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/local_setup.ps1\n'}
+[4.604208] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/_local_setup_util_sh.py\n'}
+[4.605910] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/setup.zsh\n'}
+[4.606765] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/COLCON_IGNORE\n'}
+[4.607536] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/install/setup.ps1\n'}
+[4.608526] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/worlds/my_agv_world/cafeobstacle.world\n'}
+[4.609724] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/scripts\n'}
+[4.610409] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/scripts/teleop.py\n'}
+[4.611010] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/scripts/waypoint_follower.py\n'}
+[4.611900] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/scripts/object_recorder.py\n'}
+[4.612691] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/scripts/create_database.py\n'}
+[4.613519] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/scripts/subscriberagv.py\n'}
+[4.614353] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/scripts/teleop_fix.py\n'}
+[4.615517] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/scripts/robot_navigator.py\n'}
+[4.616159] (my_agv_super) StdoutLine: {'line': b'-- Installing: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/scripts/interact_database.py\n'}
+[4.616767] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/scripts/naive_obstacle_avoidance.py\n'}
+[4.617292] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/scripts/product_waypoint.py\n'}
+[4.619137] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/scripts/robot_control_navigation.py\n'}
+[4.626135] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/lib/my_agv_super/create_database.py\n'}
+[4.628784] (my_agv_super) StdoutLine: {'line': b'-- Installing: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/lib/my_agv_super/interact_database.py\n'}
+[4.629973] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/lib/my_agv_super/naive_obstacle_avoidance.py\n'}
+[4.630724] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/lib/my_agv_super/object_recorder.py\n'}
+[4.632337] (my_agv_super) StdoutLine: {'line': b'-- Installing: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/lib/my_agv_super/product_waypoint.py\n'}
+[4.633348] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/lib/my_agv_super/robot_control_navigation.py\n'}
+[4.634400] (-) TimerEvent: {}
+[4.636379] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/lib/my_agv_super/robot_navigator.py\n'}
+[4.637288] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/lib/my_agv_super/subscriberagv.py\n'}
+[4.637866] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/lib/my_agv_super/teleop.py\n'}
+[4.638668] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/lib/my_agv_super/teleop_fix.py\n'}
+[4.639470] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/lib/my_agv_super/waypoint_follower.py\n'}
+[4.640277] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/ament_index/resource_index/package_run_dependencies/my_agv_super\n'}
+[4.640837] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/ament_index/resource_index/parent_prefix_path/my_agv_super\n'}
+[4.641367] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/environment/ament_prefix_path.sh\n'}
+[4.642447] (my_agv_super) StdoutLine: {'line': b'-- Installing: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/environment/ament_prefix_path.dsv\n'}
+[4.643884] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/environment/path.sh\n'}
+[4.646407] (my_agv_super) StdoutLine: {'line': b'-- Installing: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/environment/path.dsv\n'}
+[4.651004] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/local_setup.bash\n'}
+[4.654147] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/local_setup.sh\n'}
+[4.655365] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/local_setup.zsh\n'}
+[4.656139] (my_agv_super) StdoutLine: {'line': b'-- Installing: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/local_setup.dsv\n'}
+[4.656939] (my_agv_super) StdoutLine: {'line': b'-- Installing: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/package.dsv\n'}
+[4.657667] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/ament_index/resource_index/packages/my_agv_super\n'}
+[4.658452] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/cmake/my_agv_superConfig.cmake\n'}
+[4.659598] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/cmake/my_agv_superConfig-version.cmake\n'}
+[4.660906] (my_agv_super) StdoutLine: {'line': b'-- Up-to-date: /home/david/tesis/superdev_ws/src/my_agv_super/install/my_agv_super/share/my_agv_super/package.xml\n'}
+[4.661700] (my_agv_super) CommandEnded: {'returncode': 0}
+[4.736876] (-) TimerEvent: {}
+[4.838540] (-) TimerEvent: {}
+[4.940200] (-) TimerEvent: {}
+[5.043066] (-) TimerEvent: {}
+[5.114170] (my_agv_super) JobEnded: {'identifier': 'my_agv_super', 'rc': 0}
+[5.121094] (-) EventReactorShutdown: {}

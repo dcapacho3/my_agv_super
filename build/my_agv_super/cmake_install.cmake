@@ -60,10 +60,13 @@ endif()
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/my_agv_super" TYPE PROGRAM FILES
     "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/create_database.py"
+    "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/interact_database.py"
     "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/naive_obstacle_avoidance.py"
     "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/object_recorder.py"
+    "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/product_waypoint.py"
     "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/robot_control_navigation.py"
     "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/robot_navigator.py"
+    "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/select_products.py"
     "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/subscriberagv.py"
     "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/teleop.py"
     "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/teleop_fix.py"
