@@ -21,9 +21,10 @@
       <gravity>1</gravity>
       <visual name='visual'>
         <geometry>
-          <box>
-            <size>0.61 0.61 0.61</size>
-          </box>
+          <mesh>
+            <uri>model://Supermarket/markers_supermarket_real/meshes/estanteria.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
         </geometry>
         <material>
           <script>
@@ -38,17 +39,17 @@
           <specular>0.01 0.01 0.01 1</specular>
           <emissive>0 0 0 1</emissive>
         </material>
-        <pose>0 0 0 0 -0 0</pose>
+        <pose>-0.3 0.3 -0.3 1.58 -0 0</pose>
         <transparency>0</transparency>
         <cast_shadows>1</cast_shadows>
       </visual>
       <collision name='collision'>
         <laser_retro>0</laser_retro>
         <max_contacts>10</max_contacts>
-        <pose>0 0 0 0 -0 0</pose>
+        <pose>0 0 0.23 0 -0 0</pose>
         <geometry>
           <box>
-            <size>0.61 0.61 0.61</size>
+            <size>0.61 0.61 1.1</size>
           </box>
         </geometry>
         <surface>

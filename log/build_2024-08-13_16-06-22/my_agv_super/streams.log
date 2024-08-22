@@ -1,0 +1,11 @@
+[0.014s] Invoking command in '/home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super -- -j16 -l16
+[0.065s] [31mCMake Error at CMakeLists.txt:42:
+[0.066s]   Parse error.  Expected "(", got newline with text "
+[0.066s] 
+[0.066s]   ".
+[0.066s] 
+[0.066s] [0m
+[0.066s] -- Configuring incomplete, errors occurred!
+[0.066s] See also "/home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super/CMakeFiles/CMakeOutput.log".
+[0.068s] gmake: *** [Makefile:226: cmake_check_build_system] Error 1
+[0.071s] Invoked command in '/home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/david/tesis/superdev_ws/src/my_agv_super/build/my_agv_super -- -j16 -l16

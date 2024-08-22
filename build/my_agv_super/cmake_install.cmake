@@ -63,6 +63,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/interact_database.py"
     "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/naive_obstacle_avoidance.py"
     "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/object_recorder.py"
+    "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/obstacle_avoidance.py"
     "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/product_waypoint.py"
     "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/robot_control_navigation.py"
     "/home/david/tesis/superdev_ws/src/my_agv_super/scripts/robot_navigator.py"

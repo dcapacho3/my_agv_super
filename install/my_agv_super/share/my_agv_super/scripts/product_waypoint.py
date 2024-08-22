@@ -7,68 +7,51 @@ from robot_navigator import BasicNavigator, NavigationResult
 import math
 import numpy as np
 import yaml
+from PIL import Image
+import os
+from shapely.geometry import Point, Polygon, LineString, MultiPoint
+from shapely.ops import unary_union
+import matplotlib.pyplot as plt
+from matplotlib.patches import Polygon as pltPolygon
+from sklearn.cluster import DBSCAN
+from scipy.spatial import distance_matrix
+from scipy.optimize import linear_sum_assignment
+from itertools import permutations
+
+
+
 
 # Ruta al archivo YAML del mapa global
-map_yaml_path = 'maps/cafe_world_map.yaml'
+#map_yaml_path = 'maps/cafe_world_map.yaml'
+map_yaml_path = 'maps/labrobsuper_map.yaml'
 
 # Función para cargar el mapa global
 def load_map(map_yaml_path):
     with open(map_yaml_path, 'r') as f:
         yaml_content = yaml.safe_load(f)
     
-    # Extraer información del YAML
     resolution = yaml_content['resolution']
     origin = yaml_content['origin']
-    map_image = yaml_content['image']
+    map_image_path = yaml_content['image']
     
-    # Cargar matriz de ocupación desde el archivo de imagen
-    map_array = np.array([[0] * 100 for _ in range(100)])  # Crea una matriz vacía como ejemplo
+    if not os.path.isabs(map_image_path):
+        map_image_path = os.path.join(os.path.dirname(map_yaml_path), map_image_path)
+    
+    print(f'Loading map image from: {map_image_path}')
+    map_image = Image.open(map_image_path)
+    map_array = np.array(map_image)
+    
     return map_array, resolution, origin
 
 # Función para verificar si un camino entre dos puntos está libre de obstáculos
-def is_path_clear(start, end, map_array, resolution, origin):
-    def coords_to_indices(x, y):
-        map_x = int((x - origin[0]) / resolution)
-        map_y = int((y - origin[1]) / resolution)
-        return map_x, map_y
-    
-    if not ('x' in start and 'y' in start) or not ('x' in end and 'y' in end):
-        raise ValueError("Start and end must be dictionaries with 'x' and 'y' keys")
-    
-    start_idx = coords_to_indices(start['x'], start['y'])
-    end_idx = coords_to_indices(end['x'], end['y'])
-    
-    def line_pixels(x0, y0, x1, y1):
-        pixels = []
-        dx = abs(x1 - x0)
-        dy = abs(y1 - y0)
-        sx = 1 if x0 < x1 else -1
-        sy = 1 if y0 < y1 else -1
-        err = dx - dy
-        
-        while True:
-            pixels.append((x0, y0))
-            if x0 == x1 and y0 == y1:
-                break
-            e2 = err * 2
-            if e2 > -dy:
-                err -= dy
-                x0 += sx
-            if e2 < dx:
-                err += dx
-                y0 += sy
-        
-        return pixels
-
-    line_pixels_list = line_pixels(start_idx[0], start_idx[1], end_idx[0], end_idx[1])
-    
-    for (x, y) in line_pixels_list:
-        if x < 0 or x >= map_array.shape[1] or y < 0 or y >= map_array.shape[0]:
-            continue
-        if map_array[y, x] == 0:  # Considera 0 como ocupado
+def is_path_clear(start, end, obstacle_areas):
+    line = LineString([(start['x'], start['y']), (end['x'], end['y'])])
+    for area in obstacle_areas:
+        poly = Polygon(area)
+        if line.intersects(poly):
             return False
-    
     return True
+   
 
 # Función para obtener ubicaciones de productos desde la base de datos
 def get_product_locations():
@@ -79,38 +62,131 @@ def get_product_locations():
     conn.close()
     return locations
 
-# Función para calcular la distancia euclidiana entre dos puntos
+
 def calculate_distance(p1, p2):
     return math.sqrt((p1['x'] - p2['x'])**2 + (p1['y'] - p2['y'])**2)
 
+def calculate_distance_matrix(locations):
+    locs = [(loc['x'], loc['y']) for loc in locations]
+    return distance_matrix(locs, locs)
+    
+def tsp_bruteforce(distance_matrix):
+    n = len(distance_matrix)
+    min_path = None
+    min_distance = float('inf')
+    for perm in permutations(range(n)):
+        dist = sum(distance_matrix[perm[i], perm[i + 1]] for i in range(n - 1))
+        #dist += distance_matrix[perm[-1], perm[0]]  # Return to start
+        if dist < min_distance:
+            min_distance = dist
+            min_path = perm
+    return min_path
+
 # Función para ordenar los waypoints por distancia mínima desde un punto inicial
-def sort_waypoints_by_distance(start_point, locations, map_array, resolution, origin):
+def sort_waypoints_by_tsp(locations, obstacle_areas):
+    distance_matrix = calculate_distance_matrix(locations)
+    tsp_order = tsp_bruteforce(distance_matrix)
+    
+    # Adjust distances with obstacle weights
     locations_with_weights = []
+    for i, loc in enumerate(locations):
+        loc_with_weight = loc.copy()
+        loc_with_weight['weight'] = 0
+        for j in range(len(locations)):
+            if not is_path_clear(loc, locations[j], obstacle_areas):
+                loc_with_weight['weight'] += 1000000  # Peso alto para evitar esta ruta
+        locations_with_weights.append(loc_with_weight)
+    
+    # Reorder locations according to TSP result
+    ordered_locations = [locations_with_weights[i] for i in tsp_order]
+    return ordered_locations
+    
+# Función para encontrar los puntos de obstáculos en el mapa
+def find_obstacle_coords(map_array, resolution, origin):
+    obstacle_coords = []
+    
+    for y in range(map_array.shape[0]):
+        for x in range(map_array.shape[1]):
+            if map_array[y, x] == 0:  # Considera 0 como ocupado
+                map_x = origin[0] + x * resolution
+                map_y = origin[1] + (map_array.shape[0] - y - 1) * resolution  # Invertir el eje y
+                obstacle_coords.append((map_x, map_y))
+    
+    return obstacle_coords
 
+# Función para agrupar puntos de obstáculos en áreas
+def cluster_obstacles(obstacle_coords, eps=0.5, min_samples=5):
+    clustering = DBSCAN(eps=eps, min_samples=min_samples).fit(obstacle_coords)
+    labels = clustering.labels_
+    
+    unique_labels = set(labels)
+    clusters = []
+    for label in unique_labels:
+        if label == -1:
+            continue
+        cluster = [obstacle_coords[i] for i in range(len(labels)) if labels[i] == label]
+        clusters.append(cluster)
+    
+    return clusters
+
+# Función para generar áreas de obstáculos a partir de clusters y filtrar por tamaño
+def generate_obstacle_areas(clusters, size_threshold=1.0):
+    obstacle_areas = []
+    for cluster in clusters:
+        multipoint = MultiPoint(cluster)
+        convex_hull = multipoint.convex_hull
+        if convex_hull.area <= size_threshold:  # Filtrar áreas grandes
+            # Aquí se pueden ajustar las formas complejas si se requiere
+            # Para simplificar, usamos el envolvente convexa como el área
+            obstacle_areas.append(convex_hull.exterior.coords)
+    
+    return obstacle_areas
+def visualize_obstacles(map_array, resolution, origin, clusters, obstacle_areas, locations, tsp_path, start_pose):
+    plt.ion()
+    plt.figure(figsize=(10, 10))
+    plt.imshow(map_array, cmap='gray', origin='lower')
+
+    # Dibujar los clusters de obstáculos
+    cluster_colors = ['r', 'g', 'b', 'c', 'm', 'y', 'k']
+    for i, cluster in enumerate(clusters):
+        cluster_color = cluster_colors[i % len(cluster_colors)]
+        for point in cluster:
+            x_index = int((point[0] - origin[0]) / resolution)
+            y_index = int((point[1] - origin[1]) / resolution)
+            y_index = map_array.shape[0] - y_index - 1
+            plt.scatter(x_index, y_index, color=cluster_color, s=10)
+
+    # Dibujar las áreas de obstáculos
+    for area in obstacle_areas:
+        area_coords = [(int((point[0] - origin[0]) / resolution), map_array.shape[0] - int((point[1] - origin[1]) / resolution) - 1) for point in area]
+        if len(area_coords) > 2:
+            plt_polygon = pltPolygon(area_coords, fill=None, edgecolor='r')
+            plt.gca().add_patch(plt_polygon)
+
+    # Dibujar las ubicaciones de los productos
     for loc in locations:
-        # Verificar si el camino entre el punto actual y el waypoint está libre de obstáculos
-        if is_path_clear(start_point, loc, map_array, resolution, origin):
-            weight = 1000000  # Peso 0 si el waypoint está libre de obstáculos
-        else:
-            weight = 0  # Peso alto si el waypoint tiene obstáculos
-        
-        # Calcular la distancia entre el punto actual y el waypoint
-        distance = calculate_distance(start_point, loc)
-
-        # Penalizar los waypoints con obstáculos al incrementar la distancia ponderada
-        weighted_distance = distance + weight
-
-        # Agregar el waypoint con su distancia ponderada a la lista
-        locations_with_weights.append((loc, weighted_distance))
+        x_index = int((loc['x'] - origin[0]) / resolution)
+        y_index = int((loc['y'] - origin[1]) / resolution)
+        y_index = map_array.shape[0] - y_index - 1
+        plt.scatter(x_index, y_index, color='blue', marker='o', s=50, label=loc['name'])
     
-    # Ordenar los waypoints por la distancia ponderada
-    locations_with_weights.sort(key=lambda loc: loc[1])
+    # Incluir la posición inicial en la trayectoria TSP
+    tsp_coords = [(start_pose['x'], start_pose['y'])] + [(locations[i]['x'], locations[i]['y']) for i in tsp_path]
     
-    # Devolver la lista ordenada de waypoints
-    sorted_locations = [loc for loc, _ in locations_with_weights]
+    # Convertir a índices de coordenadas en el mapa
+    tsp_coords_index = [(int((x - origin[0]) / resolution), map_array.shape[0] - int((y - origin[1]) / resolution) - 1) for x, y in tsp_coords]
     
-    return sorted_locations
+    # Traza la trayectoria
+    plt.plot(*zip(*tsp_coords_index), color='magenta', marker='o', markersize=5, linestyle='-', linewidth=2, label='TSP Path')
 
+    plt.legend(loc='upper right', bbox_to_anchor=(1.2, 1))
+    plt.title('Obstáculos Agrupados y Áreas de Obstáculos con Ubicaciones de Productos y Trayectoria TSP')
+    plt.xlabel('X')
+    plt.ylabel('Y')
+    #plt.show()
+
+
+    
 # Clase para obtener la posición actual del robot desde la odometría
 class OdomSubscriber:
     def __init__(self, node):
@@ -141,29 +217,48 @@ def main():
     odom_subscriber = OdomSubscriber(node)
     navigator = BasicNavigator()
     navigator.waitUntilNav2Active()
+    plt.show()
 
     # Cargar el mapa
+    print("Loading map...")
     map_array, resolution, origin = load_map(map_yaml_path)
+    print("Map loaded successfully.")
 
     # Obtener la posición actual del robot
+    print("Waiting for initial position from odometry...")
     while odom_subscriber.current_pose is None:
         rclpy.spin_once(node)
+    print(f"Initial position: {odom_subscriber.current_pose}")
 
     start_pose = odom_subscriber.current_pose
 
     locations = get_product_locations()
+  
 
     if not locations:
         print("No selected products found.")
         return
+        
+    obstacle_coords = find_obstacle_coords(map_array, resolution, origin)
+    clusters = cluster_obstacles(obstacle_coords)
+    obstacle_areas = generate_obstacle_areas(clusters)
 
     # Ordenar los waypoints por distancia desde la posición inicial del robot, evitando obstáculos
-    sorted_locations = sort_waypoints_by_distance(start_pose, locations, map_array, resolution, origin)
+    print("Sorting waypoints by distance...")
+    sorted_locations = sort_waypoints_by_tsp(locations, obstacle_areas)
+   
+    print("Waypoints sorted successfully.")
 
     # Imprimir el orden de los waypoints
     print("Orden de waypoints:")
+    
+    tsp_path = [sorted_locations.index(loc) for loc in sorted_locations]
+    visualize_obstacles(map_array, resolution, origin, clusters, obstacle_areas, sorted_locations, tsp_path, start_pose)
+    print("Starting navigation...")
+
     for index, loc in enumerate(sorted_locations):
         print(f"{index + 1}. {loc['name']} (x: {loc['x']}, y: {loc['y']})")
+
 
     goal_poses = []
     pose_names = {}
@@ -174,10 +269,7 @@ def main():
         goal_pose.header.stamp = navigator.get_clock().now().to_msg()
         goal_pose.pose.position.x = loc['x']
         goal_pose.pose.position.y = loc['y']
-        goal_pose.pose.position.z = 0.0
-        goal_pose.pose.orientation.x = 0.0
-        goal_pose.pose.orientation.y = 0.0
-        goal_pose.pose.orientation.z = 0.0
+ 
         goal_pose.pose.orientation.w = 1.0
         goal_poses.append(goal_pose)
         pose_names[len(goal_poses) - 1] = loc['name']
@@ -198,6 +290,7 @@ def main():
                 if current_pose:
                     completion_percentage = calculate_completion_percentage(start_pose, current_pose, {'x': goal_pose.pose.position.x, 'y': goal_pose.pose.position.y})
                     print(f'Navegando hacia "{pose_names[current_waypoint]}" {current_waypoint + 1}/{total_waypoints} ({completion_percentage:.1f}% completado)')
+            plt.pause(0.001)
 
         result = navigator.getResult()
         if result == NavigationResult.SUCCEEDED:
@@ -207,15 +300,18 @@ def main():
                 if user_input.lower() == 'c':
                     break
         elif result == NavigationResult.CANCELED:
-            print('Goal was canceled!')
+            print(f'Navegación cancelada hacia "{pose_names[current_waypoint]}".')
+            break
         elif result == NavigationResult.FAILED:
-            print('Navigation failed!')
-        
+            print(f'Fallo al alcanzar el waypoint "{pose_names[current_waypoint]}".')
+            break
+
         current_waypoint += 1
 
-    print("Navegación completada.")
+    print("Navegación completa.")
+    plt.ioff()
+    
     rclpy.shutdown()
 
 if __name__ == '__main__':
     main()
-
