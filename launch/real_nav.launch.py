@@ -163,6 +163,17 @@ def generate_launch_description():
     name='rviz2',
     output='screen',
     arguments=['-d', rviz_config_file])    
+    
+  start_amcl_cmd = Node(
+  	package='nav2_amcl',
+ 	 executable='amcl',
+  	name='amcl',
+  	output='screen',
+  	parameters=[nav2_params_path],
+  	remappings=[('/scan', 'scan')]
+	)
+
+    
 
 # Launch the ROS 2 Navigation Stack
   start_ros2_navigation_cmd = IncludeLaunchDescription(
@@ -203,5 +214,6 @@ def generate_launch_description():
   ld.add_action(start_robot_state_publisher_cmd)
   ld.add_action(start_rviz_cmd)
   ld.add_action(start_ros2_navigation_cmd)
+  ld.add_action(start_amcl_cmd)
 
   return ld

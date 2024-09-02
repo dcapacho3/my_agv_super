@@ -25,8 +25,14 @@ def generate_launch_description():
             remappings=[
             ('/cmd_vel_out', '/cmd_vel_out') ]
          )
+    joy_params = os.path.join(get_package_share_directory('my_agv_super'),'config','joystick.yaml')
 
- 
+    joy_node = Node(
+            package='joy',
+            executable='joy_node',
+            parameters=[joy_params],
+         )
+
 
     return LaunchDescription([
         DeclareLaunchArgument(
@@ -34,6 +40,7 @@ def generate_launch_description():
             default_value='false',
             description='Use sim time if true'),
         mux_node,
+        joy_node,
 
         # twist_stamper       
     ])

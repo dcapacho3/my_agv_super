@@ -13,3 +13,7 @@ twist_mux:
         topic   : cmd_vel_avoidance
         timeout : 0.5
         priority: 200
+      gamepad:
+        topic   : cmd_vel_gamepad
+        timeout : 0.5
+        priority: 100
