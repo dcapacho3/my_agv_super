@@ -6,6 +6,9 @@ from nav_msgs.msg import Odometry
 import sqlite3
 import threading
 import queue
+from ament_index_python.packages import get_package_share_directory
+import os
+
 
 class ObjectRecorder(Node):
     def __init__(self):
@@ -15,7 +18,10 @@ class ObjectRecorder(Node):
         self.lock = threading.Lock()
 
         # Conectar a la base de datos existente
-        self.database_connection = sqlite3.connect('database/products.db')
+          
+        bringup_dir = get_package_share_directory('my_agv_super')
+        db_dir = os.path.join(bringup_dir, 'database/products.db')
+        self.database_connection = sqlite3.connect(db_dir)
         self.cursor = self.database_connection.cursor()
 
         self.get_logger().info('Object Recorder Node Initialized.')

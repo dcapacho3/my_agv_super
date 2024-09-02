@@ -17,7 +17,7 @@ find_package(geometry_msgs REQUIRED)
 
  
 install(
-  DIRECTORY config launch maps meshes models params rviz worlds scripts
+  DIRECTORY config launch maps meshes models params rviz worlds scripts database frames
   DESTINATION share/${PROJECT_NAME}
 )
 

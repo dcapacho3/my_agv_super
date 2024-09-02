@@ -3,10 +3,15 @@
 import sqlite3
 import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog
+from ament_index_python.packages import get_package_share_directory
+import os
+
 
 def refresh_treeview():
     treeview.delete(*treeview.get_children())
-    connection = sqlite3.connect("database/products.db")
+    db_dir = os.path.join( 'src/my_agv_super/database/products.db')
+    
+    connection = sqlite3.connect(db_dir)
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM products")
     for row in cursor.fetchall():
@@ -19,7 +24,10 @@ def add_product():
     x = simpledialog.askfloat("Input", "Enter x coordinate:")
     y = simpledialog.askfloat("Input", "Enter y coordinate:")
     if name and x is not None and y is not None:
-        connection = sqlite3.connect("database/products.db")
+   
+        db_dir = os.path.join( 'src/my_agv_super/database/products.db')
+   
+        connection = sqlite3.connect(db_dir)
         cursor = connection.cursor()
         cursor.execute("INSERT INTO products (name, x, y) VALUES (?, ?, ?)", (name, x, y))
         connection.commit()
@@ -33,7 +41,10 @@ def delete_product():
     if selected_items:
         for selected_item in selected_items:
             product_id = treeview.item(selected_item)['values'][1]
-            connection = sqlite3.connect("database/products.db")
+
+            db_dir = os.path.join( 'src/my_agv_super/database/products.db')
+    
+            connection = sqlite3.connect(db_dir)
             cursor = connection.cursor()
             cursor.execute("DELETE FROM products WHERE id = ?", (product_id,))
             connection.commit()
@@ -53,7 +64,10 @@ def update_product():
             x = simpledialog.askfloat("Input", "Enter new x coordinate:")
             y = simpledialog.askfloat("Input", "Enter new y coordinate:")
             if name and x is not None and y is not None:
-                connection = sqlite3.connect("database/products.db")
+                bringup_dir = get_package_share_directory('my_agv_super')
+                db_dir = os.path.join( 'src/my_agv_super/database/products.db')
+    
+                connection = sqlite3.connect(db_dir)
                 cursor = connection.cursor()
                 cursor.execute("UPDATE products SET name = ?, x = ?, y = ? WHERE id = ?", (name, x, y, product_id))
                 connection.commit()
@@ -67,7 +81,9 @@ def update_product():
 def select_products():
     selected_items = [item for item in treeview.get_children() if treeview.item(item, 'values')[0] == '✔️']
     if selected_items:
-        connection = sqlite3.connect("database/products.db")
+        db_dir = os.path.join( 'src/my_agv_super/database/products.db')
+    
+        connection = sqlite3.connect(db_dir)
         cursor = connection.cursor()
         
         # Limpiar la tabla temporal
@@ -88,7 +104,9 @@ def select_products():
 
 def view_selected_products():
     selected_treeview.delete(*selected_treeview.get_children())
-    connection = sqlite3.connect("database/products.db")
+    db_dir = os.path.join( 'src/my_agv_super/database/products.db')
+    
+    connection = sqlite3.connect(db_dir)
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM selected_products")
     for row in cursor.fetchall():
@@ -103,7 +121,11 @@ def toggle_selection(event):
         treeview.item(row_id, values=(new_value, *treeview.item(row_id, 'values')[1:]))
 
 if __name__ == '__main__':
-    connection = sqlite3.connect("database/products.db")
+  
+    db_dir = os.path.join( 'src/my_agv_super/database/products.db')
+    print(db_dir)
+    
+    connection = sqlite3.connect(db_dir)
     cursor = connection.cursor()
     
     # Eliminar la tabla temporal si ya existe

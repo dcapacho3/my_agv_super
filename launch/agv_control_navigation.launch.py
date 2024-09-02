@@ -12,5 +12,5 @@ def generate_launch_description():
             'use_sim_time',
             default_value='false',
             description='Use simulation (Gazebo) clock if true'),
-        Node(package='my_agv_super', executable='scripts/robot_control_navigation.py', output='screen'),
+        Node(package='my_agv_super', executable='robot_control_navigation.py', output='screen'),
     ])

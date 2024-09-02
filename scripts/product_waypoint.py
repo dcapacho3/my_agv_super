@@ -17,13 +17,19 @@ from sklearn.cluster import DBSCAN
 from scipy.spatial import distance_matrix
 from scipy.optimize import linear_sum_assignment
 from itertools import permutations
+from ament_index_python.packages import get_package_share_directory
 
 
 
 
 # Ruta al archivo YAML del mapa global
+bringup_dir = get_package_share_directory('my_agv_super')
+#map_yaml_path = os.path.join(bringup_dir, 'maps/labrobsuper_map.yaml')
+map_yaml_path = os.path.join(bringup_dir, 'maps/cafe_world_map.yaml')
+
+
 #map_yaml_path = 'maps/cafe_world_map.yaml'
-map_yaml_path = 'maps/labrobsuper_map.yaml'
+#map_yaml_path = 'maps/labrobsuper_map.yaml'
 
 # Función para cargar el mapa global
 def load_map(map_yaml_path):
@@ -55,7 +61,9 @@ def is_path_clear(start, end, obstacle_areas):
 
 # Función para obtener ubicaciones de productos desde la base de datos
 def get_product_locations():
-    conn = sqlite3.connect('database/products.db')
+
+    db_dir = os.path.join('src/my_agv_super/database/products.db')
+    conn = sqlite3.connect(db_dir)
     cursor = conn.cursor()
     cursor.execute('SELECT name, x, y FROM selected_products')
     locations = [{'name': row[0], 'x': row[1], 'y': row[2]} for row in cursor.fetchall()]

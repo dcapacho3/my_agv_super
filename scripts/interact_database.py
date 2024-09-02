@@ -3,10 +3,20 @@
 import sqlite3
 import tkinter as tk
 from tkinter import messagebox, simpledialog
+from ament_index_python.packages import get_package_share_directory
+import os
+
 
 def refresh_listbox():
+
+  
+    bringup_dir = get_package_share_directory('my_agv_super')
+    db_dir = os.path.join(bringup_dir, 'database/products.db')
+    print(db_dir)
+    
+    
     listbox.delete(0, tk.END)
-    connection = sqlite3.connect("database/products.db")
+    connection = sqlite3.connect( db_dir)
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM products")
     for row in cursor.fetchall():
@@ -31,7 +41,7 @@ def delete_product():
     selected_item = listbox.curselection()
     if selected_item:
         product_id = listbox.get(selected_item)[0]
-        connection = sqlite3.connect("database/products.db")
+        connection = sqlite3.connect( db_dir)
         cursor = connection.cursor()
         cursor.execute("DELETE FROM products WHERE id = ?", (product_id,))
         connection.commit()
@@ -48,7 +58,7 @@ def update_product():
         x = simpledialog.askfloat("Input", "Enter new x coordinate:")
         y = simpledialog.askfloat("Input", "Enter new y coordinate:")
         if name and x is not None and y is not None:
-            connection = sqlite3.connect("database/products.db")
+            connection = sqlite3.connect( db_dir)
             cursor = connection.cursor()
             cursor.execute("UPDATE products SET name = ?, x = ?, y = ? WHERE id = ?", (name, x, y, product_id))
             connection.commit()

@@ -11,8 +11,10 @@ def create_database():
   
   #  bringup_dir = get_package_share_directory('my_agv_super')
    # launch_dir = os.path.join(bringup_dir, 'launch')
+    bringup_dir = get_package_share_directory('my_agv_super')
+    db_dir = os.path.join(bringup_dir, 'database/products.db')
     
-    connection = sqlite3.connect("database/products.db")
+    connection = sqlite3.connect(db_dir)
     cursor = connection.cursor()
     
     # Crear tabla si no existe
