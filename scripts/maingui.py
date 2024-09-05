@@ -6,6 +6,7 @@ from tkinter import simpledialog
 import os
 import datetime
 from navigationgui import NavigationWindow
+import signal
 
 
 class ProductManager:
@@ -16,6 +17,11 @@ class ProductManager:
 
         # Configuración de la interfaz
         self.setup_ui()
+        signal.signal(signal.SIGINT, self.signal_handler)
+
+        # Configurar el cierre de ventana con la "X"
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
+
 
     def setup_ui(self):
         ctk.set_appearance_mode("dark")
@@ -174,8 +180,21 @@ class ProductManager:
         print('y que esperabas un dulce')
         self.new_window = NavigationWindow()  # Crea una nueva ventana
         
-        self.root.destroy()  # Cierra la ventana actual
+        #self.root.destroy()  # Cierra la ventana actual
         self.new_window.mainloop()
+
+    def signal_handler(self, sig, frame):
+        print("Ctrl+C detectado, cerrando la aplicación...")
+        self.on_closing()
+
+    def on_closing(self):
+        """Método para manejar el cierre controlado de la ventana."""
+        print("Cerrando la ventana correctamente...")
+        if self.after_id is not None:
+            self.root.after_cancel(self.after_id)
+        self.root.quit()  # Salir del bucle principal de tkinter
+        self.root.destroy()  # Cerrar la ventana completamente
+
 
 if __name__ == '__main__':
     root = ctk.CTk()

@@ -3,13 +3,13 @@ import sqlite3
 import rclpy
 from geometry_msgs.msg import PoseStamped
 from nav_msgs.msg import Odometry
+from std_msgs.msg import String  # Importa el mensaje de tipo String para el control
 from robot_navigator import BasicNavigator, NavigationResult
 import math
 import numpy as np
 import yaml
 from PIL import Image
 import os
-import matplotlib.pyplot as plt
 from itertools import permutations
 from ament_index_python.packages import get_package_share_directory
 
@@ -17,6 +17,7 @@ class AutonomousNavigator:
     def __init__(self):
         self.node = rclpy.create_node('navigator_node')
         self.odom_subscriber = OdomSubscriber(self.node)
+        self.continue_subscriber = ContinueSubscriber(self.node)  # Suscriptor al tópico continue_nav
         self.navigator = BasicNavigator()
         self.navigator.waitUntilNav2Active()
         self.map_array, self.resolution, self.origin = self.load_map()
@@ -73,41 +74,13 @@ class AutonomousNavigator:
         tsp_order = self.tsp_bruteforce(distance_matrix)
         return [locations[i] for i in tsp_order]
 
-    def visualize_obstacles(self, locations, tsp_path, start_pose):
-        plt.ion()
-        plt.figure(figsize=(10, 10))
-        plt.imshow(self.map_array, cmap='gray', origin='lower')
-
-        for loc in locations:
-            x_index = int((loc['x'] - self.origin[0]) / self.resolution)
-            y_index = int((loc['y'] - self.origin[1]) / self.resolution)
-            y_index = self.map_array.shape[0] - y_index - 1
-            plt.scatter(x_index, y_index, color='blue', marker='o', s=50, label=loc['name'])
-        
-        tsp_coords = [(start_pose['x'], start_pose['y'])] + [(locations[i]['x'], locations[i]['y']) for i in tsp_path]
-        tsp_coords_index = [(int((x - self.origin[0]) / self.resolution), self.map_array.shape[0] - int((y - self.origin[1]) / self.resolution) - 1) for x, y in tsp_coords]
-        
-        plt.plot(*zip(*tsp_coords_index), color='magenta', marker='o', markersize=5, linestyle='-', linewidth=2, label='TSP Path')
-        plt.legend(loc='upper right', bbox_to_anchor=(1.2, 1))
-        plt.title('Ubicaciones de Productos y Trayectoria TSP')
-        plt.xlabel('X')
-        plt.ylabel('Y')
-        plt.show()
-
     def calculate_completion_percentage(self, start_pose, current_pose, goal_pose):
         total_distance = self.calculate_distance(start_pose, goal_pose)
         remaining_distance = self.calculate_distance(current_pose, goal_pose)
         completion_percentage = ((total_distance - remaining_distance) / total_distance) * 100
         return max(0, min(completion_percentage, 100))
 
-    def request_user_confirmation(self, message):
-        while True:
-            user_input = input(message)
-            if user_input.lower() == 'c':
-                break
-
     def navigate(self):
-        plt.show()
         print("Waiting for initial position from odometry...")
         while self.odom_subscriber.current_pose is None:
             rclpy.spin_once(self.node)
@@ -121,11 +94,12 @@ class AutonomousNavigator:
 
         sorted_locations = self.sort_waypoints_by_tsp(locations)
         tsp_path = [sorted_locations.index(loc) for loc in sorted_locations]
-        self.visualize_obstacles(sorted_locations, tsp_path, start_pose)
-        
-        # Solicitar confirmación del usuario antes de iniciar la navegación
-        self.request_user_confirmation(f"Presione 'c' para comenzar la navegación ({len(sorted_locations)} waypoints)...")
 
+        # Solicitar confirmación del usuario antes de iniciar la navegación
+        print(f"Esperando confirmación para comenzar la navegación ({len(sorted_locations)} waypoints)...")
+        while not self.continue_subscriber.should_continue:
+            rclpy.spin_once(self.node)
+        
         goal_poses = []
         pose_names = {}
 
@@ -154,7 +128,6 @@ class AutonomousNavigator:
                     if current_pose:
                         completion_percentage = self.calculate_completion_percentage(start_pose, current_pose, {'x': goal_pose.pose.position.x, 'y': goal_pose.pose.position.y})
                         print(f'Navegando hacia "{pose_names[current_waypoint]}" {current_waypoint + 1}/{total_waypoints} ({completion_percentage:.1f}% completado)')
-                plt.pause(0.001)
 
             result = self.navigator.getResult()
             if result == NavigationResult.SUCCEEDED:
@@ -165,14 +138,18 @@ class AutonomousNavigator:
             elif result == NavigationResult.FAILED:
                 print(f'Error al navegar al waypoint "{pose_names[current_waypoint]}".')
                 break
+            self.continue_subscriber.should_continue = False
+            
 
-            # Solicitar confirmación del usuario para continuar al siguiente waypoint
-            self.request_user_confirmation(f"Presione 'c' para continuar al siguiente waypoint ({current_waypoint + 1}/{total_waypoints})...")
-
+            # Esperar confirmación para continuar al siguiente waypoint
+            print(f"Esperando confirmación para continuar al siguiente waypoint ({current_waypoint + 1}/{total_waypoints})...")
+            while not self.continue_subscriber.should_continue:
+                rclpy.spin_once(self.node)
+            
             current_waypoint += 1
 
         print('Navegación completada.')
-        
+
         return current_waypoint
 
 class OdomSubscriber:
@@ -192,8 +169,23 @@ class OdomSubscriber:
             'y': msg.pose.pose.position.y
         }
 
-def main():
-    rclpy.init()
+class ContinueSubscriber:
+    def __init__(self, node):
+        self.node = node
+        self.subscription = node.create_subscription(
+            String,
+            '/continue_nav',
+            self.continue_callback,
+            10
+        )
+        self.should_continue = False
+
+    def continue_callback(self, msg):
+        if msg.data == "continue":
+            self.should_continue = True
+
+def main(args=None):
+    rclpy.init(args=args)
     navigator = AutonomousNavigator()
     navigator.navigate()
     rclpy.shutdown()
