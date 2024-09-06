@@ -34,9 +34,14 @@ class NavigationWindow(ctk.CTk):
         rclpy.init(args=None)
         self.node = rclpy.create_node('navigate_node')
         self.navigator = BasicNavigator()
-        self.odom_subscriber = self.node.create_subscription(Odometry, 'odom', self.odom_callback, 10)
+        self.odom_subscriber = self.node.create_subscription(Odometry, 'odom', self.odom_callback, 100)
         self.current_pose = None
         self.continue_nav_publisher = self.node.create_publisher(String, '/continue_nav', 10)
+        
+        # Crear un hilo para el ciclo de eventos de ROS
+        ros_spin_thread = threading.Thread(target=self.spin_ros_node)
+        ros_spin_thread.daemon = True  # Daemon para que termine cuando la GUI se cierre
+        ros_spin_thread.start()
 
         # Variable para controlar el estado del botón
         self.navigation_started = False
@@ -96,10 +101,14 @@ class NavigationWindow(ctk.CTk):
 
         # Crear y mostrar el gráfico
         self.create_plot(self.map_frame)
+        
+        self.update_robot_position()
 
         # Actualizar la lista de productos seleccionados
         self.view_selected_products()
         self.after(1000, self.view_selected_products)
+        
+        
         
       
     def odom_callback(self, msg):
@@ -107,6 +116,13 @@ class NavigationWindow(ctk.CTk):
             'x': msg.pose.pose.position.x,
             'y': msg.pose.pose.position.y
         }
+        print(f"Received odometry: x={self.current_pose['x']}, y={self.current_pose['y']}")
+        
+    def spin_ros_node(self):
+        rclpy.spin(self.node)
+
+
+
 
     def show_info(self, message, title="Info"):
         info_window = ctk.CTkToplevel()
@@ -116,6 +132,22 @@ class NavigationWindow(ctk.CTk):
         label.pack(expand=True)
         ok_button = ctk.CTkButton(info_window, text="OK", command=info_window.destroy)
         ok_button.pack(pady=10)
+        
+    def update_robot_position(self):
+        if self.current_pose:
+            # Convert map coordinates to pixel coordinates
+            pixel_x = int((self.current_pose['x'] - self.origin[0]) / self.resolution)
+            pixel_y = int((-self.current_pose['y'] - self.origin[1]) / self.resolution)
+           # print(f"Robot position: pixel_x={pixel_x}, pixel_y={pixel_y}")  # Debug print
+
+
+        # Update the robot position on the plot
+            self.robot_position.set_data([pixel_x], [pixel_y])
+            self.canvas.draw()
+            
+        else:
+            print("No current pose available")  # Debug print
+        self.after(100, self.update_robot_position) 
 
     def actualizar_reloj_y_fecha(self):
         now = datetime.datetime.now()
@@ -129,6 +161,9 @@ class NavigationWindow(ctk.CTk):
         self.canvas.get_tk_widget().pack(fill=ctk.BOTH, expand=True)
 
         self.update_map_plot()
+        
+        self.robot_position, = self.ax.plot([], [], 'bo', markersize=10, label='Robot')
+        self.ax.legend()
 
     def update_map_plot(self):
         self.ax.clear()
@@ -138,6 +173,9 @@ class NavigationWindow(ctk.CTk):
 
         # Obtener y plotear ubicaciones de productos
         self.plot_product_locations()
+        
+        self.robot_position, = self.ax.plot([], [], 'bo', markersize=10, label='Robot')
+        self.ax.legend()
         
     def load_map(self):
         bringup_dir = get_package_share_directory('my_agv_super')
@@ -234,4 +272,3 @@ class NavigationWindow(ctk.CTk):
 if __name__ == "__main__":
     app = NavigationWindow()
     app.mainloop()
-
