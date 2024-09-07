@@ -56,8 +56,8 @@ class NavigationWindow(ctk.CTk):
         
         
         self.robot_patch = None
-        self.robot_width = 0.15  # in meters
-        self.robot_length = 0.35  # in meters
+        self.robot_width = 0.35  # in meters
+        self.robot_length = 0.15  # in meters
         
         
         
@@ -246,7 +246,7 @@ class NavigationWindow(ctk.CTk):
         self.ax.clear()
         # Cargar el mapa y actualizar el gráfico
         self.map_array, self.resolution, self.origin = self.load_map()
-        self.ax.imshow(self.map_array, cmap='gray', origin='lower')
+        self.ax.imshow(np.flipud(self.map_array), cmap='gray', origin='lower')
 
         # Obtener y plotear ubicaciones de productos
         self.plot_product_locations()
