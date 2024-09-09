@@ -63,8 +63,8 @@ class AutonomousNavigator:
         tsp_order = self.tsp_bruteforce(distance_matrix)
         return [locations[i] for i in tsp_order]
 
-    def calculate_completion_percentage(self, start_pose, current_pose, goal_pose):
-        total_distance = self.calculate_distance(start_pose, goal_pose)
+    def calculate_completion_percentage(self, previous_pose, current_pose, goal_pose):
+        total_distance = self.calculate_distance(previous_pose, goal_pose)
         remaining_distance = self.calculate_distance(current_pose, goal_pose)
         completion_percentage = ((total_distance - remaining_distance) / total_distance) * 100
         return max(0, min(completion_percentage, 100))
@@ -104,6 +104,7 @@ class AutonomousNavigator:
 
         current_waypoint = 0
         total_waypoints = len(goal_poses)
+        previous_pose = start_pose
 
         while current_waypoint < total_waypoints:
             goal_pose = goal_poses[current_waypoint]
@@ -117,7 +118,7 @@ class AutonomousNavigator:
                 if feedback:
                     current_pose = self.odom_subscriber.current_pose
                     if current_pose:
-                        completion_percentage = self.calculate_completion_percentage(start_pose, current_pose, {'x': goal_pose.pose.position.x, 'y': goal_pose.pose.position.y})
+                        completion_percentage = self.calculate_completion_percentage(previous_pose, current_pose, {'x': goal_pose.pose.position.x, 'y': goal_pose.pose.position.y})
                         self.publish_status("NAVIGATING", pose_names[current_waypoint], completion_percentage)
                     
 
@@ -125,6 +126,7 @@ class AutonomousNavigator:
             if result == NavigationResult.SUCCEEDED:
                 self.publish_status("REACHED", pose_names[current_waypoint])
                 self.visited_waypoints.add(pose_names[current_waypoint])
+                previous_pose = current_pose
                 
             elif result == NavigationResult.CANCELED:
                 self.publish_status("CANCELED", pose_names[current_waypoint])
@@ -132,15 +134,15 @@ class AutonomousNavigator:
             elif result == NavigationResult.FAILED:
                 self.publish_status("FAILED", pose_names[current_waypoint])
                 break
+                           # Esperar confirmación para continuar al siguiente waypoint
             self.continue_subscriber.should_continue = False
-            
-
-            # Esperar confirmación para continuar al siguiente waypoint
- 
+            if current_waypoint == total_waypoints - 1 :
+                 self.continue_subscriber.should_continue = True
             self.publish_status("WAITING", pose_names[current_waypoint])
             while not self.continue_subscriber.should_continue:
                 rclpy.spin_once(self.node)
-            
+
+         
             current_waypoint += 1
 
         self.publish_status("COMPLETED")

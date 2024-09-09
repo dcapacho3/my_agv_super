@@ -71,8 +71,17 @@ class NavigationWindow(ctk.CTk):
         self.top_frame.pack(side=ctk.TOP, fill=ctk.X, padx=10, pady=10)
 
         # Ejemplo de etiqueta en el frame superior
-        self.label_superior = ctk.CTkLabel(self.top_frame, text="Información Adicional en la parte superior")
-        self.label_superior.pack(pady=5)
+    #    self.label_superior = ctk.CTkLabel(self.top_frame, text="Información Adicional en la parte superior")
+     #   self.label_superior.pack(pady=5)
+
+
+        self.progress_bar = ctk.CTkProgressBar(self.top_frame, width=400)
+        self.progress_bar.pack(pady=5)
+        self.progress_bar.set(0)  # Initialize progress to 0
+
+        # Add a label for status messages
+        self.status_label = ctk.CTkLabel(self.top_frame, text="Status: Not started")
+        self.status_label.pack(pady=5)
 
         # Frame para la información de fecha, hora, etc.
         self.info_frame = ctk.CTkFrame(self, width=200)
@@ -167,9 +176,15 @@ class NavigationWindow(ctk.CTk):
     def status_callback(self, msg):
         status, waypoint_name, completion_percentage, visited_waypoints = msg.data.split('|')
         visited_waypoints = set(visited_waypoints.split(','))
+
+  
   
         # Actualizar el waypoint actual en función del mensaje
+        
+        
+        self.handle_progress_bar(status, waypoint_name, completion_percentage)
         self.update_waypoint_status(status, waypoint_name, visited_waypoints)
+        self.handle_status(status, waypoint_name)
 
        
     def update_waypoint_status(self, status, waypoint_name, visited_waypoints):
@@ -217,7 +232,30 @@ class NavigationWindow(ctk.CTk):
         rclpy.spin(self.node)
 
 
+    
+    def handle_status(self, status, waypoint_name):
+        if status == "READY":
+            self.show_info("Ahora puede empezar a dirigirse a sus productos, por favor dar click a siguiente producto")
+        if status == "WAITING":
+            self.show_info("Ha llegado a su destino, cuando este listo dar click a siguiente producto")   
+        if status == "COMPLETED":
+            self.show_info("Ha finalizado su proceso de compra")   
+            
+    def handle_progress_bar(self, status, waypoint_name, completion_percentage):
+         
+        if completion_percentage:
+            progress = float(completion_percentage) / 100
+            self.progress_bar.set(progress)
+        if status == "REACHED":
+           self.progress_bar.set(1)
+        
+        status_text = f"Status: {status}"
+        if waypoint_name:
+            status_text += f" - Waypoint: {waypoint_name}"
+        
+        self.status_label.configure(text=status_text)
 
+  
 
     def show_info(self, message, title="Info"):
         info_window = ctk.CTkToplevel()
@@ -227,6 +265,9 @@ class NavigationWindow(ctk.CTk):
         label.pack(expand=True)
         ok_button = ctk.CTkButton(info_window, text="OK", command=info_window.destroy)
         ok_button.pack(pady=10)
+        
+        
+        
         
     def update_robot_position(self):
         if self.current_pose:
