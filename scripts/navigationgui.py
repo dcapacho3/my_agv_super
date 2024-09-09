@@ -148,7 +148,8 @@ class NavigationWindow(ctk.CTk):
        self.navigator = BasicNavigator()
        self.odom_subscriber = self.node.create_subscription(Odometry, 'odom', self.odom_callback, 10)
        self.continue_nav_publisher = self.node.create_publisher(String, '/continue_nav', 10)
-        
+       self.status_subscriber = self.node.create_subscription(String, '/navigation_status', self.status_callback, 10)
+    
     # Spin the executor in a loop
        while rclpy.ok():
           self.executor.spin_once(timeout_sec=0.1)
@@ -163,9 +164,46 @@ class NavigationWindow(ctk.CTk):
             'orientation': self.get_yaw_from_quaternion(msg.pose.pose.orientation)
         }
         
-           
+    def status_callback(self, msg):
+        status, waypoint_name, completion_percentage, visited_waypoints = msg.data.split('|')
+        visited_waypoints = set(visited_waypoints.split(','))
+  
+        # Actualizar el waypoint actual en función del mensaje
+        self.update_waypoint_status(status, waypoint_name, visited_waypoints)
+
        
-       # print(f"Received odometry: x={self.current_pose['x']}, y={self.current_pose['y']}")
+    def update_waypoint_status(self, status, waypoint_name, visited_waypoints):
+    # Obtener la ubicación de los waypoints desde la base de datos
+        locations = self.get_product_locations()
+
+        for loc in locations:
+            if loc['name'] == waypoint_name:
+                pixel_x = int((loc['x'] - self.origin[0]) / self.resolution)
+                pixel_y = int((loc['y'] - self.origin[1]) / self.resolution)
+
+                if status == "REACHED":
+                    # El waypoint ya ha sido visitado, cambiar a verde
+                    self.update_marker_color(pixel_x, pixel_y, 'green')
+                    self.update_text_color(waypoint_name, 'green')
+                elif status == "NAVIGATING":
+                    # El waypoint está en navegación, cambiar a amarillo
+                    self.update_marker_color(pixel_x, pixel_y, 'yellow')
+                    self.update_text_color(waypoint_name, 'yellow')
+
+
+    def update_marker_color(self, x, y, color):
+    # Actualizar el color del marcador en el gráfico
+        for marker in self.ax.lines:
+            if marker.get_xdata() == x and marker.get_ydata() == y:
+                marker.set_color(color)
+        self.canvas.draw()
+
+    def update_text_color(self, name, color):
+        # Actualizar el color del texto en el panel de productos
+        for widget in self.selected_frame.winfo_children():
+            if isinstance(widget, ctk.CTkLabel) and widget.cget("text") == name:
+                widget.configure(text_color=color)
+
       
     def get_yaw_from_quaternion(self, quaternion):
         # Convert quaternion to Euler angles

@@ -18,29 +18,18 @@ class AutonomousNavigator:
         self.node = rclpy.create_node('navigator_node')
         self.odom_subscriber = OdomSubscriber(self.node)
         self.continue_subscriber = ContinueSubscriber(self.node)  # Suscriptor al tópico continue_nav
+        self.status_publisher = self.node.create_publisher(String, '/navigation_status', 10)
+        self.visited_waypoints = set()
+        
         self.navigator = BasicNavigator()
         self.navigator.waitUntilNav2Active()
-        self.map_array, self.resolution, self.origin = self.load_map()
-        print("Map loaded successfully.")
 
-    def load_map(self):
-        bringup_dir = get_package_share_directory('my_agv_super')
-        map_yaml_path = os.path.join(bringup_dir, 'maps/cafe_world_map.yaml')
-        with open(map_yaml_path, 'r') as f:
-            yaml_content = yaml.safe_load(f)
-        
-        resolution = yaml_content['resolution']
-        origin = yaml_content['origin']
-        map_image_path = yaml_content['image']
-        
-        if not os.path.isabs(map_image_path):
-            map_image_path = os.path.join(os.path.dirname(map_yaml_path), map_image_path)
-        
-        print(f'Loading map image from: {map_image_path}')
-        map_image = Image.open(map_image_path)
-        map_array = np.array(map_image)
-        
-        return map_array, resolution, origin
+
+    def publish_status(self, status, waypoint_name=None, completion_percentage=None):
+        msg = String()
+        msg.data = f"{status}|{waypoint_name or ''}|{completion_percentage or ''}|{','.join(self.visited_waypoints)}"
+        self.status_publisher.publish(msg)
+
 
     def get_product_locations(self):
         db_dir = os.path.join('src/my_agv_super/database/products.db')
@@ -96,7 +85,7 @@ class AutonomousNavigator:
         tsp_path = [sorted_locations.index(loc) for loc in sorted_locations]
 
         # Solicitar confirmación del usuario antes de iniciar la navegación
-        print(f"Esperando confirmación para comenzar la navegación ({len(sorted_locations)} waypoints)...")
+        self.publish_status("READY")
         while not self.continue_subscriber.should_continue:
             rclpy.spin_once(self.node)
         
@@ -119,6 +108,8 @@ class AutonomousNavigator:
         while current_waypoint < total_waypoints:
             goal_pose = goal_poses[current_waypoint]
             self.navigator.goToPose(goal_pose)
+            self.publish_status("NAVIGATING", pose_names[current_waypoint])
+
 
             while not self.navigator.isNavComplete():
                 rclpy.spin_once(self.node, timeout_sec=1.0)
@@ -127,28 +118,32 @@ class AutonomousNavigator:
                     current_pose = self.odom_subscriber.current_pose
                     if current_pose:
                         completion_percentage = self.calculate_completion_percentage(start_pose, current_pose, {'x': goal_pose.pose.position.x, 'y': goal_pose.pose.position.y})
-                        print(f'Navegando hacia "{pose_names[current_waypoint]}" {current_waypoint + 1}/{total_waypoints} ({completion_percentage:.1f}% completado)')
+                        self.publish_status("NAVIGATING", pose_names[current_waypoint], completion_percentage)
+                    
 
             result = self.navigator.getResult()
             if result == NavigationResult.SUCCEEDED:
-                print(f'Waypoint "{pose_names[current_waypoint]}" alcanzado exitosamente.')
+                self.publish_status("REACHED", pose_names[current_waypoint])
+                self.visited_waypoints.add(pose_names[current_waypoint])
+                
             elif result == NavigationResult.CANCELED:
-                print(f'La navegación al waypoint "{pose_names[current_waypoint]}" fue cancelada.')
+                self.publish_status("CANCELED", pose_names[current_waypoint])
                 break
             elif result == NavigationResult.FAILED:
-                print(f'Error al navegar al waypoint "{pose_names[current_waypoint]}".')
+                self.publish_status("FAILED", pose_names[current_waypoint])
                 break
             self.continue_subscriber.should_continue = False
             
 
             # Esperar confirmación para continuar al siguiente waypoint
-            print(f"Esperando confirmación para continuar al siguiente waypoint ({current_waypoint + 1}/{total_waypoints})...")
+ 
+            self.publish_status("WAITING", pose_names[current_waypoint])
             while not self.continue_subscriber.should_continue:
                 rclpy.spin_once(self.node)
             
             current_waypoint += 1
 
-        print('Navegación completada.')
+        self.publish_status("COMPLETED")
 
         return current_waypoint
 
@@ -192,4 +187,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-
