@@ -58,6 +58,10 @@ class NavigationWindow(ctk.CTk):
         self.robot_patch = None
         self.robot_width = 0.35  # in meters
         self.robot_length = 0.15  # in meters
+        self.cashier_marker = None  # New attribute to store the cashier marker
+        self.fixed_cash_location = {'x': -2.0, 'y': -1.0}  # Add this line to define the cashier location
+
+
         
         
         
@@ -157,6 +161,7 @@ class NavigationWindow(ctk.CTk):
        self.navigator = BasicNavigator()
        self.odom_subscriber = self.node.create_subscription(Odometry, 'odom', self.odom_callback, 10)
        self.continue_nav_publisher = self.node.create_publisher(String, '/continue_nav', 10)
+       self.cashier_publisher = self.node.create_publisher(String, '/to_do_next', 10)
        self.status_subscriber = self.node.create_subscription(String, '/navigation_status', self.status_callback, 10)
     
     # Spin the executor in a loop
@@ -236,16 +241,24 @@ class NavigationWindow(ctk.CTk):
     def handle_status(self, status, waypoint_name):
         if status == "READY":
             self.show_info("Ahora puede empezar a dirigirse a sus productos, por favor dar click a siguiente producto")
-        if status == "WAITING":
+        elif status == "WAITING":
             self.show_info("Ha llegado a su destino, cuando este listo dar click a siguiente producto")   
-        if status == "COMPLETED":
+        elif status == "COMPLETED":
             self.show_info("Ha finalizado su proceso de compra")   
+        elif status == "FINISHED":
+            self.show_popup()
+        elif status == "SHOPPING_AGAIN":
+            self.destroy()
+            
             
     def handle_progress_bar(self, status, waypoint_name, completion_percentage):
          
         if completion_percentage:
             progress = float(completion_percentage) / 100
             self.progress_bar.set(progress)
+        else:
+            self.progress_bar.set(0)
+            
         if status == "REACHED":
            self.progress_bar.set(1)
         
@@ -256,7 +269,43 @@ class NavigationWindow(ctk.CTk):
         self.status_label.configure(text=status_text)
 
   
+    def show_popup(self):
+        popup_window = ctk.CTkToplevel()
+        popup_window.title("Acciones")
+        popup_window.geometry("300x150")
+        
+        label = ctk.CTkLabel(popup_window, text="¿Qué te gustaría hacer?", padx=20, pady=20)
+        label.pack(expand=True)
+        
+        # Botón para ir a caja
+        go_to_checkout_button = ctk.CTkButton(popup_window, text="Ir a Caja", command=self.go_to_checkout)
+        go_to_checkout_button.pack(side="left", padx=20, pady=10)
+        
+        # Botón para volver a comprar
+        continue_shopping_button = ctk.CTkButton(popup_window, text="Volver a Comprar", command=self.continue_shopping)
+        continue_shopping_button.pack(side="right", padx=20, pady=10)
+        
+    def go_to_checkout(self):
+        self.add_cashier_marker()
+        self.publish_cashier()
 
+       
+    def continue_shopping(self):
+        self.publish_shop_again()
+        self.destroy()
+
+    def add_cashier_marker(self):
+        if self.cashier_marker:
+            self.cashier_marker.remove()
+
+        pixel_x = int((self.fixed_cash_location['x'] - self.origin[0]) / self.resolution)
+        pixel_y = int((self.fixed_cash_location['y'] - self.origin[1]) / self.resolution)
+
+        self.cashier_marker, = self.ax.plot(pixel_x, pixel_y, 'g*', markersize=15, label='Cashier')
+        self.ax.legend()
+        self.canvas.draw()
+        
+    
     def show_info(self, message, title="Info"):
         info_window = ctk.CTkToplevel()
         info_window.title(title)
@@ -336,6 +385,7 @@ class NavigationWindow(ctk.CTk):
     def load_map(self):
         bringup_dir = get_package_share_directory('my_agv_super')
         map_yaml_path = os.path.join(bringup_dir, 'maps/cafe_world_map.yaml')
+        #map_yaml_path = os.path.join(bringup_dir, 'maps/labrobsuper_map.yaml')
         with open(map_yaml_path, 'r') as f:
             yaml_content = yaml.safe_load(f)
 
@@ -391,6 +441,7 @@ class NavigationWindow(ctk.CTk):
     def launch_ros2_files(self):
         launch_commands = [
             "ros2 launch my_agv_super mux.launch.py",
+            #"ros2 launch my_agv_super real_nav.launch.py"
             "ros2 launch my_agv_super navagv.launch.py"
         ]
         
@@ -441,6 +492,17 @@ class NavigationWindow(ctk.CTk):
         msg.data = "stop"
         self.continue_nav_publisher.publish(msg)
         
+    
+    def publish_cashier(self):
+        msg = String()
+        msg.data = "cash"
+        self.cashier_publisher.publish(msg)
+
+    def publish_shop_again(self):
+        msg = String()
+        msg.data = "shop_again"
+        self.cashier_publisher.publish(msg)
+
         
 # Nueva función que manejará la acción del nuevo botón
     def start_calibration(self):

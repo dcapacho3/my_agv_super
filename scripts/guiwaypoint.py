@@ -17,12 +17,15 @@ class AutonomousNavigator:
     def __init__(self):
         self.node = rclpy.create_node('navigator_node')
         self.odom_subscriber = OdomSubscriber(self.node)
-        self.continue_subscriber = ContinueSubscriber(self.node)  # Suscriptor al tópico continue_nav
+        self.continue_subscriber = ContinueSubscriber(self.node) 
+        self.todonext_subscriber = ToDoNextSubscriber(self.node)
         self.status_publisher = self.node.create_publisher(String, '/navigation_status', 10)
         self.visited_waypoints = set()
         
         self.navigator = BasicNavigator()
         self.navigator.waitUntilNav2Active()
+        
+        self.fixed_cash_location = {'x': -2.0, 'y': -1.0}  
 
 
     def publish_status(self, status, waypoint_name=None, completion_percentage=None):
@@ -136,11 +139,24 @@ class AutonomousNavigator:
                 break
                            # Esperar confirmación para continuar al siguiente waypoint
             self.continue_subscriber.should_continue = False
-            if current_waypoint == total_waypoints - 1 :
-                 self.continue_subscriber.should_continue = True
-            self.publish_status("WAITING", pose_names[current_waypoint])
-            while not self.continue_subscriber.should_continue:
-                rclpy.spin_once(self.node)
+            
+            if current_waypoint != total_waypoints -1 :
+                self.publish_status("WAITING", pose_names[current_waypoint])
+       
+                while not self.continue_subscriber.should_continue:
+                    rclpy.spin_once(self.node)
+                    
+            if current_waypoint == total_waypoints - 1:
+                self.continue_subscriber.should_continue = True
+                self.publish_status("FINISHED", pose_names[current_waypoint])
+                while not self.todonext_subscriber.go_to_cashier and not self.todonext_subscriber.shop_again:
+                    rclpy.spin_once(self.node)
+                if self.todonext_subscriber.go_to_cashier:
+                    self.navigate_to_cashier()
+                    break
+                elif self.todonext_subscriber.shop_again:
+                    self.publish_status("SHOPPING_AGAIN")
+                    break
 
          
             current_waypoint += 1
@@ -148,6 +164,49 @@ class AutonomousNavigator:
         self.publish_status("COMPLETED")
 
         return current_waypoint
+        
+        
+    def navigate_to_cashier(self):
+        cash_pose = PoseStamped()
+        cash_pose.header.frame_id = 'map'
+        cash_pose.header.stamp = self.navigator.get_clock().now().to_msg()
+        cash_pose.pose.position.x = self.fixed_cash_location['x']
+        cash_pose.pose.position.y = self.fixed_cash_location['y']
+        cash_pose.pose.orientation.w = 1.0
+        self.navigator.goToPose(cash_pose)
+        self.publish_status("NAVIGATING", "cashier")
+
+
+        initial_pose = self.odom_subscriber.current_pose
+        goal_pose = {'x': cash_pose.pose.position.x, 'y': cash_pose.pose.position.y}
+
+    
+    # Calcular la distancia total desde la posición inicial hasta el destino
+        total_distance = self.calculate_distance(initial_pose, goal_pose)
+ 
+        while not self.navigator.isNavComplete():
+            rclpy.spin_once(self.node, timeout_sec=1.0)
+            feedback = self.navigator.getFeedback()
+            if feedback:
+                current_pose = self.odom_subscriber.current_pose
+                if current_pose:
+                    remaining_distance = self.calculate_distance(current_pose, goal_pose)
+
+                # Calcular el porcentaje de completado
+                    completion_percentage = ((total_distance - remaining_distance) / total_distance) * 100
+                    completion_percentage = max(0, min(completion_percentage, 100))  
+
+                # Publicar el estado de navegación con el porcentaje de completado
+                self.publish_status("NAVIGATING", "cashier", completion_percentage)
+
+        result = self.navigator.getResult()
+        if result == NavigationResult.SUCCEEDED:
+            self.publish_status("REACHED", "cashier")
+        elif result == NavigationResult.CANCELED:
+            self.publish_status("CANCELED", "cashier")
+        elif result == NavigationResult.FAILED:
+            self.publish_status("FAILED", "cashier")
+
 
 class OdomSubscriber:
     def __init__(self, node):
@@ -181,6 +240,27 @@ class ContinueSubscriber:
         if msg.data == "continue":
             self.should_continue = True
 
+
+class ToDoNextSubscriber:
+    def __init__(self, node):
+        self.node = node
+        self.subscription = node.create_subscription(
+            String,
+            '/to_do_next',
+            self.to_do_next_callback,
+            10
+        )
+        self.go_to_cashier = False
+        self.shop_again = False
+
+    def to_do_next_callback(self, msg):
+        self.received_message = msg.data
+        if msg.data == "cash":
+            self.go_to_cashier = True
+        elif msg.data == "shop_again":
+            self.shop_again = True
+        
+        
 def main(args=None):
     rclpy.init(args=args)
     navigator = AutonomousNavigator()

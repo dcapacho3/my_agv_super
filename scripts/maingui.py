@@ -177,7 +177,6 @@ class ProductManager:
     def navigation_window(self):
         if self.after_id is not None:
            self.root.after_cancel(self.after_id) 
-        print('y que esperabas un dulce')
         self.new_window = NavigationWindow()  # Crea una nueva ventana
         
         #self.root.destroy()  # Cierra la ventana actual

@@ -54,12 +54,15 @@ class JoyTeleop(Node):
                         self.mode_special = False
                         self.publish_enabled = True  # Habilitar publicación en modo normal
                     else:
+  
+
                         self.mode_normal = False
                         self.mode_special = True
-                        self.publish_enabled = False  # Deshabilitar publicación en modo especial
+                         # Deshabilitar publicación en modo especial
             else:
                 if self.button_b_pressed:
                     self.get_logger().info('Button B released')
+                    
                     self.button_b_pressed = False
 
         # Crear el mensaje Twist
@@ -82,6 +85,7 @@ class JoyTeleop(Node):
             twist.linear.x = 0.0
             twist.linear.y = 0.0
             twist.angular.z = 0.0
+            self.publish_enabled = False 
 
         # Publicar el mensaje Twist solo si la publicación está habilitada
         if self.publish_enabled:
