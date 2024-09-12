@@ -14,6 +14,7 @@ class ProductManager:
         self.root = root
         self.checkbox_vars = {}
         self.after_id = None
+        self.navigation_window = None
 
         # Configuración de la interfaz
         self.setup_ui()
@@ -94,7 +95,7 @@ class ProductManager:
         self.selected_frame = ctk.CTkScrollableFrame(frame2, width=300, height=400)
         self.selected_frame.pack(fill=ctk.BOTH, expand=True, pady=10)
         
-        go_to_products_button = ctk.CTkButton(frame2, text="Dirigirse a productos", command=self.navigation_window, width=200, height=50, font=("Helvetica", 16))
+        go_to_products_button = ctk.CTkButton(frame2, text="Dirigirse a productos", command=self.open_navigation_window, width=200, height=50, font=("Helvetica", 16))
         go_to_products_button.pack(pady=10)
 
         self.refresh_treeview()
@@ -174,14 +175,13 @@ class ProductManager:
         self.label_fecha.configure(text=now.strftime("%Y-%m-%d"))
         self.after_id = self.root.after(1000, self.actualizar_reloj_y_fecha)  # Guarda el ID del after
 
-    def navigation_window(self):
+    def open_navigation_window(self):
         if self.after_id is not None:
            self.root.after_cancel(self.after_id) 
-        self.new_window = NavigationWindow()  # Crea una nueva ventana
+        self.navigation_window = NavigationWindow(self)
+        self.root.withdraw()  # Hide the current window instead of destroying it
+        self.navigation_window.mainloop()
         
-        #self.root.destroy()  # Cierra la ventana actual
-        self.new_window.mainloop()
-
     def signal_handler(self, sig, frame):
         print("Ctrl+C detectado, cerrando la aplicación...")
         self.on_closing()
@@ -191,9 +191,14 @@ class ProductManager:
         print("Cerrando la ventana correctamente...")
         if self.after_id is not None:
             self.root.after_cancel(self.after_id)
-        self.root.quit()  # Salir del bucle principal de tkinter
-        self.root.destroy()  # Cerrar la ventana completamente
-
+        if self.navigation_window:
+            self.navigation_window.destroy()
+        self.root.quit()
+        self.root.destroy()
+        
+        
+    def deiconify(self):
+        self.root.deiconify()
 
 if __name__ == '__main__':
     root = ctk.CTk()

@@ -24,13 +24,16 @@ import time
 import math
 import matplotlib.patches as patches
 
+from finishgui import ThanksWindow
 
 class NavigationWindow(ctk.CTk):
-    def __init__(self, master=None):
-        super().__init__(master)
-        self.master = master
+    def __init__(self, product_manager):
+        super().__init__()
+        #self.master = master
+        self.after_id = None
         
          # Configuración de la interfaz
+        self.product_manager = product_manager
          
        
         self.title("Navigation Interface")
@@ -46,6 +49,7 @@ class NavigationWindow(ctk.CTk):
         self.odom_subscriber = None
         self.continue_nav_publisher = None
         self.current_pose = None
+        self.cashier_reached = False
         
         self.launch_processes = []
         self.launch_thread = None
@@ -182,14 +186,15 @@ class NavigationWindow(ctk.CTk):
         status, waypoint_name, completion_percentage, visited_waypoints = msg.data.split('|')
         visited_waypoints = set(visited_waypoints.split(','))
 
-  
-  
-        # Actualizar el waypoint actual en función del mensaje
-        
-        
+
         self.handle_progress_bar(status, waypoint_name, completion_percentage)
         self.update_waypoint_status(status, waypoint_name, visited_waypoints)
         self.handle_status(status, waypoint_name)
+        
+        if status == "REACHED" and waypoint_name == "cashier":
+            self.cashier_reached = True
+            self.status_label.configure(text="Status: REACHED - Waypoint: cashier")
+
 
        
     def update_waypoint_status(self, status, waypoint_name, visited_waypoints):
@@ -288,12 +293,35 @@ class NavigationWindow(ctk.CTk):
     def go_to_checkout(self):
         self.add_cashier_marker()
         self.publish_cashier()
+        self.cashier_reached = False
+        self.wait_for_cashier_reached()
 
-       
+    def wait_for_cashier_reached(self):
+        if self.cashier_reached:
+            self.finish_shopping()
+        else:
+            self.after(100, self.wait_for_cashier_reached)
+
+
     def continue_shopping(self):
         self.publish_shop_again()
-        self.destroy()
-
+       # self.stop_ros_processes()
+        self.finish_shopping()
+       
+    def finish_shopping(self):
+        
+        if self.after_id is not None:
+            self.after_cancel(self.after_id) 
+        
+        self.new_window = ThanksWindow(self)  # Crea una nueva ventana
+        
+        self.withdraw()
+        self.new_window.mainloop()
+        
+    def show_main_window(self):
+        self.product_manager.deiconify()  # Show the ProductManager window
+        self.destroy()  # Close the NavigationWindow
+    
     def add_cashier_marker(self):
         if self.cashier_marker:
             self.cashier_marker.remove()
@@ -304,6 +332,32 @@ class NavigationWindow(ctk.CTk):
         self.cashier_marker, = self.ax.plot(pixel_x, pixel_y, 'g*', markersize=15, label='Cashier')
         self.ax.legend()
         self.canvas.draw()
+        
+    def stop_ros_processes(self):
+
+        for process in self.launch_processes:
+            if process.poll() is None:  # Verificar si el proceso sigue ejecutándose
+                process.terminate()  # Terminar el proceso
+            process.wait()  # Esperar a que el proceso termine
+
+    # Detener el nodo ROS y el ejecutor
+        if self.executor:
+            self.executor.shutdown()
+        if self.node:
+            self.node.destroy_node()
+
+    # Finalizar el cliente ROS 2
+        if rclpy.ok():
+            rclpy.shutdown()
+
+    # Reinicializar los atributos
+        self.node = None
+        self.executor = None
+        self.navigator = None
+        self.odom_subscriber = None
+        self.continue_nav_publisher = None
+        self.launch_processes = []  # Limpiar la lista de procesos
+   
         
     
     def show_info(self, message, title="Info"):
@@ -445,6 +499,7 @@ class NavigationWindow(ctk.CTk):
             "ros2 launch my_agv_super navagv.launch.py"
         ]
         
+        
         devnull = open(os.devnull, 'w')
         for cmd in launch_commands:
             process = subprocess.Popen(
@@ -458,6 +513,15 @@ class NavigationWindow(ctk.CTk):
         print("Launch files started successfully (output suppressed).")
         
         
+    def is_process_running(self, process_name):
+        """Verifica si un proceso con el nombre especificado ya está en ejecución"""
+        try:
+            # `pgrep` busca procesos que coincidan con el nombre
+            output = subprocess.check_output(["pgrep", "-f", process_name])
+            return bool(output.strip())  # Si hay salida, el proceso está corriendo
+        except subprocess.CalledProcessError:
+            return False  # Si no se encuentra el proceso, retorna False
+
 
     def run_navigation(self):
         # Esta función será ejecutada en un hilo separado
