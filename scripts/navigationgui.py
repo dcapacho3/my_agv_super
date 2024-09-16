@@ -63,7 +63,7 @@ class NavigationWindow(ctk.CTk):
         self.robot_width = 0.35  # in meters
         self.robot_length = 0.15  # in meters
         self.cashier_marker = None  # New attribute to store the cashier marker
-        self.fixed_cash_location = {'x': -2.0, 'y': -1.0}  # Add this line to define the cashier location
+        self.fixed_cash_location = {'x': -1.0, 'y': -2.0}  # Add this line to define the cashier location
 
 
         
@@ -438,7 +438,7 @@ class NavigationWindow(ctk.CTk):
         
     def load_map(self):
         bringup_dir = get_package_share_directory('my_agv_super')
-        map_yaml_path = os.path.join(bringup_dir, 'maps/cafe_world_map.yaml')
+        map_yaml_path = os.path.join(bringup_dir, 'maps/supermarket_map.yaml')
         #map_yaml_path = os.path.join(bringup_dir, 'maps/labrobsuper_map.yaml')
         with open(map_yaml_path, 'r') as f:
             yaml_content = yaml.safe_load(f)
@@ -497,6 +497,7 @@ class NavigationWindow(ctk.CTk):
             "ros2 launch my_agv_super mux.launch.py",
             #"ros2 launch my_agv_super real_nav.launch.py"
             "ros2 launch my_agv_super navagv.launch.py"
+            #"ros2 launch my_agv_super basic_control.launch.py"
         ]
         
         
@@ -510,8 +511,28 @@ class NavigationWindow(ctk.CTk):
             )
             self.launch_processes.append(process)
         
-        print("Launch files started successfully (output suppressed).")
         
+        print("Launch files started successfully (output suppressed).")
+        basic_control_thread = threading.Thread(target=self.launch_basic_control)
+        basic_control_thread.start()
+        
+    def launch_basic_control(self):
+        cmd = "ros2 launch my_agv_super basic_control.launch.py"
+        process = subprocess.Popen(
+            cmd,
+            shell=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            universal_newlines=True
+        )
+        self.launch_processes.append(process)
+    
+        # Monitor the process output
+        for line in process.stdout:
+            print("Basic Control:", line.strip())
+     
+        process.wait()
+        print("Basic Control launch file completed.")
         
     def is_process_running(self, process_name):
         """Verifica si un proceso con el nombre especificado ya está en ejecución"""

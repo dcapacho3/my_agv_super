@@ -124,7 +124,7 @@ controller_server:
       stateful: True
       plugin: "nav2_controller::SimpleGoalChecker"
       xy_goal_tolerance: 0.5
-      yaw_goal_tolerance: 0.5
+      yaw_goal_tolerance: 3.14
 
     # DWB parameters
     FollowPath:
@@ -182,7 +182,7 @@ local_costmap:
       global_frame: odom
       robot_base_frame: base_link
       footprint_padding: 0.0
-      footprint:  "[ [0.350,0.25],[-0.35,0.25],[-0.35,-0.25],[0.35,-0.25] ]"
+      footprint:  "[ [0.156,0.118],[-0.156,0.118],[-0.156,-0.118],[0.156,-0.118] ]"
       use_sim_time: True
       rolling_window: true
       width: 3
@@ -193,7 +193,7 @@ local_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
-        inflation_radius: 0.55
+        inflation_radius: 0.4
       voxel_layer:
         plugin: "nav2_costmap_2d::VoxelLayer"
         enabled: True
@@ -257,7 +257,7 @@ global_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 3.0
-        inflation_radius: 0.55
+        inflation_radius: 0.4
       always_send_full_costmap: True
   global_costmap_client:
     ros__parameters:

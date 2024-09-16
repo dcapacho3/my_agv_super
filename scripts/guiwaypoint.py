@@ -12,6 +12,8 @@ from PIL import Image
 import os
 from itertools import permutations
 from ament_index_python.packages import get_package_share_directory
+from tf_transformations import quaternion_from_euler
+
 
 class AutonomousNavigator:
     def __init__(self):
@@ -25,7 +27,8 @@ class AutonomousNavigator:
         self.navigator = BasicNavigator()
         self.navigator.waitUntilNav2Active()
         
-        self.fixed_cash_location = {'x': -2.0, 'y': -1.0}  
+        self.fixed_cash_location = {'name': 'cashier', 'x': -1.0, 'y': -2.0}
+
 
 
     def publish_status(self, status, waypoint_name=None, completion_percentage=None):
@@ -40,31 +43,59 @@ class AutonomousNavigator:
         cursor = conn.cursor()
         cursor.execute('SELECT name, x, y FROM selected_products')
         locations = [{'name': row[0], 'x': row[1], 'y': row[2]} for row in cursor.fetchall()]
+        
         conn.close()
+        locations.append(self.fixed_cash_location)
+     
         return locations
 
     def calculate_distance(self, p1, p2):
         return math.sqrt((p1['x'] - p2['x'])**2 + (p1['y'] - p2['y'])**2)
 
-    def calculate_distance_matrix(self, locations):
-        locs = [(loc['x'], loc['y']) for loc in locations]
-        return np.array([[self.calculate_distance({'x': loc1[0], 'y': loc1[1]}, {'x': loc2[0], 'y': loc2[1]}) for loc2 in locs] for loc1 in locs])
 
-    def tsp_bruteforce(self, distance_matrix):
-        n = len(distance_matrix)
-        min_path = None
-        min_distance = float('inf')
-        for perm in permutations(range(n)):
-            dist = sum(distance_matrix[perm[i], perm[i + 1]] for i in range(n - 1))
-            if dist < min_distance:
-                min_distance = dist
-                min_path = perm
-        return min_path
+    def nearest_neighbor_with_fixed_end(self, start, locations, end):
+        unvisited = locations.copy()
+        path = [start]
+        while unvisited:
+            if len(unvisited) == 1:
+                nearest = unvisited[0]
+            else:
+                nearest = min(unvisited, key=lambda x: self.calculate_distance(path[-1], x))
+            path.append(nearest)
+            unvisited.remove(nearest)
+        path.append(end)
+        return path
 
-    def sort_waypoints_by_tsp(self, locations):
-        distance_matrix = self.calculate_distance_matrix(locations)
-        tsp_order = self.tsp_bruteforce(distance_matrix)
-        return [locations[i] for i in tsp_order]
+    def two_opt_swap(self, path, i, j):
+        return path[:i] + path[i:j+1][::-1] + path[j+1:]
+
+
+    def two_opt_improvement(self, path):
+        improvement = True
+        best_distance = self.calculate_total_distance(path)
+        while improvement:
+            improvement = False
+            for i in range(1, len(path) - 2):
+                for j in range(i + 1, len(path) - 1):
+                    new_path = self.two_opt_swap(path, i, j)
+                    new_distance = self.calculate_total_distance(new_path)
+                    if new_distance < best_distance:
+                        path = new_path
+                        best_distance = new_distance
+                        improvement = True
+            break
+        return path
+        
+        
+    def calculate_total_distance(self, path):
+        return sum(self.calculate_distance(path[i], path[i+1]) for i in range(len(path) - 1))
+
+        
+    def optimize_path(self, start, locations, end):
+        initial_path = self.nearest_neighbor_with_fixed_end(start, locations, end)
+        optimized_path = self.two_opt_improvement(initial_path)
+        return optimized_path
+
 
     def calculate_completion_percentage(self, previous_pose, current_pose, goal_pose):
         total_distance = self.calculate_distance(previous_pose, goal_pose)
@@ -84,8 +115,10 @@ class AutonomousNavigator:
             print("No selected products found.")
             return
 
-        sorted_locations = self.sort_waypoints_by_tsp(locations)
-        tsp_path = [sorted_locations.index(loc) for loc in sorted_locations]
+        cashier = next(loc for loc in locations if loc['name'] == 'cashier')
+        other_locations = [loc for loc in locations if loc['name'] != 'cashier']
+
+        optimized_path = self.optimize_path(start_pose, other_locations, cashier)
 
         # Solicitar confirmación del usuario antes de iniciar la navegación
         self.publish_status("READY")
@@ -95,15 +128,24 @@ class AutonomousNavigator:
         goal_poses = []
         pose_names = {}
 
-        for loc in sorted_locations:
+        for i, loc in enumerate(optimized_path[1:-1]):  # Skip start_pose
             goal_pose = PoseStamped()
             goal_pose.header.frame_id = 'map'
             goal_pose.header.stamp = self.navigator.get_clock().now().to_msg()
             goal_pose.pose.position.x = loc['x']
             goal_pose.pose.position.y = loc['y']
-            goal_pose.pose.orientation.w = 1.0
+            current_pose = self.odom_subscriber.current_pose
+            if current_pose:
+                yaw = self.calculate_goal_orientation(current_pose['x'], current_pose['y'], loc['x'], loc['y'])
+                q = quaternion_from_euler(0, 0, yaw)
+                goal_pose.pose.orientation.x = q[0]
+                goal_pose.pose.orientation.y = q[1]
+                goal_pose.pose.orientation.z = q[2]
+                goal_pose.pose.orientation.w = q[3]
+            else:
+                goal_pose.pose.orientation.w = 1.0  # Default to identity quaternion if no current pose
             goal_poses.append(goal_pose)
-            pose_names[len(goal_poses) - 1] = loc['name']
+            pose_names[i] = loc['name']
 
         current_waypoint = 0
         total_waypoints = len(goal_poses)
@@ -172,7 +214,18 @@ class AutonomousNavigator:
         cash_pose.header.stamp = self.navigator.get_clock().now().to_msg()
         cash_pose.pose.position.x = self.fixed_cash_location['x']
         cash_pose.pose.position.y = self.fixed_cash_location['y']
-        cash_pose.pose.orientation.w = 1.0
+        current_pose = self.odom_subscriber.current_pose
+        if current_pose:
+            yaw = self.calculate_goal_orientation(current_pose['x'], current_pose['y'], 
+                                                  self.fixed_cash_location['x'], self.fixed_cash_location['y'])
+            q = quaternion_from_euler(0, 0, yaw)
+            cash_pose.pose.orientation.x = q[0]
+            cash_pose.pose.orientation.y = q[1]
+            cash_pose.pose.orientation.z = q[2]
+            cash_pose.pose.orientation.w = q[3]
+        else:
+            cash_pose.pose.orientation.w = 1.0  # Default to identity quaternion if no current pose
+
         self.navigator.goToPose(cash_pose)
         self.publish_status("NAVIGATING", "cashier")
 
@@ -206,6 +259,16 @@ class AutonomousNavigator:
             self.publish_status("CANCELED", "cashier")
         elif result == NavigationResult.FAILED:
             self.publish_status("FAILED", "cashier")
+
+    def calculate_goal_orientation(self, current_x, current_y, goal_x, goal_y):
+        dx = goal_x - current_x
+        dy = goal_y - current_y
+        angle = math.atan2(dy, dx)
+        
+        # Round to the nearest 90 degrees (π/2 radians)
+        rounded_angle = round(angle / (math.pi / 2)) * (math.pi / 2)
+        
+        return rounded_angle
 
 
 class OdomSubscriber:

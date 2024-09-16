@@ -18,7 +18,7 @@ def generate_launch_description():
     pkg_gazebo_ros = FindPackageShare(package='gazebo_ros').find('gazebo_ros')
     pkg_share = FindPackageShare(package='my_agv_super').find('my_agv_super')
     default_model_path = os.path.join(pkg_share, 'models/myagv.urdf')
-    world_file_name = 'my_agv_world/cafeobstacle.world'
+    world_file_name = 'my_agv_world/Supermarket.world'
     world_path = os.path.join(pkg_share, 'worlds', world_file_name)
 
     # Create the launch configuration variables
@@ -69,7 +69,7 @@ def generate_launch_description():
 
     declare_map_yaml_cmd = DeclareLaunchArgument(
         'map',
-        default_value=os.path.join(bringup_dir, 'maps', 'cafe_world_map.yaml'),
+        default_value=os.path.join(bringup_dir, 'maps', 'supermarket_map.yaml'),
         description='Full path to map file to load')
 
     declare_use_sim_time_cmd = DeclareLaunchArgument(
@@ -79,7 +79,7 @@ def generate_launch_description():
 
     declare_params_file_cmd = DeclareLaunchArgument(
         'params_file',
-        default_value=os.path.join(bringup_dir, 'params', 'nav2_params.yaml'),
+        default_value=os.path.join(bringup_dir, 'params', 'nav2_params_super.yaml'),
         description='Full path to the ROS2 parameters file to use for all launched nodes')
 
     declare_bt_xml_cmd = DeclareLaunchArgument(
@@ -182,6 +182,9 @@ def generate_launch_description():
             cmd=['ros2', 'control', 'load_controller', '--set-state', 'active', 'joint_state_broadcaster'], 
             output='screen'
         )
+    initial_pose = Node(
+            package='my_agv_super',
+            executable='initial_pose_pub.py',         )
 
     # Create the launch description and populate
     ld = LaunchDescription()
@@ -212,7 +215,7 @@ def generate_launch_description():
     ld.add_action(start_robot_state_publisher_cmd)
     ld.add_action(start_rviz_cmd)
     ld.add_action(bringup_cmd)
-
+   
     #ld.add_action(rf2o_node)
 
     ld.add_action(joint_state_broadcaster)
@@ -220,5 +223,6 @@ def generate_launch_description():
 
 
     ld.add_action(agv_control)
+    ld.add_action(initial_pose)
 
     return ld

@@ -20,7 +20,7 @@ class ObjectRecorder(Node):
         # Conectar a la base de datos existente
           
         bringup_dir = get_package_share_directory('my_agv_super')
-        db_dir = os.path.join(bringup_dir, 'database/products.db')
+        db_dir = os.path.join( 'src/my_agv_super/database/products.db')
         self.database_connection = sqlite3.connect(db_dir)
         self.cursor = self.database_connection.cursor()
 
