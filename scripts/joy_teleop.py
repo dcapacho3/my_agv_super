@@ -84,7 +84,7 @@ class JoyTeleop(Node):
             # En modo especial, publicar Twist vacío para detener el movimiento
             twist.linear.x = 0.0
             twist.linear.y = 0.0
-            twist.angular.z = 0.0
+            twist.angular.z = 0.0005
             self.publish_enabled = False 
 
         # Publicar el mensaje Twist solo si la publicación está habilitada

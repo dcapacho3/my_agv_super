@@ -513,8 +513,8 @@ class NavigationWindow(ctk.CTk):
         
         
         print("Launch files started successfully (output suppressed).")
-        basic_control_thread = threading.Thread(target=self.launch_basic_control)
-        basic_control_thread.start()
+       # basic_control_thread = threading.Thread(target=self.launch_basic_control)
+        #basic_control_thread.start()
         
     def launch_basic_control(self):
         cmd = "ros2 launch my_agv_super basic_control.launch.py"

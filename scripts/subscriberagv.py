@@ -7,6 +7,7 @@ from nav_msgs.msg import Odometry
 from sensor_msgs.msg import LaserScan, JointState, PointCloud2
 from tf2_msgs.msg import TFMessage
 import numpy as np
+from std_msgs.msg import String
 
 class MySubscriber(Node):
 
@@ -45,6 +46,11 @@ class MySubscriber(Node):
             JointState,
             'joint_states',
             self.joint_states_callback,
+            10)
+        self.message_py_subscription = self.create_subscription(
+            String,
+            'message_py',
+            self.message_py_callback,
             10)
 
         # Subscription to Point Cloud topic
@@ -124,6 +130,9 @@ class MySubscriber(Node):
     def point_cloud_callback(self, msg):
         # Process Point Cloud message
         #self.get_logger().info('Processing Point Cloud message')
+        pass
+    def message_py_callback(self, msg):
+        #self.get_logger().info(f'Message Py: {msg.data}')
         pass
 
 def main(args=None):

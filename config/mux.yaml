@@ -17,3 +17,14 @@ twist_mux:
         topic   : cmd_vel_gamepad
         timeout : 0.5
         priority: 100
+      block_all:
+        topic   : cmd_vel_block_all
+        timeout : 0.5
+        priority: 250
+      block_nav:
+        topic   : cmd_vel_block_navigation
+        timeout : 0.5
+        priority: 75
+             
+   
+

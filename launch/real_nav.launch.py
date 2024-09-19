@@ -214,6 +214,6 @@ def generate_launch_description():
   ld.add_action(start_robot_state_publisher_cmd)
   ld.add_action(start_rviz_cmd)
   ld.add_action(start_ros2_navigation_cmd)
-  ld.add_action(start_amcl_cmd)
+  #ld.add_action(start_amcl_cmd)
 
   return ld
