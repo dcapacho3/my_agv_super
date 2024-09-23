@@ -58,7 +58,6 @@ class NavigationWindow(ctk.CTk):
         self.ros_thread.daemon = True  # Daemon para que termine cuando la GUI se cierre
         self.ros_thread.start()
         
-        
         self.robot_patch = None
         self.robot_width = 0.35  # in meters
         self.robot_length = 0.15  # in meters
@@ -66,12 +65,9 @@ class NavigationWindow(ctk.CTk):
         self.fixed_cash_location = {'x': -1.0, 'y': -2.0}  # Add this line to define the cashier location
 
 
-        
-        
-        
-        
         # Variable para controlar el estado del botón
         self.navigation_started = False
+        self.go_to_cashier= False
         self.continue_nav_published = False  # Nueva variable para controlar la publicación
 
         # Frame superior
@@ -135,17 +131,15 @@ class NavigationWindow(ctk.CTk):
         )
         self.start_calibration_button.pack(side=ctk.LEFT, fill=ctk.BOTH, expand=True, padx=5)
 
-
         # Botón "Iniciar Navegación" con mayor altura
         self.start_navigation_button = ctk.CTkButton(
             self.button_inner_frame,
-            text="Siguiente producto",
+            text="Localizar productos",
             command=self.start_navigation,
             height=80,
+            
         )
         self.start_navigation_button.pack(side=ctk.LEFT, fill=ctk.BOTH, expand=True)
-        
-
         # Crear y mostrar el gráfico
         self.create_plot(self.map_frame)
         
@@ -154,8 +148,6 @@ class NavigationWindow(ctk.CTk):
         # Actualizar la lista de productos seleccionados
         self.view_selected_products()
         self.after(1000, self.view_selected_products)
-        
-        
         
     def init_ros(self):
        rclpy.init(args=None)
@@ -172,21 +164,16 @@ class NavigationWindow(ctk.CTk):
        while rclpy.ok():
           self.executor.spin_once(timeout_sec=0.1)
 
-
-        
-      
     def odom_callback(self, msg):
         self.current_pose = {
             'x': msg.pose.pose.position.x,
             'y': msg.pose.pose.position.y,
             'orientation': self.get_yaw_from_quaternion(msg.pose.pose.orientation)
         }
-        
+    
     def status_callback(self, msg):
         status, waypoint_name, completion_percentage, visited_waypoints = msg.data.split('|')
         visited_waypoints = set(visited_waypoints.split(','))
-
-
         self.handle_progress_bar(status, waypoint_name, completion_percentage)
         self.update_waypoint_status(status, waypoint_name, visited_waypoints)
         self.handle_status(status, waypoint_name)
@@ -194,8 +181,6 @@ class NavigationWindow(ctk.CTk):
         if status == "REACHED" and waypoint_name == "cashier":
             self.cashier_reached = True
             self.status_label.configure(text="Status: REACHED - Waypoint: cashier")
-
-
        
     def update_waypoint_status(self, status, waypoint_name, visited_waypoints):
     # Obtener la ubicación de los waypoints desde la base de datos
@@ -215,7 +200,6 @@ class NavigationWindow(ctk.CTk):
                     self.update_marker_color(pixel_x, pixel_y, 'yellow')
                     self.update_text_color(waypoint_name, 'yellow')
 
-
     def update_marker_color(self, x, y, color):
     # Actualizar el color del marcador en el gráfico
         for marker in self.ax.lines:
@@ -228,7 +212,6 @@ class NavigationWindow(ctk.CTk):
         for widget in self.selected_frame.winfo_children():
             if isinstance(widget, ctk.CTkLabel) and widget.cget("text") == name:
                 widget.configure(text_color=color)
-
       
     def get_yaw_from_quaternion(self, quaternion):
         # Convert quaternion to Euler angles
@@ -240,22 +223,24 @@ class NavigationWindow(ctk.CTk):
       
     def spin_ros_node(self):
         rclpy.spin(self.node)
-
-
     
     def handle_status(self, status, waypoint_name):
         if status == "READY":
-            self.show_info("Ahora puede empezar a dirigirse a sus productos, por favor dar click a siguiente producto")
+            #self.show_info("Ahora puede empezar a dirigirse a sus productos, por favor dar click a siguiente producto")
+            self.status_label.configure(text="Ahora puede empezar a dirigirse a sus productos, por favor dar click a siguiente producto")
+            self.start_navigation_button.configure(state="enabled" , text= "Siguiente producto")
         elif status == "WAITING":
-            self.show_info("Ha llegado a su destino, cuando este listo dar click a siguiente producto")   
-        elif status == "COMPLETED":
-            self.show_info("Ha finalizado su proceso de compra")   
+            #self.show_info("Ha llegado a su destino, cuando este listo dar click a siguiente producto") 
+            self.status_label.configure(text="Ha llegado a su destino, cuando este listo dar click a siguiente producto")  
+            self.start_navigation_button.configure(state="enabled")
         elif status == "FINISHED":
-            self.show_popup()
+            self.status_label.configure(text="Ha finalizado su proceso de compra cuando este listo dar click a Ir a caja") 
+            self.start_navigation_button.configure(text= "Ir a caja", state="enabled")
+            self.go_to_cashier = True
+            
         elif status == "SHOPPING_AGAIN":
             self.destroy()
-            
-            
+                 
     def handle_progress_bar(self, status, waypoint_name, completion_percentage):
          
         if completion_percentage:
@@ -273,23 +258,18 @@ class NavigationWindow(ctk.CTk):
         
         self.status_label.configure(text=status_text)
 
-  
     def show_popup(self):
         popup_window = ctk.CTkToplevel()
         popup_window.title("Acciones")
         popup_window.geometry("300x150")
         
-        label = ctk.CTkLabel(popup_window, text="¿Qué te gustaría hacer?", padx=20, pady=20)
+        label = ctk.CTkLabel(popup_window, text="Has terminado con tu compra, cuando estes listo presiona ir a caja", padx=20, pady=20)
         label.pack(expand=True)
         
         # Botón para ir a caja
         go_to_checkout_button = ctk.CTkButton(popup_window, text="Ir a Caja", command=self.go_to_checkout)
         go_to_checkout_button.pack(side="left", padx=20, pady=10)
-        
-        # Botón para volver a comprar
-        continue_shopping_button = ctk.CTkButton(popup_window, text="Volver a Comprar", command=self.continue_shopping)
-        continue_shopping_button.pack(side="right", padx=20, pady=10)
-        
+            
     def go_to_checkout(self):
         self.add_cashier_marker()
         self.publish_cashier()
@@ -301,12 +281,6 @@ class NavigationWindow(ctk.CTk):
             self.finish_shopping()
         else:
             self.after(100, self.wait_for_cashier_reached)
-
-
-    def continue_shopping(self):
-        self.publish_shop_again()
-       # self.stop_ros_processes()
-        self.finish_shopping()
        
     def finish_shopping(self):
         
@@ -358,8 +332,6 @@ class NavigationWindow(ctk.CTk):
         self.continue_nav_publisher = None
         self.launch_processes = []  # Limpiar la lista de procesos
    
-        
-    
     def show_info(self, message, title="Info"):
         info_window = ctk.CTkToplevel()
         info_window.title(title)
@@ -368,10 +340,7 @@ class NavigationWindow(ctk.CTk):
         label.pack(expand=True)
         ok_button = ctk.CTkButton(info_window, text="OK", command=info_window.destroy)
         ok_button.pack(pady=10)
-        
-        
-        
-        
+          
     def update_robot_position(self):
         if self.current_pose:
             # Convert map coordinates to pixel coordinates
@@ -398,7 +367,6 @@ class NavigationWindow(ctk.CTk):
             print("No current pose available")
         
         self.after(100, self.update_robot_position)
-
 
     def actualizar_reloj_y_fecha(self):
         now = datetime.datetime.now()
@@ -487,11 +455,13 @@ class NavigationWindow(ctk.CTk):
             navigation_thread = threading.Thread(target=self.run_navigation)
             navigation_thread.start()
             self.navigation_started = True  # Marcar que la navegación ha comenzado
+            self.start_navigation_button.configure(state="disabled")
+        elif self.go_to_cashier:
+            self.go_to_checkout()
         else:
             print("La navegación ya ha comenzado. Ejecutando otra acción...")
             self.perform_alternate_action()
-            
-            
+                
     def launch_ros2_files(self):
         launch_commands = [
             "ros2 launch my_agv_super mux.launch.py",
@@ -543,15 +513,13 @@ class NavigationWindow(ctk.CTk):
         except subprocess.CalledProcessError:
             return False  # Si no se encuentra el proceso, retorna False
 
-
     def run_navigation(self):
         # Esta función será ejecutada en un hilo separado
         navigator = AutonomousNavigator()
         waypoints_reached = navigator.navigate()
         print("Navegación completa")
         # Publicar el mensaje al finalizar la navegación
-        self.publish_continue_nav()
-        
+        self.publish_continue_nav()   
         
     def __del__(self):
         # Terminate launch file processes when the window is closed
@@ -563,6 +531,7 @@ class NavigationWindow(ctk.CTk):
         rclpy.shutdown()
 
     def perform_alternate_action(self):
+            self.start_navigation_button.configure(state="disabled")
             self.publish_continue_nav()
             self.continue_nav_published = True  # Marcastartr que el mensaje ha sido publicado
             self.publish_stop()
@@ -577,7 +546,6 @@ class NavigationWindow(ctk.CTk):
         msg.data = "stop"
         self.continue_nav_publisher.publish(msg)
         
-    
     def publish_cashier(self):
         msg = String()
         msg.data = "cash"
@@ -587,8 +555,7 @@ class NavigationWindow(ctk.CTk):
         msg = String()
         msg.data = "shop_again"
         self.cashier_publisher.publish(msg)
-
-        
+    
 # Nueva función que manejará la acción del nuevo botón
     def start_calibration(self):
         if not self.launch_thread or not self.launch_thread.is_alive():
@@ -616,8 +583,6 @@ class NavigationWindow(ctk.CTk):
             product_name = row[0]
             label = ctk.CTkLabel(self.selected_frame, text=product_name)
             label.pack(pady=5)
-            
-         
 
 if __name__ == "__main__":
     app = NavigationWindow()

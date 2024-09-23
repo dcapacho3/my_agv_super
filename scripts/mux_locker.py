@@ -8,6 +8,8 @@ import ast
 class TwistMuxController(Node):
     def __init__(self):
         super().__init__('twist_mux_controller')
+
+        # Suscripciones y publicaciones
         self.subscription = self.create_subscription(
             String,
             'message_py',
@@ -17,40 +19,31 @@ class TwistMuxController(Node):
         self.lock_navigation_publisher = self.create_publisher(Bool, 'lock_navigation', 10)
         self.cmd_vel_block_all_publisher = self.create_publisher(Twist, 'cmd_vel_block_all', 10)
         self.cmd_vel_block_navigation_publisher = self.create_publisher(Twist, 'cmd_vel_block_navigation', 10)
-        
-        self.previous_lock_all = False
-        self.previous_lock_navigation = False
-        
+
+        # Estados de los flags de bloqueo
+        self.lock_all_active = False
+        self.lock_navigation_active = False
+
+        # Timer para publicar continuamente los mensajes de Twist
+        self.timer = self.create_timer(0.1, self.publish_velocity)
 
     def listener_callback(self, msg):
-        # Parse the string to get the array of numbers
+        # Parsear los datos recibidos
         data = ast.literal_eval(msg.data)
-        
+
         if len(data) != 2:
             self.get_logger().warn('Received data does not contain exactly 2 numbers')
             return
 
         first_number, second_number = data
 
-        # Check conditions and publish accordingly
-        current_lock_all = first_number > 300
-        current_lock_navigation = not (100 <= second_number <= 2000)
+        # Condiciones de bloqueo
+        self.lock_all_active = first_number > 300
+        self.lock_navigation_active = not (100 <= second_number <= 2000)
 
-        # Solo publica si el estado de lock_all ha cambiado
-        if current_lock_all != self.previous_lock_all:
-            self.publish_lock_all(current_lock_all)
-            self.previous_lock_all = current_lock_all
-
-            if current_lock_all:
-                self.publish_zero_velocity('all')
-
-        # Solo publica si el estado de lock_navigation ha cambiado
-        if current_lock_navigation != self.previous_lock_navigation:
-            self.publish_lock_navigation(current_lock_navigation)
-            self.previous_lock_navigation = current_lock_navigation
-
-            if current_lock_navigation:
-                self.publish_zero_velocity('navigation')
+        # Publicar el estado de los flags
+        self.publish_lock_all(self.lock_all_active)
+        self.publish_lock_navigation(self.lock_navigation_active)
 
     def publish_lock_all(self, lock):
         msg = Bool()
@@ -64,15 +57,26 @@ class TwistMuxController(Node):
         self.lock_navigation_publisher.publish(msg)
         self.get_logger().info(f'Published lock_navigation: {lock}')
 
-    def publish_zero_velocity(self, lock_type):
+    def publish_velocity(self):
+        # Definir el twist con base en los flags de bloqueo
         twist = Twist()
-        twist.linear.x = 0.0
-        twist.linear.y = 0.0
-        twist.angular.z = 0.005
-        self.publish_enabled = False 
-        if lock_type == 'all':
+        if self.lock_all_active:
+            twist.linear.x = 0.0
+            twist.linear.y = 0.0
+            twist.angular.z = 0.005  # Publicar mientras esté en bloqueo total
             self.cmd_vel_block_all_publisher.publish(twist)
-        elif lock_type == 'navigation':
+
+        elif self.lock_navigation_active:
+            twist.linear.x = 0.0
+            twist.linear.y = 0.0
+            twist.angular.z = 0.005  # Publicar mientras esté en bloqueo de navegación
+            self.cmd_vel_block_navigation_publisher.publish(twist)
+
+        else:
+            twist.linear.x = 0.0
+            twist.linear.y = 0.0
+            twist.angular.z = 0.0  # No bloqueo, publicar 0
+            self.cmd_vel_block_all_publisher.publish(twist)
             self.cmd_vel_block_navigation_publisher.publish(twist)
 
 def main(args=None):
@@ -84,3 +88,4 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
