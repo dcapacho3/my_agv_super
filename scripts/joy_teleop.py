@@ -4,6 +4,7 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
 from geometry_msgs.msg import Twist
+from std_msgs.msg import String
 
 class JoyTeleop(Node):
     def __init__(self):
@@ -24,11 +25,13 @@ class JoyTeleop(Node):
         self.counter = 0
         self.last_button_b_state = 0
         self.last_button_b_change_time = self.get_clock().now()
-        self.mode_normal = True  # Flag para modo normal
-        self.mode_special = False  # Flag para modo especial
+        self.mode_normal = False # Flag para modo normal
+        self.mode_special = True  # Flag para modo especial
 
         # Parámetro para habilitar/deshabilitar publicación
-        self.publish_enabled = True
+        self.publish_enabled = False
+        self.is_joy_on_publisher = self.create_publisher(String, 'is_joy_on', 10)
+        self.is_joy_on_msg = String()
 
     def joy_callback(self, msg):
         current_time = self.get_clock().now()
@@ -69,6 +72,7 @@ class JoyTeleop(Node):
         twist = Twist()
         
         if self.mode_normal:
+            self.is_joy_on_msg.data = 'yes'
             twist.linear.x = self.speed * msg.axes[7]  # Adelante y atrás
             twist.linear.y = self.speed * msg.axes[6]  # Izquierda y derecha
             
@@ -86,7 +90,9 @@ class JoyTeleop(Node):
             twist.linear.y = 0.0
             twist.angular.z = 0.0005
             self.publish_enabled = False 
+            self.is_joy_on_msg.data = 'no'
 
+        self.is_joy_on_publisher.publish(self.is_joy_on_msg)
         # Publicar el mensaje Twist solo si la publicación está habilitada
         if self.publish_enabled:
             self.publisher.publish(twist)

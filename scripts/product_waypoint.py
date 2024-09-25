@@ -24,7 +24,7 @@ class AutonomousNavigator:
 
     def load_map(self):
         bringup_dir = get_package_share_directory('my_agv_super')
-        map_yaml_path = os.path.join(bringup_dir, 'maps/cafe_world_map.yaml')
+        map_yaml_path = os.path.join(bringup_dir, 'maps/supermarket_map.yaml')
         with open(map_yaml_path, 'r') as f:
             yaml_content = yaml.safe_load(f)
         

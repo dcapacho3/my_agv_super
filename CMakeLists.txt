@@ -32,7 +32,7 @@ find_package(pluginlib REQUIRED)
 
  
 install(
-  DIRECTORY config launch maps meshes models params rviz worlds scripts database frames
+  DIRECTORY config launch maps meshes models params rviz worlds scripts database frames images
   DESTINATION share/${PROJECT_NAME}
 )
 

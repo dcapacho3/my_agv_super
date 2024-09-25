@@ -23,6 +23,11 @@ import subprocess
 import time
 import math
 import matplotlib.patches as patches
+from matplotlib import transforms
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+from PIL import ImageOps 
+import matplotlib.transforms as mtransforms
+
 
 from finishgui import ThanksWindow
 
@@ -47,6 +52,7 @@ class NavigationWindow(ctk.CTk):
         self.executor = None
         self.navigator = None
         self.odom_subscriber = None
+        self.is_joy_on_subscriber = None
         self.continue_nav_publisher = None
         self.current_pose = None
         self.cashier_reached = False
@@ -58,13 +64,16 @@ class NavigationWindow(ctk.CTk):
         self.ros_thread.daemon = True  # Daemon para que termine cuando la GUI se cierre
         self.ros_thread.start()
         
+        
         self.robot_patch = None
-        self.robot_width = 0.35  # in meters
-        self.robot_length = 0.15  # in meters
+        self.robot_width = 0.15  # in meters
+        self.robot_length = 0.35  # in meters
+        self.robot_image = None
+        self.robot_imobj = None
+        self.robot_artist = None
         self.cashier_marker = None  # New attribute to store the cashier marker
         self.fixed_cash_location = {'x': -1.0, 'y': -2.0}  # Add this line to define the cashier location
-
-
+        
         # Variable para controlar el estado del botón
         self.navigation_started = False
         self.go_to_cashier= False
@@ -77,7 +86,6 @@ class NavigationWindow(ctk.CTk):
         # Ejemplo de etiqueta en el frame superior
     #    self.label_superior = ctk.CTkLabel(self.top_frame, text="Información Adicional en la parte superior")
      #   self.label_superior.pack(pady=5)
-
 
         self.progress_bar = ctk.CTkProgressBar(self.top_frame, width=400)
         self.progress_bar.pack(pady=5)
@@ -121,8 +129,7 @@ class NavigationWindow(ctk.CTk):
         # Crear un marco interno para el botón con más altura
         self.button_inner_frame = ctk.CTkFrame(self.button_frame, height=100, width=100)
         self.button_inner_frame.pack(side=ctk.LEFT, fill=ctk.BOTH, expand=True, padx=10, pady=10)
-
-        
+   
         self.start_calibration_button = ctk.CTkButton(
             self.button_inner_frame,
             text="Iniciar Navegacion",
@@ -130,6 +137,7 @@ class NavigationWindow(ctk.CTk):
             height=80,
         )
         self.start_calibration_button.pack(side=ctk.LEFT, fill=ctk.BOTH, expand=True, padx=5)
+
 
         # Botón "Iniciar Navegación" con mayor altura
         self.start_navigation_button = ctk.CTkButton(
@@ -140,6 +148,21 @@ class NavigationWindow(ctk.CTk):
             
         )
         self.start_navigation_button.pack(side=ctk.LEFT, fill=ctk.BOTH, expand=True)
+        
+        self.control_frame = ctk.CTkFrame(self.info_frame, width=150)
+        self.control_frame.pack(side=ctk.TOP, padx=10, pady=10)
+
+        # Create a label for the control status text
+        self.control_label = ctk.CTkLabel(self.control_frame, text="Estado de control")
+        self.control_label.pack(side=ctk.LEFT, padx=5)
+
+        # Create a canvas for the circle
+        self.control_canvas = ctk.CTkCanvas(self.control_frame, width=20, height=20)
+        self.control_canvas.pack(side=ctk.LEFT, padx=5)
+
+        # Create a circle on the canvas
+        self.control_circle = self.control_canvas.create_rectangle(0, 0, 20, 20, fill="red")
+
         # Crear y mostrar el gráfico
         self.create_plot(self.map_frame)
         
@@ -148,7 +171,7 @@ class NavigationWindow(ctk.CTk):
         # Actualizar la lista de productos seleccionados
         self.view_selected_products()
         self.after(1000, self.view_selected_products)
-        
+
     def init_ros(self):
        rclpy.init(args=None)
        self.node = rclpy.create_node('navigate_node')
@@ -156,6 +179,8 @@ class NavigationWindow(ctk.CTk):
        self.executor.add_node(self.node)
        self.navigator = BasicNavigator()
        self.odom_subscriber = self.node.create_subscription(Odometry, 'odom', self.odom_callback, 10)
+       self.is_joy_on_subscriber = self.node.create_subscription(String, 'is_joy_on', self.is_joy_on_callback, 10)
+
        self.continue_nav_publisher = self.node.create_publisher(String, '/continue_nav', 10)
        self.cashier_publisher = self.node.create_publisher(String, '/to_do_next', 10)
        self.status_subscriber = self.node.create_subscription(String, '/navigation_status', self.status_callback, 10)
@@ -170,7 +195,13 @@ class NavigationWindow(ctk.CTk):
             'y': msg.pose.pose.position.y,
             'orientation': self.get_yaw_from_quaternion(msg.pose.pose.orientation)
         }
-    
+
+    def is_joy_on_callback(self, msg):
+        if msg.data == "yes":
+            self.control_canvas.itemconfig(self.control_circle, fill="green")
+        else:
+            self.control_canvas.itemconfig(self.control_circle, fill="red")       
+   
     def status_callback(self, msg):
         status, waypoint_name, completion_percentage, visited_waypoints = msg.data.split('|')
         visited_waypoints = set(visited_waypoints.split(','))
@@ -350,17 +381,18 @@ class NavigationWindow(ctk.CTk):
 
             orientation = self.current_pose.get('orientation', 0)  # in radians
 
-            # Update the robot's position and orientation
+                      # Remove the previous robot image if it exists
             robot_width_pixels = self.robot_width / self.resolution
             robot_length_pixels = self.robot_length / self.resolution
             
-            # Calculate the position for the rectangle's bottom-left corner
-            corner_x = pixel_x - robot_width_pixels / 2
-            corner_y = pixel_y - robot_length_pixels / 2
-
-            # Update the robot patch
-            self.robot_patch.set_xy((corner_x, corner_y))
-            self.robot_patch.set_angle(math.degrees(orientation))
+            # Update the position and rotation of the image
+            tr = mtransforms.Affine2D().rotate(orientation -math.pi/2).translate(pixel_x, pixel_y)
+            self.robot_imobj.set_transform(tr + self.ax.transData)
+            
+            # Update the extent of the image
+            extent = [-robot_width_pixels, robot_width_pixels,
+                      -robot_length_pixels, robot_length_pixels]
+            self.robot_imobj.set_extent(extent)
 
             self.canvas.draw()
         else:
@@ -373,7 +405,7 @@ class NavigationWindow(ctk.CTk):
         self.label_reloj.configure(text=now.strftime("%H:%M:%S"))
         self.label_fecha.configure(text=now.strftime("%Y-%m-%d"))
         self.after(1000, self.actualizar_reloj_y_fecha)
-
+  
     def create_plot(self, frame):
         self.fig, self.ax = plt.subplots(figsize=(6, 4), dpi=100)
         self.canvas = FigureCanvasTkAgg(self.fig, master=frame)
@@ -381,23 +413,33 @@ class NavigationWindow(ctk.CTk):
 
         self.update_map_plot()
         
-        #self.robot_position, = self.ax.plot([], [], 'bo', markersize=10, label='Robot')
+        pkg_dir = get_package_share_directory('my_agv_super')
+        robot_image_path = os.path.join(pkg_dir, 'images/shoppingcart.png')
+        self.robot_image = plt.imread(robot_image_path)
+        robot_width_data = self.robot_width / self.resolution
+        robot_height_data = self.robot_length / self.resolution
         
-        # Create the robot patch
-        robot_width_pixels = self.robot_width / self.resolution
-        robot_length_pixels = self.robot_length / self.resolution
-        self.robot_patch = patches.Rectangle((0, 0), robot_width_pixels, robot_length_pixels, 
-                                             fill=True, facecolor='blue', edgecolor='black')
-        self.ax.add_patch(self.robot_patch)
+        # Create the image object on the axes, swapping width and height in extent
+        self.robot_imobj = self.ax.imshow(self.robot_image, 
+                                          extent=[-robot_height_data/2, robot_height_data/2, 
+                                                  -robot_width_data/2, robot_width_data/2],
+                                          zorder=2,  # Ensure the robot is drawn on top of the map
+                                          alpha=0.8)  # Slight transparency to see the map underneath
+
+        # Set the initial position off-screen
+        self.robot_imobj.set_transform(mtransforms.Affine2D().translate(-1000, -1000) + self.ax.transData)
 
         self.ax.legend()
+      
 
     def update_map_plot(self):
         self.ax.clear()
         # Cargar el mapa y actualizar el gráfico
         self.map_array, self.resolution, self.origin = self.load_map()
         self.ax.imshow(np.flipud(self.map_array), cmap='gray', origin='lower')
-
+        map_height, map_width = self.map_array.shape
+        self.ax.set_xlim(0, map_width)
+        self.ax.set_ylim(0, map_height)
         # Obtener y plotear ubicaciones de productos
         self.plot_product_locations()
         
@@ -450,13 +492,13 @@ class NavigationWindow(ctk.CTk):
             print("Iniciando navegación...")
             print("Iniciando lanzamiento de archivos y navegación...")
             
-            # Launch the ROS 2 launch files
-            # Crear y ejecutar un hilo para la navegación
+
             navigation_thread = threading.Thread(target=self.run_navigation)
             navigation_thread.start()
             self.navigation_started = True  # Marcar que la navegación ha comenzado
             self.start_navigation_button.configure(state="disabled")
         elif self.go_to_cashier:
+            self.start_navigation_button.configure( state="disabled")
             self.go_to_checkout()
         else:
             print("La navegación ya ha comenzado. Ejecutando otra acción...")
@@ -467,7 +509,7 @@ class NavigationWindow(ctk.CTk):
             "ros2 launch my_agv_super mux.launch.py",
             #"ros2 launch my_agv_super real_nav.launch.py"
             "ros2 launch my_agv_super navagv.launch.py"
-            #"ros2 launch my_agv_super basic_control.launch.py"
+   
         ]
         
         
@@ -483,8 +525,8 @@ class NavigationWindow(ctk.CTk):
         
         
         print("Launch files started successfully (output suppressed).")
-       # basic_control_thread = threading.Thread(target=self.launch_basic_control)
-        #basic_control_thread.start()
+        basic_control_thread = threading.Thread(target=self.launch_basic_control)
+        basic_control_thread.start()
         
     def launch_basic_control(self):
         cmd = "ros2 launch my_agv_super basic_control.launch.py"
