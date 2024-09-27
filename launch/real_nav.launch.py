@@ -172,7 +172,8 @@ def generate_launch_description():
   	parameters=[nav2_params_path],
   	remappings=[('/scan', 'scan')]
 	)
-
+	
+  subscriber_node= Node( package='my_agv_super',executable='subscriberagv.py')
     
 
 # Launch the ROS 2 Navigation Stack
@@ -206,6 +207,7 @@ def generate_launch_description():
   ld.add_action(declare_use_sim_time_cmd)
   ld.add_action(declare_use_simulator_cmd)
   ld.add_action(declare_world_cmd)
+ 
 
   # Add any actions
   ld.add_action(start_gazebo_server_cmd)
@@ -215,5 +217,6 @@ def generate_launch_description():
   ld.add_action(start_rviz_cmd)
   ld.add_action(start_ros2_navigation_cmd)
   #ld.add_action(start_amcl_cmd)
+  ld.add_action(subscriber_node)
 
   return ld

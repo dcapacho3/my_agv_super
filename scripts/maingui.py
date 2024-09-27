@@ -7,6 +7,7 @@ import os
 import datetime
 from navigationgui import NavigationWindow
 import signal
+from real_nav_gui import RealNavWindow
 
 
 class ProductManager:
@@ -94,7 +95,20 @@ class ProductManager:
 
         self.selected_frame = ctk.CTkScrollableFrame(frame2, width=300, height=400)
         self.selected_frame.pack(fill=ctk.BOTH, expand=True, pady=10)
-        
+
+    # Frame for option menu
+        option_frame = ctk.CTkFrame(left_frame)
+        option_frame.pack(side=ctk.TOP, fill=ctk.X, padx=10, pady=5)
+
+    # Create a variable to store the selected option
+        self.navigation_mode = ctk.StringVar()
+        self.navigation_mode.set("Simulacion")  # Default value
+
+    # Create an option menu
+        option_menu = ctk.CTkOptionMenu(option_frame, values=["Simulacion", "Real"], variable=self.navigation_mode)
+        option_menu.pack(side=ctk.LEFT, padx=10, pady=5)
+
+
         go_to_products_button = ctk.CTkButton(frame2, text="Dirigirse a productos", command=self.open_navigation_window, width=200, height=50, font=("Helvetica", 16))
         go_to_products_button.pack(pady=10)
 
@@ -178,9 +192,15 @@ class ProductManager:
     def open_navigation_window(self):
         if self.after_id is not None:
            self.root.after_cancel(self.after_id) 
-        self.navigation_window = NavigationWindow(self)
+        if self.navigation_mode.get() == "Simulacion":
+            self.navigation_window = NavigationWindow(self)
+        elif self.navigation_mode.get() == "Real":
+            self.navigation_window = RealNavWindow(self)
+
         self.root.withdraw()  # Hide the current window instead of destroying it
         self.navigation_window.mainloop()
+   
+        
         
     def signal_handler(self, sig, frame):
         print("Ctrl+C detectado, cerrando la aplicación...")
