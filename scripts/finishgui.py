@@ -21,18 +21,18 @@ class ThanksWindow(ctk.CTk):
 
 
     def setup_ui(self):
-        self.title("Shop Vision")
+        self.title("Smart Autonomous Retail Assistant")
         self.geometry("%dx%d+0+0" % (self.winfo_screenwidth(), self.winfo_screenheight()))
         self.resizable(width=1, height=1)
 
         # Frame en la parte superior
-        top_frame = ctk.CTkFrame(self, height=200)
+        top_frame = ctk.CTkFrame(self, height=200, fg_color="bisque2")
         top_frame.pack(side=ctk.TOP, fill=ctk.X)
-        title_label = ctk.CTkLabel(top_frame, text="Thank You", font=("Helvetica", 28, "bold"))
+        title_label = ctk.CTkLabel(top_frame, text="Ha finalizado su proceso de compra", font=("Helvetica", 35, "bold"))
         title_label.pack(padx=20, pady=10)
 
         # Frame a la izquierda
-        left_frame = ctk.CTkFrame(self, width=200)
+        left_frame = ctk.CTkFrame(self, width=200, fg_color="bisque2")
         left_frame.pack(side=ctk.LEFT, fill=ctk.Y)
 
         # Reloj
@@ -50,11 +50,11 @@ class ThanksWindow(ctk.CTk):
         main_frame = ctk.CTkFrame(self)
         main_frame.pack(side=ctk.LEFT, fill=ctk.BOTH, padx=20, pady=20, expand=True)
         
-        thank_you_label = ctk.CTkLabel(main_frame, text="Gracias por comprar", font=('Helvetica', 24, 'bold'))
+        thank_you_label = ctk.CTkLabel(main_frame, text="Gracias por comprar", font=('Helvetica', 35, 'bold'))
         thank_you_label.pack(expand=True, padx=20, pady=20, anchor='center')
 
         # Texto Shop Vision
-        shop_vision_label = ctk.CTkLabel(left_frame, text="Shop Vision", font=('Helvetica', 20, 'bold'))
+        shop_vision_label = ctk.CTkLabel(left_frame, text="SARA", font=('Helvetica', 30, 'bold'))
         shop_vision_label.pack(side=ctk.BOTTOM, padx=10, pady=10)
         
 

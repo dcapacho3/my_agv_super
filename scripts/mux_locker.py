@@ -39,7 +39,7 @@ class TwistMuxController(Node):
 
         # Condiciones de bloqueo
         self.lock_all_active = first_number > 300
-        self.lock_navigation_active = not (100 <= second_number <= 2000)
+        self.lock_navigation_active = second_number < 700 or second_number > 2000
 
         # Publicar el estado de los flags
         self.publish_lock_all(self.lock_all_active)
@@ -63,21 +63,15 @@ class TwistMuxController(Node):
         if self.lock_all_active:
             twist.linear.x = 0.0
             twist.linear.y = 0.0
-            twist.angular.z = 0.005  # Publicar mientras esté en bloqueo total
+            twist.angular.y = 0.005  # Publicar mientras esté en bloqueo total
             self.cmd_vel_block_all_publisher.publish(twist)
 
         elif self.lock_navigation_active:
             twist.linear.x = 0.0
             twist.linear.y = 0.0
-            twist.angular.z = 0.005  # Publicar mientras esté en bloqueo de navegación
+            twist.angular.y = 0.004  # Publicar mientras esté en bloqueo de navegación
             self.cmd_vel_block_navigation_publisher.publish(twist)
 
-        else:
-            twist.linear.x = 0.0
-            twist.linear.y = 0.0
-            twist.angular.z = 0.0  # No bloqueo, publicar 0
-            self.cmd_vel_block_all_publisher.publish(twist)
-            self.cmd_vel_block_navigation_publisher.publish(twist)
 
 def main(args=None):
     rclpy.init(args=args)

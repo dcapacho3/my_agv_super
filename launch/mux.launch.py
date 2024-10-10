@@ -23,16 +23,21 @@ def generate_launch_description():
             output='screen',
             parameters=[mux_params, {'use_sim_time': use_sim_time}],
             remappings=[
-            ('/cmd_vel_out', '/cmd_vel_out') ]
+            ('/cmd_vel_out', '/cmd_vel_in') ]
          )
     joy_params = os.path.join(get_package_share_directory('my_agv_super'),'config','joystick.yaml')
+
+
 
     joy_node = Node(
             package='joy',
             executable='joy_node',
             parameters=[joy_params],
          )
+    
+    speed_limit_node= Node( package='my_agv_super',executable='speed_limit.py')
 
+    
 
     return LaunchDescription([
         DeclareLaunchArgument(
@@ -41,6 +46,7 @@ def generate_launch_description():
             description='Use sim time if true'),
         mux_node,
         joy_node,
+        speed_limit_node,
 
         # twist_stamper       
     ])

@@ -40,6 +40,9 @@ class ObstacleAvoidanceNode(Node):
         # Variable to check if avoidance should be activated
         self.should_activate_avoidance = False
 
+        # Flag to indicate if an avoidance routine is in progress
+        self.avoidance_in_progress = False
+
         # Maximum and minimum distances to consider obstacles (in meters)
         self.max_obstacle_distance = 0.25
         self.min_obstacle_distance = 0.15
@@ -55,6 +58,7 @@ class ObstacleAvoidanceNode(Node):
 
         # Store the last lateral displacement direction
         self.last_lateral_direction = 0.0
+        
 
     def cmd_vel_out_callback(self, msg):
         # Check if the current message is different from the last avoidance message
@@ -74,7 +78,7 @@ class ObstacleAvoidanceNode(Node):
         self.last_cmd_vel_out_msg = msg
 
     def laser_callback(self, msg):
-        if not self.should_activate_avoidance:
+        if not self.should_activate_avoidance and not self.avoidance_in_progress:
             self.publishing_enabled = False
             return
 
@@ -90,6 +94,7 @@ class ObstacleAvoidanceNode(Node):
 
         if closest_obstacle_distance < self.max_obstacle_distance:
             self.publishing_enabled = True
+            self.avoidance_in_progress = True
             self.get_logger().info(f'Obstacle detected at {closest_obstacle_distance} meters.')
 
             # Calculate lateral speed based on obstacle distance
@@ -106,19 +111,25 @@ class ObstacleAvoidanceNode(Node):
 
             # Publish velocity command
             self.publish_cmd_vel(0.0, lateral_speed)
+        elif self.avoidance_in_progress:
+            self.publishing_enabled = False
+            self.get_logger().info('No obstacles within the maximum distance. Completing avoidance routine.')
+
+            # Stop lateral movement
+            self.publish_cmd_vel(0.0, 0.0)
+
+            # Rotate on its axis 15 degrees in the opposite direction to the last lateral movement
+            if self.last_lateral_direction > 0:
+                self.rotate_in_place(self.angular_speed)
+            else:
+                self.rotate_in_place(-self.angular_speed)
+
+            # Reset avoidance flag after completing the routine
+            self.avoidance_in_progress = False
+            self.get_logger().info('Avoidance routine completed.')
         else:
             self.publishing_enabled = False
             self.get_logger().info('No obstacles within the maximum distance.')
-
-            # Stop publishing if no obstacles are detected
-            if self.last_publishing_enabled:
-                self.publish_cmd_vel(0.0, 0.0)
-
-                # Rotate on its axis 15 degrees in the opposite direction to the last lateral movement
-                if self.last_lateral_direction > 0:
-                    self.rotate_in_place(self.angular_speed)
-                else:
-                    self.rotate_in_place(-self.angular_speed)
 
         self.last_publishing_enabled = self.publishing_enabled
 

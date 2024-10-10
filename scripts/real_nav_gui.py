@@ -41,7 +41,7 @@ class RealNavWindow(ctk.CTk):
         self.product_manager = product_manager
          
        
-        self.title("Navigation Interface")
+        self.title("Smart Autonomous Retail Assistant")
         self.geometry("%dx%d+0+0" % (self.winfo_screenwidth(), self.winfo_screenheight()))
         self.resizable(width=1, height=1)
 
@@ -80,7 +80,7 @@ class RealNavWindow(ctk.CTk):
         self.continue_nav_published = False  # Nueva variable para controlar la publicación
 
         # Frame superior
-        self.top_frame = ctk.CTkFrame(self, height=50)
+        self.top_frame = ctk.CTkFrame(self, height=50, fg_color="bisque2")
         self.top_frame.pack(side=ctk.TOP, fill=ctk.X, padx=10, pady=10)
 
         # Ejemplo de etiqueta en el frame superior
@@ -92,11 +92,11 @@ class RealNavWindow(ctk.CTk):
         self.progress_bar.set(0)  # Initialize progress to 0
 
         # Add a label for status messages
-        self.status_label = ctk.CTkLabel(self.top_frame, text="Status: Not started")
+        self.status_label = ctk.CTkLabel(self.top_frame, text="Por favor empiece con el proceso de compra")
         self.status_label.pack(pady=5)
 
         # Frame para la información de fecha, hora, etc.
-        self.info_frame = ctk.CTkFrame(self, width=200)
+        self.info_frame = ctk.CTkFrame(self, width=200, fg_color="bisque2")
         self.info_frame.pack(side=ctk.LEFT, fill=ctk.Y, padx=10, pady=10)
 
         # Etiquetas de reloj y fecha
@@ -104,7 +104,7 @@ class RealNavWindow(ctk.CTk):
         self.label_reloj.pack(side=ctk.TOP, padx=10, pady=10)
         self.label_fecha = ctk.CTkLabel(self.info_frame, font=('ARIAL', 18, 'bold'))
         self.label_fecha.pack(side=ctk.TOP, padx=10, pady=70)
-        shop_vision_label = ctk.CTkLabel(self.info_frame, text="Shop Vision", font=('Helvetica', 20, 'bold'))
+        shop_vision_label = ctk.CTkLabel(self.info_frame, text="SARA", font=('Helvetica', 20, 'bold'))
         shop_vision_label.pack(side=ctk.BOTTOM, padx=10, pady=10)
 
         # Iniciar la actualización del reloj y la fecha
@@ -115,7 +115,7 @@ class RealNavWindow(ctk.CTk):
         self.map_frame.pack(side=ctk.LEFT, fill=ctk.BOTH, expand=True, padx=10, pady=10)
 
         # Frame para el gráfico y la lista de productos
-        self.right_frame = ctk.CTkFrame(self, width=300)
+        self.right_frame = ctk.CTkFrame(self, width=300,  fg_color="bisque2")
         self.right_frame.pack(side=ctk.RIGHT, fill=ctk.Y, padx=10, pady=10, expand=False)
 
         # Frame para la lista de productos seleccionados
@@ -123,18 +123,18 @@ class RealNavWindow(ctk.CTk):
         self.selected_frame.pack(side=ctk.TOP, fill=ctk.BOTH, expand=True, padx=10, pady=10)
 
         # Frame para el botón
-        self.button_frame = ctk.CTkFrame(self.right_frame, width=120)
+        self.button_frame = ctk.CTkFrame(self.right_frame, width=120, fg_color="bisque2")
         self.button_frame.pack(side=ctk.BOTTOM, fill=ctk.X, padx=10, pady=10)
 
         # Crear un marco interno para el botón con más altura
-        self.button_inner_frame = ctk.CTkFrame(self.button_frame, height=100, width=100)
+        self.button_inner_frame = ctk.CTkFrame(self.button_frame, height=100, width=100, fg_color="bisque2")
         self.button_inner_frame.pack(side=ctk.LEFT, fill=ctk.BOTH, expand=True, padx=10, pady=10)
    
         self.start_calibration_button = ctk.CTkButton(
             self.button_inner_frame,
             text="Iniciar Navegacion",
-            command=self.start_calibration,  # Nueva función que realizarás
-            height=80,
+            command=self.start_calibration, fg_color="blanched almond", text_color="black", hover_color="bisque2"  # Nueva función que realizarás
+            
         )
         self.start_calibration_button.pack(side=ctk.LEFT, fill=ctk.BOTH, expand=True, padx=5)
 
@@ -144,7 +144,7 @@ class RealNavWindow(ctk.CTk):
             self.button_inner_frame,
             text="Localizar productos",
             command=self.start_navigation,
-            height=80,
+            height=80, fg_color="blanched almond", text_color="black", hover_color="bisque2"
             
         )
         self.start_navigation_button.pack(side=ctk.LEFT, fill=ctk.BOTH, expand=True)
@@ -611,7 +611,7 @@ class RealNavWindow(ctk.CTk):
 
     def view_selected_products(self):
         self.selected_frame.destroy()  # Destruir el marco anterior
-        self.selected_frame = ctk.CTkFrame(self.right_frame, width=150)
+        self.selected_frame = ctk.CTkFrame(self.right_frame, width=150, fg_color="peachpuff")
         self.selected_frame.pack(side=ctk.TOP, fill=ctk.BOTH, expand=True, padx=10, pady=10)
 
         # Re-crear la lista de productos seleccionados

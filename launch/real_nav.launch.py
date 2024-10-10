@@ -174,6 +174,7 @@ def generate_launch_description():
 	)
 	
   subscriber_node= Node( package='my_agv_super',executable='subscriberagv.py')
+  locker_node= Node( package='my_agv_super',executable='mux_locker.py')
     
 
 # Launch the ROS 2 Navigation Stack
@@ -216,7 +217,8 @@ def generate_launch_description():
   ld.add_action(start_robot_state_publisher_cmd)
   ld.add_action(start_rviz_cmd)
   ld.add_action(start_ros2_navigation_cmd)
-  #ld.add_action(start_amcl_cmd)
-  ld.add_action(subscriber_node)
+  ld.add_action(start_amcl_cmd)
+  #ld.add_action(subscriber_node)
+  #ld.add_action(locker_node)
 
   return ld

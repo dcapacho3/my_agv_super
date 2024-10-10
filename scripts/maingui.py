@@ -8,6 +8,8 @@ import datetime
 from navigationgui import NavigationWindow
 import signal
 from real_nav_gui import RealNavWindow
+from PIL import Image
+from ament_index_python.packages import get_package_share_directory
 
 
 class ProductManager:
@@ -26,56 +28,66 @@ class ProductManager:
 
 
     def setup_ui(self):
-        ctk.set_appearance_mode("dark")
-        ctk.set_default_color_theme("blue")
+        ctk.set_appearance_mode("light")
+        #ctk.set_default_color_theme("blue")
+        self.root.configure(fg_color="blanched almond")
 
-        self.root.title("Shop Vision")
+
+        self.root.title("Smart Autonomous Retail Assistant")
         self.root.geometry("%dx%d+0+0" % (self.root.winfo_screenwidth(), self.root.winfo_screenheight()))
         self.root.resizable(width=1, height=1)
 
         # Frame en la parte superior
-        top_frame = ctk.CTkFrame(self.root, height=200)
+        top_frame = ctk.CTkFrame(self.root, height=200,fg_color="bisque2")
         top_frame.pack(side=ctk.TOP, fill=ctk.X)
-        title_label = ctk.CTkLabel(top_frame, text="Product Management Interface", font=("Helvetica", 28, "bold"))
+        title_label = ctk.CTkLabel(top_frame, text="Bienvenido, escoge el producto que desee buscar", font=("Comic Sans", 35, "italic"))
         title_label.pack(padx=20, pady=10)
 
         # Frame a la izquierda
-        left_frame = ctk.CTkFrame(self.root, width=200)
+        left_frame = ctk.CTkFrame(self.root, width=200, fg_color="bisque2")
         left_frame.pack(side=ctk.LEFT, fill=ctk.Y)
+        
+        pkg_dir = get_package_share_directory('my_agv_super')
+        image_path = os.path.join(pkg_dir, 'images/Usuario.png')
+        img = Image.open(image_path)
+        img = img.resize((120, 150))
+        ctk_image = ctk.CTkImage(light_image=img, size=(120, 150))
+        label = ctk.CTkLabel(left_frame, image=ctk_image, text="")
+        label.pack(padx=30, pady=30)
 
         # Reloj
-        self.label_reloj = ctk.CTkLabel(left_frame, font=('ARIAL', 18, 'bold'))
+        self.label_reloj = ctk.CTkLabel(left_frame, font=('ARIAL', 25, 'bold'))
         self.label_reloj.pack(side=ctk.TOP, padx=10, pady=10)
 
         # Fecha
-        self.label_fecha = ctk.CTkLabel(left_frame, font=('ARIAL', 18, 'bold'))
+        self.label_fecha = ctk.CTkLabel(left_frame, font=('ARIAL', 25, 'bold'))
         self.label_fecha.pack(side=ctk.TOP, padx=10, pady=70)
 
         # Actualizar reloj y fecha
         self.actualizar_reloj_y_fecha()
 
-        # Texto Shop Vision
-        shop_vision_label = ctk.CTkLabel(left_frame, text="Shop Vision", font=('Helvetica', 20, 'bold'))
+        # Texto SARA
+        shop_vision_label = ctk.CTkLabel(left_frame, text="SARA", font=('Helvetica', 35, 'bold'))
         shop_vision_label.pack(side=ctk.BOTTOM, padx=10, pady=10)
 
         # Frame de búsqueda dentro del frame izquierdo
-        search_frame = ctk.CTkFrame(left_frame)
+        search_frame = ctk.CTkFrame(left_frame, fg_color="bisque2")
         search_frame.pack(side=ctk.TOP, fill=ctk.X, padx=10, pady=10)
 
         # Campo de entrada para búsqueda
-        self.search_entry = ctk.CTkEntry(search_frame, font=("Arial", 12))
+        self.search_entry = ctk.CTkEntry(search_frame, font=("Arial", 30))
         self.search_entry.pack(side=ctk.TOP, padx=10, pady=5)
 
         # Botón de búsqueda
-        search_button = ctk.CTkButton(search_frame, text="Buscar", command=self.perform_search)
+        search_button = ctk.CTkButton(search_frame, text="Buscar", command=self.perform_search, fg_color="blanched almond", text_color="black", hover_color="bisque2")
         search_button.pack(side=ctk.TOP, padx=10, pady=5)
 
         # Frame para lista de productos
-        frame1 = ctk.CTkFrame(self.root, width=350)
+        frame1 = ctk.CTkFrame(self.root, width=350, fg_color="peachpuff")
         frame1.pack(side=ctk.LEFT, fill=ctk.BOTH, padx=20, pady=20, expand=True)
 
         # Frame para productos seleccionados
-        frame2 = ctk.CTkFrame(self.root, width=350)
+        frame2 = ctk.CTkFrame(self.root, width=350, fg_color="peachpuff")
         frame2.pack(side=ctk.RIGHT, fill=ctk.BOTH, padx=20, pady=20, expand=True)
 
         # Título para la lista de productos
@@ -83,21 +95,21 @@ class ProductManager:
         products_label.pack(pady=10)
 
         # Scrollable Frame para la lista de productos
-        self.treeview_frame = ctk.CTkScrollableFrame(frame1, width=300, height=400)
+        self.treeview_frame = ctk.CTkScrollableFrame(frame1, width=300, height=400, fg_color="Ivory")
         self.treeview_frame.pack(fill=ctk.BOTH, expand=True, pady=10)
 
-        select_button = ctk.CTkButton(frame1, text="Select Products", command=self.select_products, width=200, height=50, font=("Helvetica", 16))
+        select_button = ctk.CTkButton(frame1, text="Seleccionar productos", command=self.select_products, width=200, height=50, font=("Helvetica", 16), fg_color="blanched almond", text_color="black", hover_color="bisque2")
         select_button.pack(pady=10)
 
         # Título para productos seleccionados
         selected_label = ctk.CTkLabel(frame2, text="Productos Seleccionados", font=("Helvetica", 24, "bold"))
         selected_label.pack(pady=10)
 
-        self.selected_frame = ctk.CTkScrollableFrame(frame2, width=300, height=400)
+        self.selected_frame = ctk.CTkScrollableFrame(frame2, width=300, height=400, fg_color="Ivory")
         self.selected_frame.pack(fill=ctk.BOTH, expand=True, pady=10)
 
     # Frame for option menu
-        option_frame = ctk.CTkFrame(left_frame)
+        option_frame = ctk.CTkFrame(left_frame, fg_color="bisque2" )
         option_frame.pack(side=ctk.TOP, fill=ctk.X, padx=10, pady=5)
 
     # Create a variable to store the selected option
@@ -105,11 +117,11 @@ class ProductManager:
         self.navigation_mode.set("Simulacion")  # Default value
 
     # Create an option menu
-        option_menu = ctk.CTkOptionMenu(option_frame, values=["Simulacion", "Real"], variable=self.navigation_mode)
+        option_menu = ctk.CTkOptionMenu(option_frame, values=["Simulacion", "Real"], variable=self.navigation_mode, fg_color="white", button_hover_color="bisque2", button_color="bisque2", text_color="black")
         option_menu.pack(side=ctk.LEFT, padx=10, pady=5)
 
 
-        go_to_products_button = ctk.CTkButton(frame2, text="Dirigirse a productos", command=self.open_navigation_window, width=200, height=50, font=("Helvetica", 16))
+        go_to_products_button = ctk.CTkButton(frame2, text="Dirigirse a productos", command=self.open_navigation_window, width=200, height=50, font=("Helvetica", 16), fg_color="blanched almond", text_color='black', hover_color="bisque2")
         go_to_products_button.pack(pady=10)
 
         self.refresh_treeview()
@@ -120,7 +132,7 @@ class ProductManager:
         info_window.geometry("300x150")
         label = ctk.CTkLabel(info_window, text=message, padx=20, pady=20)
         label.pack(expand=True)
-        ok_button = ctk.CTkButton(info_window, text="OK", command=info_window.destroy)
+        ok_button = ctk.CTkButton(info_window, text="OK", command=info_window.destroy, fg_color="bisque2", text_color='black')
         ok_button.pack(pady=10)
 
     def refresh_treeview(self, search_term=""):
@@ -138,13 +150,18 @@ class ProductManager:
         for row in cursor.fetchall():
             if row[0] not in self.checkbox_vars:
                 self.checkbox_vars[row[0]] = ctk.IntVar()
-            checkbox = ctk.CTkCheckBox(self.treeview_frame, text=f"{row[1]} ({row[2]}, {row[3]})", variable=self.checkbox_vars[row[0]])
+            checkbox = ctk.CTkCheckBox(self.treeview_frame,font=('Helvetica', 26, 'bold'), text=f"{row[1]}", variable=self.checkbox_vars[row[0]])
             checkbox.pack(anchor="w", padx=10, pady=5)
             # Restaurar el estado del checkbox
-            checkbox.select() if self.checkbox_vars[row[0]].get() else checkbox.deselect()
+            if self.checkbox_vars[row[0]].get():
+            	checkbox.select()
+            	checkbox.configure(fg_color="bisque2")
+            else:
+            	checkbox.deselect()
+            	checkbox.configure(fg_color="bisque2")
 
         connection.close()
-
+        
     def select_products(self):
         selected_items = [key for key, var in self.checkbox_vars.items() if var.get()]
         if selected_items:
@@ -176,7 +193,7 @@ class ProductManager:
         cursor = connection.cursor()
         cursor.execute("SELECT * FROM selected_products")
         for row in cursor.fetchall():
-            ctk.CTkLabel(self.selected_frame, text=f"{row[0]} ({row[1]}, {row[2]})").pack(anchor="w", padx=10, pady=5)
+            ctk.CTkLabel(self.selected_frame, font=('Helvetica', 26, 'bold'), text=f"{row[0]}").pack(anchor="c", padx=10, pady=5)
         connection.close()
 
     def perform_search(self):
