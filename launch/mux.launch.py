@@ -25,15 +25,30 @@ def generate_launch_description():
             remappings=[
             ('/cmd_vel_out', '/cmd_vel_in') ]
          )
-    joy_params = os.path.join(get_package_share_directory('my_agv_super'),'config','joystick.yaml')
+ #   joy_params = os.path.join(get_package_share_directory('my_agv_super'),'config','joystick.yaml')
 
 
 
+  #  joy_node = Node(
+   #         package='joy',
+    #        executable='joy_node',
+     #       parameters=[joy_params],
+      #   )
+    
+
+    # Joy node configuration
     joy_node = Node(
-            package='joy',
-            executable='joy_node',
-            parameters=[joy_params],
-         )
+        package='joy',
+        executable='joy_node',
+        name='teleop_joy',
+        parameters=[{
+            'dev': '/dev/input/js0',  # Change jsX to the correct device
+            'deadzone': 0.12
+        }],
+        respawn=True
+    )
+
+    
     
     speed_limit_node= Node( package='my_agv_super',executable='speed_limit.py')
 

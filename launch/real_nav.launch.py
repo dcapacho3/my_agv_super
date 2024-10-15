@@ -22,12 +22,12 @@ def generate_launch_description():
   world_path = os.path.join(pkg_share, 'worlds', world_file_name)
   nav2_dir = FindPackageShare(package='nav2_bringup').find('nav2_bringup') 
   nav2_launch_dir = os.path.join(nav2_dir, 'launch') 
-  static_map_path = os.path.join(pkg_share, 'maps', 'labrobsuper_map.yaml')
-  nav2_params_path = os.path.join(pkg_share, 'params', 'nav2_params.yaml')
+  static_map_path = os.path.join(pkg_share, 'maps', 'labrobsuper_map_mask_keepout.yaml')
+  nav2_params_path = os.path.join(pkg_share, 'params', 'nav2_params_super.yaml')
   nav2_bt_path = FindPackageShare(package='nav2_bt_navigator').find('nav2_bt_navigator')
   behavior_tree_xml_path = os.path.join(nav2_bt_path, 'behavior_trees', 'navigate_w_replanning_and_recovery.xml')
   
-  # Launch configuration variables specific to simulation
+  # Launch configuration variables specific to simulations
   autostart = LaunchConfiguration('autostart')
   default_bt_xml_filename = LaunchConfiguration('default_bt_xml_filename')
   headless = LaunchConfiguration('headless')
@@ -172,6 +172,33 @@ def generate_launch_description():
   	parameters=[nav2_params_path],
   	remappings=[('/scan', 'scan')]
 	)
+
+  start_lifecycle_manager_cmd = Node(
+    package='nav2_lifecycle_manager',
+    executable='lifecycle_manager',
+    name='lifecycle_manager_costmap_filters',
+    output='screen',
+    emulate_tty=True,
+    parameters=[{'use_sim_time': use_sim_time},
+                {'autostart': True},
+                {'node_names': ['filter_mask_server', 'costmap_filter_info_server']}])
+
+  start_map_server_cmd = Node(
+    package='nav2_map_server',
+    executable='map_server',
+    name='filter_mask_server',
+    output='screen',
+    emulate_tty=True,
+    parameters=[params_file])
+
+  start_costmap_filter_info_server_cmd = Node(
+    package='nav2_map_server',
+    executable='costmap_filter_info_server',
+    name='costmap_filter_info_server',
+    output='screen',
+    emulate_tty=True,
+    parameters=[params_file])
+
 	
   subscriber_node= Node( package='my_agv_super',executable='subscriberagv.py')
   locker_node= Node( package='my_agv_super',executable='mux_locker.py')
@@ -218,6 +245,9 @@ def generate_launch_description():
   ld.add_action(start_rviz_cmd)
   ld.add_action(start_ros2_navigation_cmd)
   ld.add_action(start_amcl_cmd)
+  ld.add_action(start_lifecycle_manager_cmd)
+  ld.add_action(start_map_server_cmd)
+  ld.add_action(start_costmap_filter_info_server_cmd)  
   #ld.add_action(subscriber_node)
   #ld.add_action(locker_node)
 
