@@ -16,7 +16,7 @@ from nav_msgs.msg import Odometry
 from robot_navigator import BasicNavigator, NavigationResult
 
 from ament_index_python.packages import get_package_share_directory
-from guiwaypoint import AutonomousNavigator
+from real_guiwaypoint import AutonomousNavigator
 from std_msgs.msg import String
 import signal
 import subprocess
@@ -443,7 +443,7 @@ class RealNavWindow(ctk.CTk):
         # Obtener y plotear ubicaciones de productos
         self.plot_product_locations()
         
-        self.robot_position, = self.ax.plot([], [], 'bo', markersize=10, label='Robot')
+        #self.robot_position, = self.ax.plot([], [], 'bo', markersize=10, label='Robot')
         self.ax.legend()
         
     def load_map(self):

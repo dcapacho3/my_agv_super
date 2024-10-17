@@ -17,7 +17,7 @@ def generate_launch_description():
   default_model_path = os.path.join(pkg_share, 'models/myagv.urdf')
 
   robot_name_in_urdf = 'myagv'
-  default_rviz_config_path = os.path.join(pkg_share, 'rviz/nav2_config.rviz')
+  default_rviz_config_path = os.path.join(pkg_share, 'rviz/nav2_config_v2.rviz')
   world_file_name = 'my_agv_world/house.world'
   world_path = os.path.join(pkg_share, 'worlds', world_file_name)
   nav2_dir = FindPackageShare(package='nav2_bringup').find('nav2_bringup') 
@@ -199,7 +199,7 @@ def generate_launch_description():
     emulate_tty=True,
     parameters=[params_file])
 
-	
+  trajectory_node= Node( package='my_agv_super',executable='trajectory_visualization.py')
   subscriber_node= Node( package='my_agv_super',executable='subscriberagv.py')
   locker_node= Node( package='my_agv_super',executable='mux_locker.py')
     
@@ -248,6 +248,7 @@ def generate_launch_description():
   ld.add_action(start_lifecycle_manager_cmd)
   ld.add_action(start_map_server_cmd)
   ld.add_action(start_costmap_filter_info_server_cmd)  
+  ld.add_action(trajectory_node)  
   #ld.add_action(subscriber_node)
   #ld.add_action(locker_node)
 

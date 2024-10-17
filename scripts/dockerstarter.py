@@ -32,7 +32,7 @@ def start_docker_container(container_name):
 def run_roscore_in_docker(container_name):
     global roscore_process
     # Command to run roscore inside the Docker container
-    command = f"docker exec -it {container_name} bash -c 'source /opt/ros/noetic/setup.bash; roscore'"
+    command = f"docker exec -it {container_name} bash -c 'source /opt/ros/noetic/setup.bash; pkill roscore; roscore'"
 
     # Run the command directly in the current terminal
     roscore_process = subprocess.Popen(command, shell=True)

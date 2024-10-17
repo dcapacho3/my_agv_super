@@ -33,7 +33,7 @@ def generate_launch_description():
     model = LaunchConfiguration('model')
 
     # Launch configuration variables specific to simulation
-    default_rviz_config_path = os.path.join(pkg_share, 'rviz/nav2_config.rviz')
+    default_rviz_config_path = os.path.join(pkg_share, 'rviz/nav2_config_v2.rviz')
     rviz_config_file = LaunchConfiguration('rviz_config_file')
     use_simulator = LaunchConfiguration('use_simulator')
     use_robot_state_pub = LaunchConfiguration('use_robot_state_pub')
@@ -69,7 +69,7 @@ def generate_launch_description():
 
     declare_map_yaml_cmd = DeclareLaunchArgument(
         'map',
-        default_value=os.path.join(bringup_dir, 'maps', 'supermarket_map_mask_keepout.yaml'),
+        default_value=os.path.join(bringup_dir, 'maps', 'supermarket_map.yaml'),
         description='Full path to map file to load')
 
     declare_use_sim_time_cmd = DeclareLaunchArgument(
@@ -185,6 +185,9 @@ def generate_launch_description():
     initial_pose = Node(
             package='my_agv_super',
             executable='initial_pose_pub.py',         )
+    
+    
+    trajectory_node= Node( package='my_agv_super',executable='trajectory_visualization.py')
 
     # Create the launch description and populate
     ld = LaunchDescription()
@@ -224,5 +227,6 @@ def generate_launch_description():
 
     ld.add_action(agv_control)
     ld.add_action(initial_pose)
+    #ld.add_action(trajectory_node)
 
     return ld

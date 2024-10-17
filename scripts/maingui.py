@@ -154,11 +154,12 @@ class ProductManager:
             checkbox.pack(anchor="w", padx=10, pady=5)
             # Restaurar el estado del checkbox
             if self.checkbox_vars[row[0]].get():
-            	checkbox.select()
-            	checkbox.configure(fg_color="bisque2")
+                checkbox.select()
+                checkbox.configure(fg_color="bisque2")
+                
             else:
-            	checkbox.deselect()
-            	checkbox.configure(fg_color="bisque2")
+                checkbox.deselect()
+                checkbox.configure(fg_color="bisque2")
 
         connection.close()
         
