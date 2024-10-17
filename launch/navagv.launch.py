@@ -187,7 +187,7 @@ def generate_launch_description():
             executable='initial_pose_pub.py',         )
     
     
-    trajectory_node= Node( package='my_agv_super',executable='trajectory_visualization.py')
+ 
 
     # Create the launch description and populate
     ld = LaunchDescription()
@@ -227,6 +227,6 @@ def generate_launch_description():
 
     ld.add_action(agv_control)
     ld.add_action(initial_pose)
-    #ld.add_action(trajectory_node)
+
 
     return ld
