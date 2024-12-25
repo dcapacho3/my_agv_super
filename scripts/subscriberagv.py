@@ -20,6 +20,13 @@ class MySubscriber(Node):
             'odom',
             self.odom_callback,
             10)
+        
+        self.odom_filtered_subscription = self.create_subscription(
+            Odometry,
+            'robot_pose_ekf/odom_combined',
+            self.odom_real_callback,
+            10)
+        
 
         # Subscription to LaserScan topic
         self.scan_subscription = self.create_subscription(
@@ -60,31 +67,44 @@ class MySubscriber(Node):
            #  self.point_cloud_callback,
             # 10)
 
-        self.hokuyoScan_subscription = self.create_subscription(
-            LaserScan,
-            'hokuyo_scan',
-            self.hokuyoScan_callback,
-            100)
-
-        self.angle_subscription = self.create_subscription(
-            Float32,
-            'motor_angle',
-            self.motor_callback,
-            10)
-
         self.odom_subscription  # prevent unused variable warning
+        self.odom_filtered_subscription  # prevent unused variable warning
         self.scan_subscription  # prevent unused variable warning
         self.tf_subscription  # prevent unused variable warning
         self.tf_static_subscription
-        self.joint_states_subscription
+
+
         #self.point_cloud_subscription 
 
     def odom_callback(self, msg):
         # Accessing specific fields of the Odometry message
         position = msg.pose.pose.position
         orientation = msg.pose.pose.orientation
-        self.get_logger().info(f'Odometry - Position: [{position.x}, {position.y}]')
+        
+        # Extracting orientation as a quaternion
+        qx, qy, qz, qw = orientation.x, orientation.y, orientation.z, orientation.w
+
+        # Converting quaternion to Euler angles
+        yaw = np.arctan2(2.0 * (qw * qz + qx * qy), 1.0 - 2.0 * (qy**2 + qz**2))
+        pitch = np.arcsin(2.0 * (qw * qy - qz * qx))
+        roll = np.arctan2(2.0 * (qw * qx + qy * qz), 1.0 - 2.0 * (qx**2 + qy**2))
+
+        # Logging the position and orientation
+        self.get_logger().info(
+            f'Odometry - Position: [{position.x:.2f}, {position.y:.2f}], '
+            f'Orientation (quaternion): [{qx:.2f}, {qy:.2f}, {qz:.2f}, {qw:.2f}], '
+            f'Orientation (rpy in degrees): [{np.degrees(roll):.2f}, {np.degrees(pitch):.2f}, {np.degrees(yaw):.2f}]'
+        )
+
+    
+
+    def odom_real_callback(self, msg):
+        # Accessing specific fields of the Odometry message
+        position_filtered = msg.pose.pose.position
+        orientation = msg.pose.pose.orientation
+        #self.get_logger().info(f'Odometry Real - Position: [{position_filtered.x}, {position_filtered.y}]')
         #self.get_logger().info(f'Odometry - Orientation: [{np.rad2deg(orientation.z)}]')
+
 
     def scan_callback(self, msg):
         # Process LaserScan message
@@ -95,11 +115,6 @@ class MySubscriber(Node):
         #print("Scan: ", self.scan_ranges)
         #pass
 
-    def hokuyoScan_callback(self, msg):
-        # Process LaserScan message
-        # You can access the data from the LaserScan message here
-        self.hokuyoScan_ranges = msg.ranges
-        leng = len(self.hokuyoScan_ranges)
 
     def tf_callback(self, msg):
         # Process TFMessage
@@ -118,9 +133,6 @@ class MySubscriber(Node):
         #self.get_logger().info(f'Voltage: {msg.data}')
         pass
 
-    def motor_callback(self, msg):
-        # Process Voltage message
-        self.get_logger().info(f'Angles: {msg.data}')
 
     def joint_states_callback(self, msg):
         # Process Joint States message

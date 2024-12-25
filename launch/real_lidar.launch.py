@@ -14,7 +14,7 @@ def generate_launch_description():
   # Set the path to different files and folders.
   pkg_share = launch_ros.substitutions.FindPackageShare(package='my_agv_super').find('my_agv_super')
   default_model_path = os.path.join(pkg_share, 'models/myagvreal.urdf')
-  default_rviz_config_path = os.path.join(pkg_share, 'rviz/urdf_config.rviz')
+  default_rviz_config_path = os.path.join(pkg_share, 'rviz/lidar_config.rviz')
   
   robot_state_publisher_node = launch_ros.actions.Node(
         package='robot_state_publisher',

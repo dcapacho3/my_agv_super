@@ -17,7 +17,7 @@ def generate_launch_description():
     launch_dir = os.path.join(bringup_dir, 'launch')
     pkg_gazebo_ros = FindPackageShare(package='gazebo_ros').find('gazebo_ros')
     pkg_share = FindPackageShare(package='my_agv_super').find('my_agv_super')
-    default_model_path = os.path.join(pkg_share, 'models/myagv.urdf')
+    default_model_path = os.path.join(pkg_share, 'models/myagvsimulated.urdf')
     world_file_name = 'my_agv_world/Supermarket.world'
     world_path = os.path.join(pkg_share, 'worlds', world_file_name)
 

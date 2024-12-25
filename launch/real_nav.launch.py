@@ -22,8 +22,8 @@ def generate_launch_description():
   world_path = os.path.join(pkg_share, 'worlds', world_file_name)
   nav2_dir = FindPackageShare(package='nav2_bringup').find('nav2_bringup') 
   nav2_launch_dir = os.path.join(nav2_dir, 'launch') 
-  static_map_path = os.path.join(pkg_share, 'maps', 'labrobsuper_map_mask_keepout.yaml')
-  nav2_params_path = os.path.join(pkg_share, 'params', 'nav2_params_super.yaml')
+  static_map_path = os.path.join(pkg_share, 'maps', 'labmap2_mask.yaml')
+  nav2_params_path = os.path.join(pkg_share, 'params', 'nav2_params_real.yaml')
   nav2_bt_path = FindPackageShare(package='nav2_bt_navigator').find('nav2_bt_navigator')
   behavior_tree_xml_path = os.path.join(nav2_bt_path, 'behavior_trees', 'navigate_w_replanning_and_recovery.xml')
   

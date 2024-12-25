@@ -21,7 +21,8 @@ def signal_handler(sig, frame):
 def run_ros1_bridge():
     global bridge_process
     # Run the ros1_bridge dynamic_bridge command
-    bridge_process = subprocess.Popen(["ros2", "run", "ros1_bridge", "dynamic_bridge"])
+    #bridge_process = subprocess.Popen(["ros2", "run", "ros1_bridge", "dynamic_bridge", "--bridge-all-topics"])
+    bridge_process = subprocess.Popen(["ros2", "launch", "ros1_ros2_bridge", "bridge.launch.py"])
     print("Started ros1_bridge dynamic_bridge process.")
 
 def main():

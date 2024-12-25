@@ -67,25 +67,13 @@
   <link name="base_link">
 	<visual>
 	<geometry>
-	    <mesh filename="package://my_agv_super/meshes/myagv_all.dae" scale="1 1 1"/>
+	    <mesh filename="package://myagv_ros2_urdf/meshes/myagv_all.dae" scale="1 1 1"/>
 	</geometry>
 	<origin xyz="0.0 0.0 -0.05" rpy="0.0 0.0 0.0"/>
 	<material name="black">
 	    <color rgba="0.7 0.5 0.0 0.5"/>
 	</material>
 	</visual> 
-  
-  <!--
-     <visual>
-      <origin xyz="0 0 -0.05" rpy="1.5707963267949 0 3.141592654"/>
-      <geometry>
-        <mesh filename="package://basic_mobile_robot/meshes/myagv_all.dae" />
-      </geometry>
-      <material name="Red">
-        <color rgba="${255/255} ${0/255} ${0/255} 1.0"/>
-      </material>
-    </visual>
- -->  
   
     <collision>
       <geometry>
@@ -96,10 +84,6 @@
     <xacro:box_inertia m="40.0" w="${base_width}" d="${base_length}" h="${base_height}"/>
     
   </link>
-
-  <gazebo reference="base_link">
-    <material>Gazebo/Red</material>
-  </gazebo>
 
   <!-- *********************** DRIVE WHEELS ******************************  -->
 
@@ -126,9 +110,6 @@
       
     </link>
 
-    <!-- Connect the wheels to the base_link at the appropriate location, and 
-         define a continuous joint to allow the wheels to freely rotate about
-         an axis -->
     <joint name="${prefix}_joint" type="revolute">
       <parent link="base_link"/>
       <child link="${prefix}_link"/>
@@ -138,9 +119,7 @@
     </joint>
   </xacro:macro>
 
-  <!-- Instantiate two wheels using the macro we just made through the 
-       xacro:wheel tags. We also define the parameters to have one wheel
-       on both sides at the back of our robot (i.e. x_reflect=-1). -->
+
   <xacro:wheel prefix="left_wheel_back" x_reflect="-1" y_reflect="1" />
   <xacro:wheel prefix="right_wheel_back" x_reflect="-1" y_reflect="-1" />
    <xacro:wheel prefix="left_wheel_front" x_reflect="1" y_reflect="1" />
@@ -148,47 +127,13 @@
   
  
 
-  <!-- *********************** CASTER WHEEL ******************************  -->
-  <!-- We add a caster wheel. It will be modeled as sphere.
-       We define the wheel’s geometry, material and the joint to connect it to 
-       base_link at the appropriate location. 
-  <link name="front_caster">
-    <visual>
-      <geometry>
-        <sphere radius="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
-      </geometry>
-      <material name="White">
-        <color rgba="${255/255} ${255/255} ${255/255} 1.0"/>
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <sphere radius="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
-      </geometry>
-    </collision>
-    <xacro:sphere_inertia m="10.05" r="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
-  </link>
-
-  <gazebo reference="front_caster">
-    <mu1>0.01</mu1>
-    <mu2>0.01</mu2>
-    <material>Gazebo/White</material>
-  </gazebo>
-
-  <joint name="caster_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="front_caster"/>
-    <origin xyz="${caster_xoff} 0.0 ${-(base_height/2)}" rpy="0 0 0"/>
-  </joint>
-  -->
   <!-- *********************** Lidar SETUP *********************************  -->
   <!-- Each sensor must be attached to a link.                              --> 
   
 <joint name="lidar_joint" type="fixed">
     <parent link="base_link"/>
     <child link="laser_frame"/>
-    <origin xyz="0.066 0 0.05" rpy="0 0 3.14"/>
+    <origin xyz="0.065 0 0.08" rpy="0 0 3.14159"/>
   </joint>
 
   <link name="laser_frame">
@@ -196,7 +141,7 @@
     <collision>
      <origin xyz="0 0 0" rpy="0 0 0"/>
      <geometry>
-      <cylinder radius="0.0508" length="0.08"/>
+      <cylinder radius="0.0508" length="0.05"/>
      </geometry>
     </collision>
     
@@ -222,20 +167,38 @@
   
   <joint name="imu_joint" type="fixed">
     <parent link="base_link"/>
-    <child link="imu_link"/>
-    <origin xyz="-0.10 0 0.05" rpy="0 0 0"/>
+    <child link="imu"/>
+    <origin xyz="0 0 0" rpy="0 3.14159 3.14159"/>
   </joint>
 
-  <link name="imu_link"/>
+  <link name="imu">
+    <visual>
+      <geometry>
+        <box size="0.04 0.04 0.01"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+  </link>
 
-  <!-- *********************** GPS SETUP **********************************  -->
-  <joint name="gps_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="gps_link"/>
-    <origin xyz="0.10 0 0.05" rpy="0 0 0"/>
+  <!-- *********************** CAMERA SETUP **********************************  -->
+  <joint name="camera_joint" type="fixed">
+    <origin xyz="0.13 0 0.131" rpy="0 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="camera_link"/>
   </joint>
 
-  <link name="gps_link"/>
+  <link name="camera_link">
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+  </link>
   
 
 </robot>

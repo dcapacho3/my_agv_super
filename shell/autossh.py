@@ -47,9 +47,9 @@ def ssh_connect_and_execute(hostname, username, password, initial_command):
 
 if __name__ == "__main__":
     # Replace these with your actual values
-    hostname = "192.168.8.100"
+    hostname = "192.168.8.103"
     username = "er"
     password = "Elephant"
-    command = "roslaunch myagv_odometry myagv_active.launch"
+    command = "roslaunch myagv_odometry myagv_super.launch"
     
     ssh_connect_and_execute(hostname, username, password, command)

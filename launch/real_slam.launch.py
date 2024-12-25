@@ -15,10 +15,10 @@ def generate_launch_description():
     pkg_gazebo_ros = FindPackageShare(package='gazebo_ros').find('gazebo_ros')
     pkg_share = FindPackageShare(package='my_agv_super').find('my_agv_super')
     default_launch_dir = os.path.join(pkg_share, 'launch')
-    default_model_path = os.path.join(pkg_share, 'models/myagv.urdf')
+    default_model_path = os.path.join(pkg_share, 'models/myagvreal.urdf')
     robot_name_in_urdf = 'myagv'
     default_rviz_config_path = os.path.join(pkg_share, 'rviz/slam_config.rviz')
-    slam_params_path = os.path.join(pkg_share, 'params', 'slam_params.yaml')
+    slam_params_path = os.path.join(pkg_share, 'params', 'slam_params_real.yaml')
 
     # Launch configuration variables specific to simulation
     headless = LaunchConfiguration('headless')

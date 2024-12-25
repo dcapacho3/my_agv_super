@@ -39,13 +39,16 @@ def main():
     signal.signal(signal.SIGTERM, lambda sig, frame: signal_handler(sig, frame, scripts_path, ip_address))
 
     # Define the single IP address here
-    ip_address = "192.168.8.100"  # Change this IP address as needed
+    ip_address = "192.168.8.103"  # Change this IP address as needed
+    #ip_address = "192.168.246.2"
+    #ip_address = "10.42.0.1"  # Change this IP address as needed
 
     # Get the package directory
     pkg_dir = get_package_share_directory('my_agv_super')
     scripts_path = os.path.join(pkg_dir, 'scripts')
 
     # Commands for different scripts
+   
     docker_command = f"python3 {os.path.join(scripts_path, 'dockerstarter.py')}"
     bridge_command = f"python3 {os.path.join(scripts_path, 'bridgestarter.py')}"
     autossh_command = f"python3 {os.path.join(scripts_path, 'autossh.py')} {ip_address}"
